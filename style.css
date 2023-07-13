@@ -22,7 +22,7 @@
     padding: 10px 20px;
     margin: 10px;
     color: whitesmoke;
-    background-color: #2c3e50;
+    /* background-color: #2c3e50; */
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -34,14 +34,14 @@
     opacity: .7;
 }
 
-#start {
+#startBtn {
     background-color: #27ae60;
 }
 
-#stop {
+#stopBtn {
     background-color: #c0392b;
 }
 
-#reset {
+#resetBtn {
     background-color: #7f8c8d;
 }
