@@ -3,6 +3,8 @@ const stopBtn = document.querySelector('#stopBtn');
 const resetBtn = document.querySelector('#resetBtn');
 const timer = document.querySelector('#timer');
 const video = document.querySelector('.backgroundVideo');
+const audio = document.querySelector('.backgroundAudio');
+const preloader = document.querySelector('.preloader');
 
 let interval;
 let timeLeft = 1500;
@@ -18,11 +20,27 @@ const padTime = (time) => {
     return time.toString().padStart(2, '0');
 }
 
+const multimediaStart = () => {
+    video.play();
+    audio.play();
+}
+
+const multimediaStop = () => {
+    video.pause();
+    audio.pause();
+}
+
+const multimediaReset = () => {
+    video.currentTime = 0;
+    audio.currentTime = 0;
+}
+
+
 const startTimer = () => {
     startBtn.disabled = true;
     stopBtn.disabled = false;
     resetBtn.disabled = false;
-    video.play();
+    multimediaStart();
     
     interval = setInterval(() => {
         timeLeft--;
@@ -40,14 +58,13 @@ const stopTimer = () => {
     startBtn.disabled = false;
     stopBtn.disabled = true;
     resetBtn.disabled = false;
-    video.pause();
-
+    multimediaStop();
 }
 const resetTimer = () => {
     stopTimer();
     timeLeft = 1500;
     transformTime();
-    video.currentTime = 0;
+    multimediaReset();
     startBtn.disabled = false;
     stopBtn.disabled = true;
     resetBtn.disabled = true;
@@ -59,3 +76,6 @@ resetBtn.addEventListener('click', resetTimer);
 
 stopBtn.disabled = true;
 resetBtn.disabled = true;
+window.addEventListener('load', () => {
+    preloader.style.zIndex = -2;
+});
