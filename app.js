@@ -2,6 +2,7 @@ const startBtn = document.querySelector('#startBtn');
 const stopBtn = document.querySelector('#stopBtn');
 const resetBtn = document.querySelector('#resetBtn');
 const timer = document.querySelector('#timer');
+const video = document.querySelector('.backgroundVideo');
 
 let interval;
 let timeLeft = 1500;
@@ -21,6 +22,7 @@ const startTimer = () => {
     startBtn.disabled = true;
     stopBtn.disabled = false;
     resetBtn.disabled = false;
+    video.play();
     
     interval = setInterval(() => {
         timeLeft--;
@@ -38,12 +40,14 @@ const stopTimer = () => {
     startBtn.disabled = false;
     stopBtn.disabled = true;
     resetBtn.disabled = false;
+    video.pause();
 
 }
 const resetTimer = () => {
-    clearInterval(interval);
+    stopTimer();
     timeLeft = 1500;
     transformTime();
+    video.currentTime = 0;
     startBtn.disabled = false;
     stopBtn.disabled = true;
     resetBtn.disabled = true;
