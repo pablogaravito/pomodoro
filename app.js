@@ -1,10 +1,14 @@
-const startBtn = document.querySelector('#startBtn');
-const stopBtn = document.querySelector('#stopBtn');
-const resetBtn = document.querySelector('#resetBtn');
+const startBtn = document.querySelector('#start-btn');
+const stopBtn = document.querySelector('#stop-btn');
+const resetBtn = document.querySelector('#reset-btn');
 const timer = document.querySelector('#timer');
-const video = document.querySelector('.backgroundVideo');
-const audio = document.querySelector('.backgroundAudio');
+const video = document.querySelector('.background-video');
+const audio = document.querySelector('.background-audio');
 const preloader = document.querySelector('.preloader');
+const modal = document.querySelector('.modal');
+const settingsBtn = document.querySelector('.settings-btn');
+const closeIcon = document.querySelector('.close-icon');
+const container = document.querySelector('.container');
 
 let interval;
 let timeLeft = 1500;
@@ -70,9 +74,34 @@ const resetTimer = () => {
     resetBtn.disabled = true;
 }
 
+
+
+ modal.addEventListener('click', e => {
+   const dialogDimensions = modal.getBoundingClientRect()
+   if (
+     e.clientX < dialogDimensions.left ||
+     e.clientX > dialogDimensions.right ||
+     e.clientY < dialogDimensions.top ||
+     e.clientY > dialogDimensions.bottom
+   ) {
+     modal.close();
+     container.classList.remove('background-on');
+   }
+ });
+
 startBtn.addEventListener('click', startTimer);
 stopBtn.addEventListener('click', stopTimer);
 resetBtn.addEventListener('click', resetTimer);
+settingsBtn.addEventListener('click', () => {
+    console.log('joy');
+    modal.showModal();
+    container.classList.add('background-on');
+});
+closeIcon.addEventListener('click', () => {
+    modal.close();
+    container.classList.remove('background-on');
+    console.log('closeicon clicked');
+ });
 
 stopBtn.disabled = true;
 resetBtn.disabled = true;

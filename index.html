@@ -4,26 +4,88 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Pomodoro by Pablis</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div class="preloader">
-      <img src="res/preloader.gif" alt="preloader" />
-    </div>
-    <video class="backgroundVideo" loop src="res/video/student1.mp4"></video>
-    <audio
-      class="backgroundAudio"
-      src="res/sound/ambient/light-rain.mp3"
-    ></audio>
-    <div class="mainContainer">
-      <h1 class="title">Pomodoro by Pablis</h1>
-      <p class="timer" id="timer">25:00</p>
-      <div class="buttonContainer">
-        <button class="mainButton" id="startBtn">Start</button>
-        <button class="mainButton" id="stopBtn">Stop</button>
-        <button class="mainButton" id="resetBtn">Reset</button>
+    <div class="container">
+      <div class="preloader">
+        <img src="res/preloader.gif" alt="preloader" />
+      </div>
+      <video
+        class="background-video"
+        loop
+        muted
+        src="res/video/student1.mp4"
+      ></video>
+      <audio
+        class="background-audio"
+        src="res/sound/ambient/rain-and-thunder.mp3"
+      ></audio>
+      <div class="main-container">
+        <button class="settings-btn">
+          <div class="settings-icon">
+            <i class="fa-solid fa-gear"></i>
+          </div>
+          <div class="text-setting">Settings</div>
+        </button>
+
+        <h1 class="title">Pomodoro by Pablis</h1>
+        <p class="timer" id="timer">25:00</p>
+        <div class="button-container">
+          <button class="main-button" id="start-btn">Start</button>
+          <button class="main-button" id="stop-btn">Stop</button>
+          <button class="main-button" id="reset-btn">Reset</button>
+        </div>
       </div>
     </div>
+    <dialog class="modal">
+      <div class="popup-container">
+        <div class="close-icon">
+          <i class="fa fa-times fa-2x" aria-hidden="true"></i>
+        </div>
+        <div class="audio-settings">
+          <h4>Audio de fondo</h4>
+          <!-- <label for="email">Your Email</label>
+        <input
+          type="email"
+          name="email"
+          class="input"
+          placeholder="Enter Your Email"
+        /> -->
+          <label for="audio">Audio</label>
+          <select id="audio" name="audio">
+            <option value="" selected>Escoge un audio</option>
+
+            <option value="light-rain">Lluvia ligera</option>
+            <option value="rain-and-thunder">Lluvia con trueno</option>
+            <option value="rain-with-birds">Lluvia con pájaros</option>
+            <option value="soft-rain">Lluvia suave</option>
+            <option value="alpha-waves">Alpha Waves</option>
+          </select>
+        </div>
+        <div class="video-settings">
+          <h4>Video de fondo</h4>
+
+          <label for="video">Audio</label>
+          <select id="video" name="video">
+            <option value="" selected>Escoge un video</option>
+
+            <option value="student1">Estudio 1</option>
+            <option value="dolphins">Delfines</option>
+            <option value="stars">Estrellas</option>
+            <option value="nature1">Naturaleza</option>
+            <option value="student5">Estudio 5</option>
+          </select>
+        </div>
+      </div>
+    </dialog>
     <script src="app.js"></script>
   </body>
 </html>

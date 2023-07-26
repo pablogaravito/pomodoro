@@ -4,7 +4,7 @@ body {
     font-family: "Roboto", sans-serif;
 }
 
-.backgroundVideo {
+.background-video {
     position: absolute;
     top: 0;
     left: 0;
@@ -27,10 +27,13 @@ body {
     align-items: center;
     z-index: 1;
     transition: 0.3s linear;
-
 }
 
-.mainContainer {
+.container.background-on {
+    filter: blur(5px) brightness(.7);
+}
+
+.main-container {
     margin: 0;
     /*max-width: 400px;
      text-align: center;
@@ -41,7 +44,55 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
 
+
+.popup-container {
+    /* position: fixed;
+    left: 50%;
+    transform: translateX(-50%); */
+    width: 400px;
+    height: 200px;
+    top: 30%;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    /* background: url("https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1472&q=80");
+    background-size: cover; */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, .3);
+    opacity: 1;
+    transition: all 0.7s;
+}
+
+.settings-btn {
+    position: absolute;
+    display: flex;
+    top: 2px;
+    right: 2px;
+    cursor: pointer;
+    padding: 3px;
+}
+
+.settings-icon {
+    margin-right: 5px;
+    margin-top: 0.5px;
+}
+
+.close-icon {
+    position: absolute;
+    top: 2px;
+    right: 6px;
+    cursor: pointer;
+}
+
+.close-icon:hover {
+    color: orangered;
+}
+
+.audio-settings {
+    padding-bottom: 25px;
+    border-bottom: 1px solid black;
 }
 
 .title {
@@ -55,7 +106,7 @@ body {
     color: #ff0054; 
 }
 
-.mainButton {
+.main-button {
     font-size: 18px;
     padding: 10px 20px;
     margin: 10px;
@@ -68,18 +119,18 @@ body {
     transition: opacity .3s ease-in-out;
 }
 
-.mainButton:hover {
+.main-button:hover {
     opacity: .7;
 }
 
-#startBtn {
+#start-btn {
     background-color: #390099;
 }
 
-#stopBtn {
+#stop-btn {
     background-color: #9e0059;
 }
 
-#resetBtn {
+#reset-btn {
     background-color: #ff5400;
 }
