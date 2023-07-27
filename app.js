@@ -167,7 +167,9 @@ startBtn.addEventListener('click', startTimer);
 stopBtn.addEventListener('click', stopTimer);
 resetBtn.addEventListener('click', resetTimer);
 settingsBtn.addEventListener('click', () => {
-    console.log('joy');
+    //console.log('joy');
+    videoSelect.value = settings.video;
+    audioSelect.value = settings.audio;
     modal.showModal();
     container.classList.add('background-on');
 });
