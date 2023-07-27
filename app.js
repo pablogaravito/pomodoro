@@ -24,7 +24,9 @@ let settings = {
 };
 
 let interval;
-let timeLeft = 1500;
+let notificationsAllowed = false;
+//let timeLeft = 1500;
+let timeLeft = 5;
 
 const transformTime = () => {
     let minutes = Math.floor(timeLeft / 60);
@@ -83,7 +85,6 @@ const multimediaReset = () => {
     audio.currentTime = 0;
 }
 
-
 const startTimer = () => {
     isTimerActive = true;
     startBtn.disabled = true;
@@ -95,9 +96,17 @@ const startTimer = () => {
         timeLeft--;
         transformTime();
         if (timeLeft === -1) {
-            clearInterval(interval);
-            alert("Time's up");
-            timeLeft = 1500;
+            // clearInterval(interval);
+            // multimediaStop();
+            // multimediaReset();
+            resetTimer();
+                        
+            if (notificationsAllowed) {
+                showNotification();
+            } else {
+                alert("Time's up");
+            }
+            //timeLeft = 1500;
         }
         transformTime();
     }, 1000);
@@ -112,7 +121,7 @@ const stopTimer = () => {
 }
 const resetTimer = () => {
     stopTimer();
-    timeLeft = 1500;
+    timeLeft = 5;
     transformTime();
     multimediaReset();
     startBtn.disabled = false;
@@ -179,7 +188,44 @@ closeIcon.addEventListener('click', () => {
     closeModalAndUpdate();
  });
 
+const showNotification = () => {
+    // create a new notification
+    const notification = new Notification('Pomodoro by Pablis', {
+        body: 'Ciclo terminado!',
+        icon: 'res/icon/pomodoro2.png'
+    });
+
+    // close the notification after 10 seconds
+    setTimeout(() => {
+        notification.close();
+    }, 5 * 1000);
+}
+
+const checkNotification = () => {
+    let notifyPermission;
+    if (Notification.permission === "granted") {
+        notificationsAllowed = true;
+    } else if (Notification.permission !== "denied") {
+        Notification.requestPermission().then((permission) => {
+            // If the user accepts, let's create a notification
+            if (permission === "granted") {
+                notificationsAllowed = true;
+            }
+        });
+    } else {
+        notificationsAllowed = false;
+    }
+}
+
+checkNotification();
+
+
 readSettings();
+
+// Notification.requestPermission().then((result) => {
+//     console.log(result);
+//   });
+
 stopBtn.disabled = true;
 resetBtn.disabled = true;
 window.addEventListener('load', () => {
