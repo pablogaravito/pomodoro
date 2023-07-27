@@ -29,6 +29,10 @@ body {
     transition: 0.3s linear;
 }
 
+.container {
+    transition: filter 0.4s;
+}
+
 .container.background-on {
     filter: blur(5px) brightness(.7);
 }
@@ -52,12 +56,9 @@ body {
     transform: translateX(-50%); */
     width: 400px;
     height: 200px;
-    top: 30%;
     display: flex;
     flex-direction: column;
     padding: 20px;
-    /* background: url("https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1472&q=80");
-    background-size: cover; */
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, .3);
     opacity: 1;

@@ -11,7 +11,17 @@ const modal = document.querySelector('.modal');
 const settingsBtn = document.querySelector('.settings-btn');
 const closeIcon = document.querySelector('.close-icon');
 const container = document.querySelector('.container');
+const videosPath = "res/video/";
+const ambientAudiosPath = "res/sound/ambient/";
+const defaultSettings = {
+    video: "nature",
+    audio: "soft-rain"
+};
 let isTimerActive = false;
+let settings = {
+    video: "", 
+    audio: ""
+};
 
 let interval;
 let timeLeft = 1500;
@@ -21,6 +31,37 @@ const transformTime = () => {
     let seconds = timeLeft % 60;
     timer.textContent = `${padTime(minutes)}:${padTime(seconds)}`;
 
+}
+
+const defineMultimedia = () => {
+    if (settings.video === "") {
+        video.src = "";
+    } else {
+        video.src = `${videosPath}${settings.video}.mp4`;
+    }
+
+    if (settings.audio === "") {
+        audio.src = "";
+    } else {
+        audio.src = `${ambientAudiosPath}${settings.audio}.mp3`;
+    }
+    console.log(video);
+    console.log(audio);
+}
+
+const readSettings = () => {
+    if (localStorage.getItem('settings') === null) {
+        settings.video = defaultSettings.video;
+        settings.audio = defaultSettings.audio;
+        console.log(settings);
+    } else {
+        settings = JSON.parse(localStorage.getItem('settings'));
+    }
+    defineMultimedia();
+}
+
+const saveSettings = () => {
+    localStorage.setItem('settings', JSON.stringify(settings));
 }
 
 const padTime = (time) => {
@@ -95,8 +136,7 @@ const resetTimer = () => {
  });
 
  const closeModalAndUpdate = () => {
-    const videosPath = "res/video/";
-    const ambientAudiosPath = "res/sound/ambient/";
+    
     if (isTimerActive) {
         multimediaStop();
     }
@@ -106,14 +146,18 @@ const resetTimer = () => {
     } else {
         video.src = `${videosPath}${videoSelect.value}.mp4`;
     }
+    settings.video = videoSelect.value;
 
     if (audioSelect.value === "") {
         audio.src = "";
     } else {
         audio.src = `${ambientAudiosPath}${audioSelect.value}.mp3`;
     }
+    settings.audio = audioSelect.value;
+
     container.classList.remove('background-on');
     modal.close();
+    saveSettings();
     if (isTimerActive) {
         multimediaStart();
     }    
@@ -133,9 +177,11 @@ closeIcon.addEventListener('click', () => {
     closeModalAndUpdate();
  });
 
+readSettings();
 stopBtn.disabled = true;
 resetBtn.disabled = true;
 window.addEventListener('load', () => {
     preloader.style.zIndex = -2;
     preloader.style.display = "none";
 });
+
