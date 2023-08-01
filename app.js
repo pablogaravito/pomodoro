@@ -2,6 +2,7 @@ const startBtn = document.querySelector('#start-btn');
 const stopBtn = document.querySelector('#stop-btn');
 const resetBtn = document.querySelector('#reset-btn');
 const timer = document.querySelector('#timer');
+const previewVid = document.querySelector('.preview-vid');
 const video = document.querySelector('.background-video');
 const audio = document.querySelector('.background-audio');
 const audioSelect = document.querySelector('#audio-select');
@@ -71,8 +72,6 @@ const padTime = (time) => {
 }
 
 const multimediaStart = () => {
-    console.log(settings.audio, settings.video);
-    console.log(audio.src, video.src);
     if (settings.video !== "") {
         video.play();
     }
@@ -152,8 +151,6 @@ const resetTimer = () => {
      e.clientY < dialogDimensions.top ||
      e.clientY > dialogDimensions.bottom
    ) {
-    //  modal.close();
-    //  container.classList.remove('background-on');
     closeModalAndUpdate();
    }
  });
@@ -180,6 +177,7 @@ stopBtn.addEventListener('click', stopTimer);
 resetBtn.addEventListener('click', resetTimer);
 settingsBtn.addEventListener('click', () => {
     videoSelect.value = settings.video;
+    previewVidShow();
     audioSelect.value = settings.audio;
     modal.showModal();
     container.classList.add('background-on');
@@ -189,6 +187,21 @@ closeIcon.addEventListener('click', () => {
     // container.classList.remove('background-on');
     closeModalAndUpdate();
  });
+
+
+
+ previewVid.addEventListener('mouseover', () => {
+    if (previewVid.src){
+        previewVid.play();
+    }   
+});
+
+/* Applying the mouse out event to pause the video */
+previewVid.addEventListener('mouseout', () => {
+    if (previewVid.src){
+        previewVid.pause();
+    }
+});
 
 const showNotification = () => {
     // create a new notification
@@ -221,15 +234,28 @@ const checkNotification = () => {
 
 window.addEventListener('focus', () => {
     if (!isTimerActive) {
-        console.log('triggered...');
         multimediaStop();
         defineMultimedia();
         multimediaReset();
     }
 });
 
-checkNotification();
+videoSelect.addEventListener('change', () => {
+    previewVidShow();
+});
 
+const previewVidShow = () => {
+    if (videoSelect.value === "") {
+        previewVid.removeAttribute('src');
+        previewVid.style.display = 'none';
+        
+    } else {
+        previewVid.style.display = 'block';
+        previewVid.src = `${videosPath}min/${videoSelect.value}_min.mp4`;
+    }
+}
+
+checkNotification();
 
 readSettings();
 

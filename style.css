@@ -95,6 +95,22 @@ body {
     border-bottom: 1px solid black;
 }
 
+.video-settings {
+    display: flex;    
+}
+
+.video-settings-2 {
+    padding: 0 30px;
+}
+
+.preview-vid {
+    border: 2px solid black;
+    margin: 5px 20px;
+    width: 150px;
+    height: 100px;
+    object-fit: cover;
+}
+
 .title {
     font-size: 36px;
     margin-bottom: 10px;

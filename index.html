@@ -51,17 +51,10 @@
         </div>
         <div class="audio-settings">
           <h4>Audio de fondo</h4>
-          <!-- <label for="email">Your Email</label>
-        <input
-          type="email"
-          name="email"
-          class="input"
-          placeholder="Enter Your Email"
-        /> -->
           <label for="audio">Audio</label>
           <select id="audio-select" name="audio">
-            <option value="" selected>Escoge un audio</option>
-
+            <option value="" selected>Ninguno</option>
+            <option value="winner-rain">Lluvia y agua</option>
             <option value="light-rain">Lluvia ligera</option>
             <option value="rain-and-thunder">Lluvia con trueno</option>
             <option value="rain-with-birds">Lluvia con pájaros</option>
@@ -70,21 +63,30 @@
           </select>
         </div>
         <div class="video-settings">
-          <h4>Video de fondo</h4>
-
-          <label for="video">Video</label>
-          <select id="video-select" name="video">
-            <option value="" selected>Escoge un video</option>
-
-            <option value="student1">Estudio 1</option>
-            <option value="student2">Estudio 2</option>
-            <option value="student3">Estudio 3</option>
-            <option value="student4">Estudio 4</option>
-            <option value="student5">Estudio 5</option>
-            <option value="dolphins">Delfines</option>
-            <option value="stars">Estrellas</option>
-            <option value="nature1">Naturaleza</option>
-          </select>
+          <div class="video-settings-1">
+            <h4>Video de fondo</h4>
+            <label for="video">Video</label>
+            <select id="video-select" name="video">
+              <option value="" selected>Ninguno</option>
+              <option value="student1">Estudio 1</option>
+              <option value="student2">Estudio 2</option>
+              <option value="student3">Estudio 3</option>
+              <option value="student4">Estudio 4</option>
+              <option value="student5">Estudio 5</option>
+              <option value="dolphins">Delfines</option>
+              <option value="stars">Estrellas</option>
+              <option value="nature1">Naturaleza</option>
+            </select>
+          </div>
+          <div class="video-settings-2">
+            <video
+              src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+              type="video/mp4"
+              muted
+              class="preview-vid"
+              loop
+            ></video>
+          </div>
         </div>
       </div>
     </dialog>
