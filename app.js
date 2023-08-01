@@ -37,25 +37,25 @@ const transformTime = () => {
 
 const defineMultimedia = () => {
     if (settings.video === "") {
-        video.src = "";
+        video.removeAttribute('src');
+        video.style.display = 'none';
+        
     } else {
+        video.style.display = 'block';
         video.src = `${videosPath}${settings.video}.mp4`;
     }
 
-    if (settings.audio === "") {
-        audio.src = "";
+    if (!settings.audio === "") {
+        audio.removeAttribute('src');
     } else {
         audio.src = `${ambientAudiosPath}${settings.audio}.mp3`;
     }
-    console.log(video);
-    console.log(audio);
 }
 
 const readSettings = () => {
     if (localStorage.getItem('settings') === null) {
         settings.video = defaultSettings.video;
         settings.audio = defaultSettings.audio;
-        console.log(settings);
     } else {
         settings = JSON.parse(localStorage.getItem('settings'));
     }
@@ -71,18 +71,32 @@ const padTime = (time) => {
 }
 
 const multimediaStart = () => {
-    video.play();
-    audio.play();
+    console.log(settings.audio, settings.video);
+    console.log(audio.src, video.src);
+    if (settings.video !== "") {
+        video.play();
+    }
+    if (settings.audio !== "") {
+        audio.play();
+    } 
 }
 
 const multimediaStop = () => {
-    video.pause();
-    audio.pause();
+    if (settings.video !== "") {
+        video.pause();
+    }
+    if (settings.audio !== "") {
+        audio.pause();
+    } 
 }
 
 const multimediaReset = () => {
-    video.currentTime = 0;
-    audio.currentTime = 0;
+    if (settings.video !== "") {
+        video.currentTime = 0;
+    }
+    if (settings.audio !== "") {
+        audio.currentTime = 0;
+    } 
 }
 
 const startTimer = () => {
@@ -149,21 +163,10 @@ const resetTimer = () => {
     if (isTimerActive) {
         multimediaStop();
     }
-    
-    if (videoSelect.value === "") {
-        video.src = "";
-    } else {
-        video.src = `${videosPath}${videoSelect.value}.mp4`;
-    }
     settings.video = videoSelect.value;
-
-    if (audioSelect.value === "") {
-        audio.src = "";
-    } else {
-        audio.src = `${ambientAudiosPath}${audioSelect.value}.mp3`;
-    }
     settings.audio = audioSelect.value;
-
+    defineMultimedia();
+ 
     container.classList.remove('background-on');
     modal.close();
     saveSettings();
@@ -176,7 +179,6 @@ startBtn.addEventListener('click', startTimer);
 stopBtn.addEventListener('click', stopTimer);
 resetBtn.addEventListener('click', resetTimer);
 settingsBtn.addEventListener('click', () => {
-    //console.log('joy');
     videoSelect.value = settings.video;
     audioSelect.value = settings.audio;
     modal.showModal();
@@ -217,14 +219,19 @@ const checkNotification = () => {
     }
 }
 
+window.addEventListener('focus', () => {
+    if (!isTimerActive) {
+        console.log('triggered...');
+        multimediaStop();
+        defineMultimedia();
+        multimediaReset();
+    }
+});
+
 checkNotification();
 
 
 readSettings();
-
-// Notification.requestPermission().then((result) => {
-//     console.log(result);
-//   });
 
 stopBtn.disabled = true;
 resetBtn.disabled = true;
