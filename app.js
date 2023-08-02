@@ -5,23 +5,28 @@ const timer = document.querySelector('#timer');
 const previewVid = document.querySelector('.preview-vid');
 const video = document.querySelector('.background-video');
 const audio = document.querySelector('.background-audio');
+const alarm = document.querySelector('.alarm-audio');
 const audioSelect = document.querySelector('#audio-select');
 const videoSelect = document.querySelector('#video-select');
+const alarmSelect = document.querySelector('#alarm-select');
 const preloader = document.querySelector('.preloader');
 const modal = document.querySelector('.modal');
 const settingsBtn = document.querySelector('.settings-btn');
 const closeIcon = document.querySelector('.close-icon');
 const container = document.querySelector('.container');
 const videosPath = "res/video/";
-const ambientAudiosPath = "res/sound/ambient/";
+const backgroundAudiosPath = "res/audio/background/";
+const alarmAudiosPath = "res/audio/alarm/";
 const defaultSettings = {
-    video: "nature",
-    audio: "soft-rain"
+    video: "nature1",
+    audio: "winner-rain",
+    alarm: "yay"
 };
 let isTimerActive = false;
 let settings = {
     video: "", 
-    audio: ""
+    audio: "",
+    alarm: ""
 };
 
 let interval;
@@ -33,7 +38,6 @@ const transformTime = () => {
     let minutes = Math.floor(timeLeft / 60);
     let seconds = timeLeft % 60;
     timer.textContent = `${padTime(minutes)}:${padTime(seconds)}`;
-
 }
 
 const defineMultimedia = () => {
@@ -49,7 +53,13 @@ const defineMultimedia = () => {
     if (settings.audio === "") {
         audio.removeAttribute('src');
     } else {
-        audio.src = `${ambientAudiosPath}${settings.audio}.mp3`;
+        audio.src = `${backgroundAudiosPath}${settings.audio}.mp3`;
+    }
+
+    if (settings.alarm === "") {
+        alarm.removeAttribute('src');
+    } else {
+        alarm.src = `${alarmAudiosPath}${settings.alarm}.mp3`;
     }
 }
 
@@ -57,6 +67,7 @@ const readSettings = () => {
     if (localStorage.getItem('settings') === null) {
         settings.video = defaultSettings.video;
         settings.audio = defaultSettings.audio;
+        settings.alarm = defaultSettings.alarm;
     } else {
         settings = JSON.parse(localStorage.getItem('settings'));
     }
@@ -159,6 +170,7 @@ const resetTimer = () => {
     }
     settings.video = videoSelect.value;
     settings.audio = audioSelect.value;
+    settings.alarm = alarmSelect.value;
     defineMultimedia();
  
     container.classList.remove('background-on');
@@ -176,16 +188,14 @@ settingsBtn.addEventListener('click', () => {
     videoSelect.value = settings.video;
     previewVidShow();
     audioSelect.value = settings.audio;
+    alarmSelect.value = settings.alarm;
     modal.showModal();
     container.classList.add('background-on');
 });
+
 closeIcon.addEventListener('click', () => {
-    // modal.close();
-    // container.classList.remove('background-on');
     closeModalAndUpdate();
  });
-
-
 
  previewVid.addEventListener('mouseover', () => {
     if (previewVid.src){
