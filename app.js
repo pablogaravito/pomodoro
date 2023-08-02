@@ -127,11 +127,19 @@ const startTimer = () => {
             } else {
                 alert("Time's up");
             }
+            if (settings.alarm !== "") {
+                playAlarm();
+                // setTimeout(() => { 
+                //     alarm.pause();
+                //     alarm.currentTime = 0;
+                //  }, 3000);
+            }
             //timeLeft = 1500;
         }
         transformTime();
     }, 1000);
 }
+
 const stopTimer = () => {
     clearInterval(interval);
     startBtn.disabled = false;
@@ -151,6 +159,10 @@ const resetTimer = () => {
     isTimerActive = false;
 }
 
+const playAlarm = () => {
+    alarm.play();
+}
+
  modal.addEventListener('click', e => {
    const dialogDimensions = modal.getBoundingClientRect()
    if (
@@ -164,7 +176,6 @@ const resetTimer = () => {
  });
 
  const closeModalAndUpdate = () => {
-    
     if (isTimerActive) {
         multimediaStop();
     }
@@ -247,15 +258,27 @@ window.addEventListener('focus', () => {
     }
 });
 
+alarmSelect.addEventListener('change', () => {
+    previewAlarm();
+});
+
 videoSelect.addEventListener('change', () => {
     previewVidShow();
 });
 
+const previewAlarm = () => {
+    if (alarmSelect.value === "") {
+        alarm.removeAttribute('src');     
+    } else {
+        alarm.src = `${alarmAudiosPath}${alarmSelect.value}.mp3`;
+        playAlarm();
+    }
+}
+
 const previewVidShow = () => {
     if (videoSelect.value === "") {
         previewVid.removeAttribute('src');
-        previewVid.style.display = 'none';
-        
+        previewVid.style.display = 'none';      
     } else {
         previewVid.style.display = 'block';
         previewVid.src = `${videosPath}min/${videoSelect.value}_min.mp4`;
