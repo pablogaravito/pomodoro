@@ -46,7 +46,7 @@ const defineMultimedia = () => {
         video.src = `${videosPath}${settings.video}.mp4`;
     }
 
-    if (!settings.audio === "") {
+    if (settings.audio === "") {
         audio.removeAttribute('src');
     } else {
         audio.src = `${ambientAudiosPath}${settings.audio}.mp3`;
@@ -109,9 +109,6 @@ const startTimer = () => {
         timeLeft--;
         transformTime();
         if (timeLeft === -1) {
-            // clearInterval(interval);
-            // multimediaStop();
-            // multimediaReset();
             resetTimer();
                         
             if (notificationsAllowed) {

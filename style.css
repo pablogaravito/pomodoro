@@ -50,19 +50,33 @@ body {
     align-items: center;
 }
 
-.popup-container {
-    /* position: fixed;
-    left: 50%;
-    transform: translateX(-50%); */
-    width: 400px;
-    height: 200px;
-    display: flex;
-    flex-direction: column;
+.modal {
+    width: 444px;
+
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, .3);
     opacity: 1;
     transition: all 0.7s;
+}
+
+.grid-container {
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: 222px 222px;
+    grid-template-rows: repeat(2, 30px 111px);
+    /* repeat(2, 50px 1fr) */
+    justify-content: center;
+    align-content: center;
+}
+
+.config-header {
+    grid-column: span 2;
+}
+
+.grid-item {
+    align-self: center;
+    justify-self: center;
 }
 
 .settings-btn {
@@ -81,8 +95,8 @@ body {
 
 .close-icon {
     position: absolute;
-    top: 2px;
-    right: 6px;
+    top: 0px;
+    right: 1px;
     cursor: pointer;
 }
 
@@ -90,25 +104,24 @@ body {
     color: orangered;
 }
 
-.audio-settings {
-    padding-bottom: 25px;
-    border-bottom: 1px solid black;
-}
-
-.video-settings {
-    display: flex;    
-}
-
-.video-settings-2 {
-    padding: 0 30px;
+.config-select {
+    width: 123px;
 }
 
 .preview-vid {
     border: 2px solid black;
-    margin: 5px 20px;
+    /* margin: 5px 20px; */
     width: 150px;
     height: 100px;
     object-fit: cover;
+}
+
+.video-preview {
+    height: 110px;
+}
+
+.video-header {
+    border-top: 1px solid black;
 }
 
 .title {

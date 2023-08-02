@@ -27,6 +27,7 @@
         src=""
       ></video>
       <audio class="background-audio" crossorigin="anonymous" src=""></audio>
+      <audio class="alarm-audio" crossorigin="anonymous" src=""></audio>
       <div class="main-container">
         <button class="settings-btn">
           <div class="settings-icon">
@@ -45,51 +46,64 @@
       </div>
     </div>
     <dialog class="modal">
-      <div class="popup-container">
-        <div class="close-icon">
-          <i class="fa fa-times fa-2x" aria-hidden="true"></i>
+      <div class="close-icon">
+        <i class="fa fa-times fa-2x" aria-hidden="true"></i>
+      </div>
+      <div class="grid-container">
+        <div class="config-header">
+          <h4>Audio</h4>
         </div>
-        <div class="audio-settings">
-          <h4>Audio de fondo</h4>
-          <label for="audio">Audio</label>
-          <select id="audio-select" name="audio">
+        <div class="grid-item">
+          <label for="back-audio">Fondo</label>
+          <select id="audio-select" class="config-select" name="back-audio">
             <option value="" selected>Ninguno</option>
             <option value="winner-rain">Lluvia y agua</option>
             <option value="light-rain">Lluvia ligera</option>
-            <option value="rain-and-thunder">Lluvia con trueno</option>
-            <option value="rain-with-birds">Lluvia con pájaros</option>
+            <option value="rain-and-thunder">Lluvia y truenos</option>
+            <option value="rain-with-birds">Lluvia y pájaros</option>
             <option value="soft-rain">Lluvia suave</option>
             <option value="alpha-waves">Alpha Waves</option>
           </select>
         </div>
-        <div class="video-settings">
-          <div class="video-settings-1">
-            <h4>Video de fondo</h4>
-            <label for="video">Video</label>
-            <select id="video-select" name="video">
-              <option value="" selected>Ninguno</option>
-              <option value="student1">Estudio 1</option>
-              <option value="student2">Estudio 2</option>
-              <option value="student3">Estudio 3</option>
-              <option value="student4">Estudio 4</option>
-              <option value="student5">Estudio 5</option>
-              <option value="dolphins">Delfines</option>
-              <option value="stars">Estrellas</option>
-              <option value="nature1">Naturaleza</option>
-            </select>
-          </div>
-          <div class="video-settings-2">
-            <video
-              src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
-              type="video/mp4"
-              muted
-              class="preview-vid"
-              loop
-            ></video>
-          </div>
+        <div class="grid-item">
+          <label for="alarm-audio">Alarma</label>
+          <select id="alarm-select" class="config-select" name="alarm-audio">
+            <option value="" selected>Ninguno</option>
+            <option value="success-trumpets">Success and Trumpets</option>
+            <option value="yay">Yay</option>
+            <option value="call-to-attention">Call to attention</option>
+            <option value="new-notification">Notification</option>
+          </select>
+        </div>
+        <div class="video-header config-header">
+          <h4>Video</h4>
+        </div>
+        <div class="video-settings grid-item">
+          <label for="video">Video</label>
+          <select id="video-select" class="config-select" name="video">
+            <option value="" selected>Ninguno</option>
+            <option value="student1">Estudio 1</option>
+            <option value="student2">Estudio 2</option>
+            <option value="student3">Estudio 3</option>
+            <option value="student4">Estudio 4</option>
+            <option value="student5">Estudio 5</option>
+            <option value="dolphins">Delfines</option>
+            <option value="stars">Estrellas</option>
+            <option value="nature1">Naturaleza</option>
+          </select>
+        </div>
+        <div class="video-preview grid-item">
+          <video
+            src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+            type="video/mp4"
+            muted
+            class="preview-vid"
+            loop
+          ></video>
         </div>
       </div>
     </dialog>
+
     <script src="app.js"></script>
   </body>
 </html>
