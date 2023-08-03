@@ -12,7 +12,7 @@ body {
     height: 100%;
     object-fit: cover;
     z-index: -1;
-    filter: brightness(40%);
+    filter: brightness(80%);
 }
 
 .preloader {
@@ -42,7 +42,7 @@ body {
     /*max-width: 400px;
      text-align: center;
     padding: 20px; */
-    opacity: .6;
+    /* opacity: .6; */
     display: flex;
     height: 100vh;
     flex-direction: column;
@@ -58,6 +58,7 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, .3);
     opacity: 1;
     transition: all 0.7s;
+    background-image: radial-gradient( circle 311px at 8.6% 27.9%,  rgba(62,147,252,0.57) 12.9%, rgba(239,183,192,0.44) 91.2% );
 }
 
 .grid-container {
@@ -130,9 +131,12 @@ body {
     color: #ffbd00;
 }
 
-.timer {
-    font-size: 72px;
-    color: #ff0054; 
+#timer {
+    font-size: 108px;
+    color: white; 
+    font-family: "Space Grotesk",sans-serif;
+    letter-spacing: -0.25rem;
+    font-variant-numeric: tabular-nums;
 }
 
 .main-button {
