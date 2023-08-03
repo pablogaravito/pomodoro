@@ -218,7 +218,13 @@ modal.addEventListener('click', e => {
     ) {
      closeModalAndUpdate();
     }
-  });
+});
+
+modal.addEventListener('keydown', function(e) {
+    if (e.key == "Escape") {
+      closeModalAndUpdate();
+    }
+});
 
 startBtn.addEventListener('click', startTimer);
 stopBtn.addEventListener('click', stopTimer);
@@ -327,23 +333,14 @@ const previewAlarm = () => {
         alarm.removeAttribute('src');     
     } else {
         alarm.src = `${alarmAudiosPath}${alarmSelect.value}.mp3`;
-        //playAlarm();
     }
 }
 
 const previewBackgroundAudio = () => {
     if (audioSelect.value === "") {
-        //audio.pause();
         audio.removeAttribute('src');     
     } else {
-        //audio.pause();
         audio.src = `${backgroundAudiosPath}${audioSelect.value}.mp3`;
-        // audio.currentTime = 0;
-        // audio.play();
-        // // setTimeout(() => {
-        //     audio.pause();
-        //     audio.currentTime = 0;
-        // }, 3000);
     }
 }
 
