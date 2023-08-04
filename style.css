@@ -116,8 +116,8 @@ body {
 
 .close-icon {
     position: absolute;
-    top: 0px;
-    right: 1px;
+    top: 2px;
+    right: 4px;
     cursor: pointer;
 }
 
