@@ -1,5 +1,5 @@
-const startBtn = document.querySelector('#start-btn');
-const stopBtn = document.querySelector('#stop-btn');
+const startPauseBtn = document.querySelector('#start-pause-btn');
+//const stopBtn = document.querySelector('#stop-btn');
 const resetBtn = document.querySelector('#reset-btn');
 const timer = document.querySelector('#timer');
 const previewVid = document.querySelector('.preview-vid');
@@ -11,7 +11,7 @@ const videoSelect = document.querySelector('#video-select');
 const alarmSelect = document.querySelector('#alarm-select');
 const preloader = document.querySelector('.preloader');
 const modal = document.querySelector('.modal');
-const settingsBtn = document.querySelector('.settings-btn');
+const settingsBtn = document.querySelector('#settings-btn');
 const closeIcon = document.querySelector('.close-icon');
 const container = document.querySelector('.container');
 const previewBackBtn = document.querySelector('#preview-back-btn');
@@ -120,9 +120,10 @@ const defineMultimedia = () => {
 /* TIMER */
 const startTimer = () => {
     isTimerActive = true;
-    startBtn.disabled = true;
-    stopBtn.disabled = false;
-    resetBtn.disabled = false;
+    startPauseBtn.innerText = 'Pause';
+    //startBtn.disabled = true;
+    //stopBtn.disabled = false;
+    //resetBtn.disabled = false;
     multimediaStart();
     
     interval = setInterval(() => {
@@ -151,11 +152,12 @@ const startTimer = () => {
 
 const stopTimer = () => {
     clearInterval(interval);
-    startBtn.disabled = false;
-    stopBtn.disabled = true;
-    resetBtn.disabled = false;
+    // startBtn.disabled = false;
+    // stopBtn.disabled = true;
+    // resetBtn.disabled = false;
     multimediaStop();
     isTimerActive = false;
+    startPauseBtn.innerText = 'Start';
 }
 
 const resetTimer = () => {
@@ -163,10 +165,18 @@ const resetTimer = () => {
     timeLeft = 5;
     transformTime();
     multimediaReset();
-    startBtn.disabled = false;
-    stopBtn.disabled = true;
-    resetBtn.disabled = true;
+    // startBtn.disabled = false;
+    // stopBtn.disabled = true;
+    // resetBtn.disabled = true;
     isTimerActive = false;
+}
+
+const startOrPause = () => {
+    if (isTimerActive) {
+        stopTimer();
+    } else {
+        startTimer();
+    }
 }
 
 /* NOTIFICATION */
@@ -226,8 +236,9 @@ modal.addEventListener('keydown', function(e) {
     }
 });
 
-startBtn.addEventListener('click', startTimer);
-stopBtn.addEventListener('click', stopTimer);
+// startBtn.addEventListener('click', startTimer);
+// stopBtn.addEventListener('click', stopTimer);
+startPauseBtn.addEventListener('click', startOrPause);
 resetBtn.addEventListener('click', resetTimer);
 settingsBtn.addEventListener('click', () => {
     openSettings();
@@ -359,8 +370,8 @@ checkNotification();
 
 readSettings();
 
-stopBtn.disabled = true;
-resetBtn.disabled = true;
+//stopBtn.disabled = true;
+//resetBtn.disabled = true;
 window.addEventListener('load', () => {
     preloader.style.zIndex = -2;
     preloader.style.display = "none";

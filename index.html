@@ -29,19 +29,27 @@
       <audio class="background-audio" crossorigin="anonymous" src=""></audio>
       <audio class="alarm-audio" crossorigin="anonymous" src=""></audio>
       <div class="main-container">
-        <button class="settings-btn">
+        <!-- <button class="settings-btn main-button">
           <div class="settings-icon">
             <i class="fa-solid fa-gear"></i>
           </div>
           <div class="text-setting">Settings</div>
-        </button>
+        </button> -->
 
-        <h1 class="title">Pomodoro by Pablis</h1>
+        <img id="logo" src="res/img/Study Sonso!-1.png" alt="" />
+
+        <!-- <h1 class="title">Pomodoro by Pablis</h1> -->
         <p id="timer">25:00</p>
         <div class="button-container">
-          <button class="main-button" id="start-btn">Start</button>
-          <button class="main-button" id="stop-btn">Stop</button>
-          <button class="main-button" id="reset-btn">Reset</button>
+          <button class="main-button" id="start-pause-btn">Start</button>
+          <!-- <button class="main-button" id="stop-btn">Stop</button> -->
+          <!-- <button class="main-button" id="reset-btn">Reset</button> -->
+          <button class="main-button icon-button" id="reset-btn">
+            <i class="fa-solid fa-rotate-right"></i>
+          </button>
+          <button class="main-button icon-button" id="settings-btn">
+            <i class="fa-solid fa-gear"></i>
+          </button>
         </div>
       </div>
     </div>
