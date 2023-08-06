@@ -53,11 +53,104 @@
         </div>
       </div>
     </div>
-    <dialog class="modal">
+    <dialog class="modal tabs">
       <div class="close-icon">
         <i class="fa fa-times fa-2x" aria-hidden="true"></i>
       </div>
-      <div class="grid-container">
+      <div class="headers">
+        <div class="header active"><i class="fa-solid fa-code"></i> Tiempos</div>
+        <div class="header"><i class="fa-solid fa-pencil"></i> Sonidos</div>
+        <div class="header"><i class="fa-solid fa-paintbrush"></i> Fondo</div>
+        <div class="header">
+          <i class="fa-solid fa-circle-radiation"></i> Notificaciones
+        </div>
+      </div>
+      <div class="tab-indicator"></div>
+      <div class="tab-content-container">
+        <div class="tab active">
+          <!-- <i class="fa-solid fa-code"></i> -->
+          <!-- <h2>This is Code Section</h2> -->
+          <h2>Tiempo (minutos)</h2>
+          <div class="timer-settings-container">
+            <label for="pomodoro-setting">Pomodoro</label>
+            <input type="number" id="pomodoro-setting" name="pomodoro-setting" min="1" max="180">
+            <label for="short-break-setting">Descanso:</label>
+            <input type="number" id="short-break-setting" name="short-break-setting" min="1" max="60">
+            <label for="long-break-setting">Descanso Largo:</label>
+            <input type="number" id="long-break-setting" name="long-break-setting" min="1" max="60">
+          </div>
+        </div>
+        <div class="tab">
+          <h2>Sonidos</h2>
+          <!-- <i class="fa-solid fa-pencil"></i> -->
+          <label for="back-audio">Fondo</label>
+          <select id="audio-select" class="config-select" name="back-audio">
+            <option value="" selected>Ninguno</option>
+            <option value="winner-rain">Lluvia y agua</option>
+            <option value="light-rain">Lluvia ligera</option>
+            <option value="rain-and-thunder">Lluvia y truenos</option>
+            <option value="rain-with-birds">Lluvia y pájaros</option>
+            <option value="soft-rain">Lluvia suave</option>
+            <option value="alpha-waves">Alpha Waves</option>
+          </select>
+          <button class="preview-btn" id="preview-back-btn">
+            <div class="preview-icon">
+              <i class="fa-solid fa-circle-play"></i>
+            </div>
+            <div class="text-btn">Preview</div>
+          </button>
+          <label for="alarm-audio">Alarma</label>
+          <select id="alarm-select" class="config-select" name="alarm-audio">
+            <option value="" selected>Ninguno</option>
+            <option value="success-trumpets">Success</option>
+            <option value="yay">Yay</option>
+            <option value="call-to-attention">Call to attention</option>
+            <option value="new-notification">Notification</option>
+          </select>
+          <button class="preview-btn" id="preview-alarm-btn">
+            <div class="preview-icon">
+              <i class="fa-solid fa-circle-play"></i>
+            </div>
+            <div class="text-btn">Preview</div>
+          </button>
+
+        </div>
+        <div class="tab">
+          <!-- <i class="fa-solid fa-paintbrush"></i> -->
+          <h2>Fondo</h2>
+          
+          <label for="video">Video</label>
+          <select id="video-select" class="config-select" name="video">
+            <option value="" selected>Ninguno</option>
+            <option value="student1">Estudio 1</option>
+            <option value="student2">Estudio 2</option>
+            <option value="student3">Estudio 3</option>
+            <option value="student4">Estudio 4</option>
+            <option value="student5">Estudio 5</option>
+            <option value="dolphins">Delfines</option>
+            <option value="stars">Estrellas</option>
+            <option value="nature1">Naturaleza</option>
+          </select>
+
+          <div class="video-preview">
+            <video
+              src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+              type="video/mp4"
+              muted
+              class="preview-vid"
+              loop
+            ></video>
+          </div>
+
+        </div>
+        <div class="tab">
+          <!-- <i class="fa-solid fa-circle-radiation"></i> -->
+          <h2>Notificaciones</h2>
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Veniam nam, quae eum odit temporibus aut praesentium similique perspiciatis obcaecati dicta ipsa hic voluptatibus, fugiat vel vitae eaque. Velit, qui exercitationem!
+
+        </div>
+      </div>
+      <!-- <div class="grid-container">
         <div class="config-header">
           <h4>Audio</h4>
         </div>
@@ -121,7 +214,7 @@
             loop
           ></video>
         </div>
-      </div>
+      </div> -->
     </dialog>
 
     <script src="app.js"></script>

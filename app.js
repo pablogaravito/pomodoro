@@ -20,6 +20,14 @@ const videosPath = "res/video/";
 const backgroundAudiosPath = "res/audio/background/";
 const alarmAudiosPath = "res/audio/alarm/";
 
+const headers = document.querySelector('.headers');
+const tabHeaders = document.querySelectorAll('.header');
+
+const contentContainer = document.querySelector('.tab-content-container') ;
+const tabContent = document.querySelectorAll('.tab');
+
+const tabIndicator = document.querySelector('.tab-indicator');
+
 const defaultSettings = {
     video: "nature1",
     audio: "winner-rain",
@@ -39,6 +47,17 @@ let notificationsAllowed = false;
 //let timeLeft = 1500;
 let timeLeft = 5;
 
+for (let i=0; i < tabHeaders.length; i++) {
+    tabHeaders[i].addEventListener('click', function () {
+        headers.getElementsByClassName('active')[0].classList.remove('active');
+        tabHeaders[i].classList.add('active');
+
+        tabIndicator.style.top = `calc(80px + ${i*50}px)`;
+
+        contentContainer.getElementsByClassName('active')[0].classList.remove('active');
+        tabContent[i].classList.add('active');
+     });
+}
 
 /* FORMAT TIME */
 const padTime = (time) => {
