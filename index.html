@@ -5,13 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Pomodoro by Pablis</title>
     <link rel="icon" type="image/x-icon" href="res/icon/tomato3.png" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
-      integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
@@ -58,12 +52,10 @@
         <i class="fa fa-times fa-2x" aria-hidden="true"></i>
       </div>
       <div class="headers">
-        <div class="header active"><i class="fa-solid fa-code"></i> Tiempos</div>
-        <div class="header"><i class="fa-solid fa-pencil"></i> Sonidos</div>
-        <div class="header"><i class="fa-solid fa-paintbrush"></i> Fondo</div>
-        <div class="header">
-          <i class="fa-solid fa-circle-radiation"></i> Notificaciones
-        </div>
+        <div class="header active"><i class="fa-regular fa-clock"></i> Tiempos</div>
+        <div class="header"><i class="fa-solid fa-music"></i> Sonidos</div>
+        <div class="header"><i class="fa-regular fa-image"></i> Fondo</div>
+        <div class="header"><i class="fa-regular fa-bell"></i> Notificaciones</div>
       </div>
       <div class="tab-indicator"></div>
       <div class="tab-content-container">
@@ -146,7 +138,11 @@
         <div class="tab">
           <!-- <i class="fa-solid fa-circle-radiation"></i> -->
           <h2>Notificaciones</h2>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Veniam nam, quae eum odit temporibus aut praesentium similique perspiciatis obcaecati dicta ipsa hic voluptatibus, fugiat vel vitae eaque. Velit, qui exercitationem!
+          
+          <input type="checkbox" class="checkbox" name="notification-checkbox" id="notification-checkbox">
+          <label for="notification-checkbox" class="label">
+            <div class="circle"></div>
+          </label>
 
         </div>
       </div>
