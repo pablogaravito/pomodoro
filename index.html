@@ -5,11 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Pomodoro by Pablis</title>
     <link rel="icon" type="image/x-icon" href="res/icon/tomato3.png" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+      integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
+      crossorigin="anonymous"
+    />
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div class="container">
+    <div class="gral-container">
       <div class="preloader">
         <img src="res/preloader.gif" alt="preloader" />
       </div>
@@ -47,15 +59,19 @@
         </div>
       </div>
     </div>
-    <dialog class="modal tabs">
+    <dialog class="tabs">
       <div class="close-icon">
         <i class="fa fa-times fa-2x" aria-hidden="true"></i>
       </div>
       <div class="headers">
-        <div class="header active"><i class="fa-regular fa-clock"></i> Tiempos</div>
+        <div class="header active">
+          <i class="fa-regular fa-clock"></i> Tiempos
+        </div>
         <div class="header"><i class="fa-solid fa-music"></i> Sonidos</div>
         <div class="header"><i class="fa-regular fa-image"></i> Fondo</div>
-        <div class="header"><i class="fa-regular fa-bell"></i> Notificaciones</div>
+        <div class="header">
+          <i class="fa-regular fa-bell"></i> Notificaciones
+        </div>
       </div>
       <div class="tab-indicator"></div>
       <div class="tab-content-container">
@@ -63,13 +79,68 @@
           <!-- <i class="fa-solid fa-code"></i> -->
           <!-- <h2>This is Code Section</h2> -->
           <h2>Tiempo (minutos)</h2>
-          <div class="timer-settings-container">
-            <label for="pomodoro-setting">Pomodoro</label>
-            <input type="number" id="pomodoro-setting" name="pomodoro-setting" min="1" max="180">
-            <label for="short-break-setting">Descanso:</label>
-            <input type="number" id="short-break-setting" name="short-break-setting" min="1" max="60">
-            <label for="long-break-setting">Descanso Largo:</label>
-            <input type="number" id="long-break-setting" name="long-break-setting" min="1" max="60">
+          <div class="mb-3 timer-settings-container">
+            <div class="timer-settings">
+              <label class="timer-settings-label" for="pomodoro-setting"
+                >Pomodoro</label
+              >
+              <input
+                class="timer-settings-input"
+                type="number"
+                id="pomodoro-setting"
+                name="pomodoro-setting"
+                min="1"
+                max="180"
+              />
+            </div>
+            <div class="timer-settings">
+              <label class="timer-settings-label" for="short-break-setting"
+                >Descanso</label
+              >
+              <input
+                class="timer-settings-input"
+                type="number"
+                id="short-break-setting"
+                name="short-break-setting"
+                min="1"
+                max="60"
+              />
+            </div>
+            <div class="timer-settings">
+              <label class="timer-settings-label" for="long-break-setting"
+                >Descanso Largo</label
+              >
+              <input
+                class="timer-settings-input"
+                type="number"
+                id="long-break-setting"
+                name="long-break-setting"
+                min="1"
+                max="60"
+              />
+            </div>
+          </div>
+          <div class="mb-3 form-check form-switch">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              role="switch"
+              id="pomodoros-autostart-checkbox"
+            />
+            <label class="form-check-label" for="pomodoros-autostart-checkbox"
+              >Iniciar pomodoros automáticamente</label
+            >
+          </div>
+          <div class="mb-3 form-check form-switch">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              role="switch"
+              id="breaks-autostart-checkbox"
+            />
+            <label class="form-check-label" for="breaks-autostart-checkbox"
+              >Iniciar descansos automáticamente</label
+            >
           </div>
         </div>
         <div class="tab">
@@ -105,12 +176,11 @@
             </div>
             <div class="text-btn">Preview</div>
           </button>
-
         </div>
         <div class="tab">
           <!-- <i class="fa-solid fa-paintbrush"></i> -->
           <h2>Fondo</h2>
-          
+
           <label for="video">Video</label>
           <select id="video-select" class="config-select" name="video">
             <option value="" selected>Ninguno</option>
@@ -133,17 +203,30 @@
               loop
             ></video>
           </div>
-
         </div>
         <div class="tab">
           <!-- <i class="fa-solid fa-circle-radiation"></i> -->
           <h2>Notificaciones</h2>
-          
-          <input type="checkbox" class="checkbox" name="notification-checkbox" id="notification-checkbox">
+          <div class="form-check form-switch">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              role="switch"
+              id="notification-checkbox"
+            />
+            <label class="form-check-label" for="notification-checkbox"
+              >Mostrar notificaciones al acabar ciclos</label
+            >
+          </div>
+          <!-- <input
+            type="checkbox"
+            class="checkbox"
+            name="notification-checkbox"
+            id="notification-checkbox"
+          />
           <label for="notification-checkbox" class="label">
             <div class="circle"></div>
-          </label>
-
+          </label> -->
         </div>
       </div>
       <!-- <div class="grid-container">
@@ -212,7 +295,11 @@
         </div>
       </div> -->
     </dialog>
-
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+      crossorigin="anonymous"
+    ></script>
     <script src="app.js"></script>
   </body>
 </html>

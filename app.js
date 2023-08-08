@@ -10,10 +10,10 @@ const audioSelect = document.querySelector('#audio-select');
 const videoSelect = document.querySelector('#video-select');
 const alarmSelect = document.querySelector('#alarm-select');
 const preloader = document.querySelector('.preloader');
-const modal = document.querySelector('.modal');
+const modal = document.querySelector('.tabs');
 const settingsBtn = document.querySelector('#settings-btn');
 const closeIcon = document.querySelector('.close-icon');
-const container = document.querySelector('.container');
+const container = document.querySelector('.gral-container');
 const previewBackBtn = document.querySelector('#preview-back-btn');
 const previewAlarmBtn = document.querySelector('#preview-alarm-btn');
 const videosPath = "res/video/";
@@ -31,7 +31,10 @@ const tabIndicator = document.querySelector('.tab-indicator');
 const defaultSettings = {
     video: "nature1",
     audio: "winner-rain",
-    alarm: "success-trumpets"
+    alarm: "success-trumpets",
+    pomodoro: 25,
+    shortBreak: 3,
+    longBreak: 10
 };
 
 let isTimerActive = false;
@@ -39,7 +42,10 @@ let isTimerActive = false;
 let settings = {
     video: "", 
     audio: "",
-    alarm: ""
+    alarm: "",
+    pomodoro: 0,
+    shortBreak: 0,
+    longBreak: 0
 };
 
 let interval;

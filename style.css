@@ -30,11 +30,11 @@ body {
     transition: 0.3s linear;
 }
 
-.container {
+.gral-container {
     transition: filter 0.4s;
 }
 
-.container.background-on {
+.gral-container.background-on {
     filter: blur(5px) brightness(.7);
 }
 
@@ -69,11 +69,11 @@ body {
 }*/
 .tabs {
     position: absolute;
-    top: 50%;
+    /* top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
-    width: 680px;
-    height: 360px;
+    transform: translate(-50%, -50%); */
+    width: 648px;
+    height: 100vh;
     padding: 30px 20px;
     /* background: #f5f5f5; */
     /* background-image: radial-gradient( circle 311px at 8.6% 27.9%,  rgba(62,147,252,0.57) 12.9%, rgba(239,183,192,0.44) 91.2% ); */
@@ -82,6 +82,10 @@ body {
     background-image: linear-gradient( 174.2deg,  rgba(255,244,228,1) 7.1%, rgba(240,246,238,1) 67.4% );
     box-shadow: 5px 5px 10px 5px #ccc;
     overflow: hidden;
+}
+
+.tab > h2 {
+    color: rgb(187, 187, 187);
 }
 
 .tabs .headers {
@@ -135,11 +139,12 @@ body {
 
 .tabs .tab-content-container > div {
     position: absolute;
-    text-align: center;
+    /* text-align: center; */
     padding: 40px 20px;
     top: -200%;
     transition: top 500ms ease-in-out;
 }
+
 
 .tabs .tab-content-container > div.active {
     top: 0px;
@@ -156,7 +161,7 @@ body {
     transition: top 500ms ease-in-out;
 }
 
-.label {
+/* .label {
     position: absolute;
     width: 80px;
     height: 40px;
@@ -175,7 +180,7 @@ body {
 
 .checkbox:checked + .label .circle {
     animation: toggleOn .3s linear forwards;
-}
+} */
 
 .circle {
     width: 34px;
@@ -210,8 +215,6 @@ body {
     grid-column: span 2;
 }
 
-
-
 .settings-btn {
     position: absolute;
     display: flex;
@@ -219,6 +222,31 @@ body {
     right: 2px;
     cursor: pointer;
     padding: 3px;
+}
+
+.timer-settings-container {
+    display: flex;
+    width: 350px;
+    justify-content: space-between;
+}
+
+.timer-settings {
+    display: flex;
+    min-width: 115px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.timer-settings-label {
+    align-self: flex-start;
+}
+
+.timer-settings-input {
+    padding: 2px 4px;
+    margin: 10px 0px;
+    min-width: 44px;
+    align-self: flex-start;
 }
 
 .preview-btn {
@@ -356,7 +384,7 @@ body {
     background-color: transparent;
 }
 
-@keyframes toggleOn {
+/* @keyframes toggleOn {
     0% {
         transform: translateX(0);
     }
@@ -371,4 +399,4 @@ body {
     100% {
         transform: translateX(0);
     }
-}
+} */
