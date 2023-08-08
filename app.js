@@ -1,5 +1,4 @@
 const startPauseBtn = document.querySelector('#start-pause-btn');
-//const stopBtn = document.querySelector('#stop-btn');
 const resetBtn = document.querySelector('#reset-btn');
 const timer = document.querySelector('#timer');
 const previewVid = document.querySelector('.preview-vid');
@@ -10,7 +9,8 @@ const audioSelect = document.querySelector('#audio-select');
 const videoSelect = document.querySelector('#video-select');
 const alarmSelect = document.querySelector('#alarm-select');
 const preloader = document.querySelector('.preloader');
-const modal = document.querySelector('.tabs');
+const modal = document.querySelector('#settings-modal');
+// const modal = document.querySelector('.tabs');
 const settingsBtn = document.querySelector('#settings-btn');
 const closeIcon = document.querySelector('.close-icon');
 const container = document.querySelector('.gral-container');
@@ -243,35 +243,15 @@ window.addEventListener('focus', () => {
     }
 });
 
-modal.addEventListener('click', e => {
-    const dialogDimensions = modal.getBoundingClientRect()
-    if (
-      e.clientX < dialogDimensions.left ||
-      e.clientX > dialogDimensions.right ||
-      e.clientY < dialogDimensions.top ||
-      e.clientY > dialogDimensions.bottom
-    ) {
-     closeModalAndUpdate();
-    }
-});
+modal.addEventListener('hidden.bs.modal', () => {
+    closeModalAndUpdate();
+})
 
-modal.addEventListener('keydown', function(e) {
-    if (e.key == "Escape") {
-      closeModalAndUpdate();
-    }
-});
-
-// startBtn.addEventListener('click', startTimer);
-// stopBtn.addEventListener('click', stopTimer);
 startPauseBtn.addEventListener('click', startOrPause);
 resetBtn.addEventListener('click', resetTimer);
 settingsBtn.addEventListener('click', () => {
     openSettings();
 });
-
-closeIcon.addEventListener('click', () => {
-    closeModalAndUpdate();
- });
 
 alarmSelect.addEventListener('change', () => {
     //previewAlarm();
@@ -350,8 +330,6 @@ const openSettings = () => {
     previewVidShow();
     audioSelect.value = settings.audio;
     alarmSelect.value = settings.alarm;
-    modal.showModal();
-    container.classList.add('background-on');
 }
 
 const closeModalAndUpdate = () => {
@@ -359,8 +337,6 @@ const closeModalAndUpdate = () => {
     settings.audio = audioSelect.value;
     settings.alarm = alarmSelect.value;
     defineMultimedia();
-    container.classList.remove('background-on');
-    modal.close();
     saveSettings();
  }
 
@@ -395,8 +371,6 @@ checkNotification();
 
 readSettings();
 
-//stopBtn.disabled = true;
-//resetBtn.disabled = true;
 window.addEventListener('load', () => {
     preloader.style.zIndex = -2;
     preloader.style.display = "none";
