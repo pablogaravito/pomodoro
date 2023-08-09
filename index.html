@@ -61,7 +61,7 @@
       class="modal fade"
       id="settings-modal"
       tabindex="-1"
-      aria-labelledby="exampleModalLabel"
+      aria-labelledby="settings modal"
       aria-hidden="true"
     >
       <div class="modal-dialog modal-dialog-centered">
@@ -71,25 +71,25 @@
               type="button"
               class="btn-close"
               data-bs-dismiss="modal"
-              aria-label="Close"
+              aria-label="Close settings"
             ></button>
           </div>
           <div class="modal-body">
             <div class="d-flex align-items-start">
               <div
-                class="nav flex-column nav-pills me-3"
+                class="nav nav-pills pill-buttons-column"
                 id="v-pills-tab"
                 role="tablist"
                 aria-orientation="vertical"
               >
                 <button
                   class="nav-link active"
-                  id="v-pills-schedule-tab"
+                  id="v-pills-time-tab"
                   data-bs-toggle="pill"
-                  data-bs-target="#v-pills-home"
+                  data-bs-target="#v-pills-time"
                   type="button"
                   role="tab"
-                  aria-controls="v-pills-home"
+                  aria-controls="v-pills-time"
                   aria-selected="true"
                 >
                   <i class="fa-regular fa-clock"></i> Tiempos
@@ -98,10 +98,10 @@
                   class="nav-link"
                   id="v-pills-sound-tab"
                   data-bs-toggle="pill"
-                  data-bs-target="#v-pills-profile"
+                  data-bs-target="#v-pills-sound"
                   type="button"
                   role="tab"
-                  aria-controls="v-pills-profile"
+                  aria-controls="v-pills-sound"
                   aria-selected="false"
                 >
                   <i class="fa-solid fa-music"></i> Sonidos
@@ -110,22 +110,22 @@
                   class="nav-link"
                   id="v-pills-background-tab"
                   data-bs-toggle="pill"
-                  data-bs-target="#v-pills-messages"
+                  data-bs-target="#v-pills-background"
                   type="button"
                   role="tab"
-                  aria-controls="v-pills-messages"
+                  aria-controls="v-pills-background"
                   aria-selected="false"
                 >
                   <i class="fa-regular fa-image"></i> Fondo
                 </button>
                 <button
                   class="nav-link"
-                  id="v-pills-notifications-tab"
+                  id="v-pills-notification-tab"
                   data-bs-toggle="pill"
-                  data-bs-target="#v-pills-settings"
+                  data-bs-target="#v-pills-notification"
                   type="button"
                   role="tab"
-                  aria-controls="v-pills-settings"
+                  aria-controls="v-pills-notification"
                   aria-selected="false"
                 >
                   <i class="fa-regular fa-bell"></i> Notificaciones
@@ -135,7 +135,7 @@
                 <!-- START Tiempos -->
                 <div
                   class="tab-pane fade show active"
-                  id="v-pills-home"
+                  id="v-pills-time"
                   role="tabpanel"
                   aria-labelledby="v-pills-schedule-tab"
                   tabindex="0"
@@ -241,7 +241,7 @@
                 <!-- START Sonidos -->
                 <div
                   class="tab-pane fade"
-                  id="v-pills-profile"
+                  id="v-pills-sound"
                   role="tabpanel"
                   aria-labelledby="v-pills-sound-tab"
                   tabindex="0"
@@ -307,7 +307,7 @@
                 <!-- END Sonidos -->
                 <div
                   class="tab-pane fade"
-                  id="v-pills-messages"
+                  id="v-pills-background"
                   role="tabpanel"
                   aria-labelledby="v-pills-background-tab"
                   tabindex="0"
@@ -351,9 +351,9 @@
                 </div>
                 <div
                   class="tab-pane fade"
-                  id="v-pills-settings"
+                  id="v-pills-notification"
                   role="tabpanel"
-                  aria-labelledby="v-pills-notifications-tab"
+                  aria-labelledby="v-pills-notification-tab"
                   tabindex="0"
                 >
                   <div>
