@@ -32,10 +32,6 @@ body {
 
 .main-container {
     margin: 0;
-    /*max-width: 400px;
-     text-align: center;
-    padding: 20px; */
-    /* opacity: .6; */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -50,12 +46,49 @@ body {
     justify-content: center;
 }
 
+.nav-link {
+    text-align: left;
+    min-width: 144px;
+}
+
+.preview-vid {
+    border: 2px solid black;
+    /* margin: 5px 20px; */
+    width: 150px;
+    height: 100px;
+    object-fit: cover;
+}
+.video-preview {
+    cursor: pointer;
+    height: 110px;
+}
 .tabs {
-    width: 648px;
-    height: 400px;
+    /* width: 648px; */
+    /* height: 400px; */
+    height: 60vh;
+    min-width: 566px;
     background-image: linear-gradient( 174.2deg,  rgba(255,244,228,1) 7.1%, rgba(240,246,238,1) 67.4% );
     box-shadow: 5px 5px 10px 5px #ccc;
     overflow: hidden;
+}
+
+.tab-pane {
+    height: 45vh;
+    min-width: 358px;
+}
+
+.h6 {
+    font-size: 14px;
+    color: rgb(187, 187, 187);
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 10px;
+}
+.tab {
+    height: 45vh;
+    max-width: 414px;
+    padding: 10px 20px;
 }
 
 .modal-header {
@@ -94,7 +127,7 @@ body {
 .tabs .tab-content-container {
     position: relative;
     height: 100%;
-/*     width: 639px;*/ 
+    width: 380px; 
     overflow: hidden;
 }
 
@@ -130,11 +163,13 @@ body {
     width: 4px;
     height: 22px;
     background-color: #00acee;
-    left: 198px;
+    left: 194px;
     top: 80px;
     transition: top 500ms ease-in-out;
 }
-
+.modal-dialog {
+    min-width: 800px;
+}
 .config-header {
     grid-column: span 2;
 }
