@@ -58,10 +58,12 @@ body {
     height: 100px;
     object-fit: cover;
 }
+
 .video-preview {
     cursor: pointer;
     height: 110px;
 }
+
 .tabs {
     /* width: 648px; */
     /* height: 400px; */
@@ -75,6 +77,7 @@ body {
 .tab-pane {
     height: 45vh;
     min-width: 358px;
+    padding: 0 20px;
 }
 
 .h6 {
@@ -85,102 +88,9 @@ body {
     letter-spacing: 0.8px;
     margin-bottom: 10px;
 }
-.tab {
-    height: 45vh;
-    max-width: 414px;
-    padding: 10px 20px;
-}
 
 .modal-header {
     border: none;
-}
-
-.tabs .headers {
-    float: left;
-    width: 180px;
-    height: 100%;
-    border-right: 1px solid #ccc;
-    padding: 50px 0px;
-}
-
-.tabs .header {
-    height: 50px;
-    line-height: 50px;
-    font-size: 16px;
-    font-weight: 600;
-    color: #888;
-    cursor: pointer;
-    padding-left: 10px;
-}
-
-.tabs .header:hover,
-.tabs .header.active {
-    color: #00acee;
-}
-
-.tabs .headers div i {
-    display: inline-block;
-    margin-left: 10px;
-    margin-right: 5px;
-}
-
-.tabs .tab-content-container {
-    position: relative;
-    height: 100%;
-    width: 380px; 
-    overflow: hidden;
-}
-
-.tabs .tab-content-container > div > i {
-    display: inline-block;
-    width: 50px;
-    height: 50px;
-    background: #555;
-    color: #f5f5f5;
-    font-size: 25px;
-    font-weight: 600;
-    text-align: center;
-    line-height: 50px;
-    border-radius: 50%;
-}
-
-.tabs .tab-content-container > div {
-    position: absolute;
-    /* text-align: center; */
-    padding: 40px 20px;
-    top: -200%;
-    transition: top 500ms ease-in-out;
-}
-
-
-.tabs .tab-content-container > div.active {
-    top: 0px;
-    /* transition: top 500ms ease-in-out; */
-}
-
-.tabs .tab-indicator {
-    position: absolute;
-    width: 4px;
-    height: 22px;
-    background-color: #00acee;
-    left: 194px;
-    top: 80px;
-    transition: top 500ms ease-in-out;
-}
-.modal-dialog {
-    min-width: 800px;
-}
-.config-header {
-    grid-column: span 2;
-}
-
-.settings-btn {
-    position: absolute;
-    display: flex;
-    top: 2px;
-    right: 2px;
-    cursor: pointer;
-    padding: 3px;
 }
 
 .timer-settings-container {
@@ -195,43 +105,6 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-}
-
-/* .timer-settings-label {
-    align-self: flex-start;
-}
-
-.timer-settings-input {
-    padding: 2px 4px;
-    margin: 10px 0px;
-    min-width: 44px;
-    align-self: flex-start;
-} */
-
-.preview-btn {
-    margin: 0 auto;
-    display: flex;
-    padding: 3px;
-    margin-top: 10px;
-    cursor: pointer;
-}
-
-.preview-icon{
-    margin-right: 5px;
-    margin-top: 0.8px;
-}
-
-.preview-vid {
-    border: 2px solid black;
-    /* margin: 5px 20px; */
-    width: 150px;
-    height: 100px;
-    object-fit: cover;
-}
-
-.video-preview {
-    cursor: pointer;
-    height: 110px;
 }
 
 #timer {
