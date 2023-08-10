@@ -16,6 +16,12 @@ const closeIcon = document.querySelector('.close-icon');
 const container = document.querySelector('.gral-container');
 const previewBackBtn = document.querySelector('#preview-back-btn');
 const previewAlarmBtn = document.querySelector('#preview-alarm-btn');
+const videoBackgroundLabel = document.querySelector('#video-background-label');
+const videoBackgroundDiv = document.querySelector('.video-background-div');
+const videoBackgroundRadio = document.querySelector('#video-background-radio');
+const imageBackgroundLabel = document.querySelector('#image-background-label');
+const imageBackgroundDiv = document.querySelector('.image-background-div');
+const imageBackgroundRadio = document.querySelector('#image-background-radio');
 const videosPath = "res/video/";
 const backgroundAudiosPath = "res/audio/background/";
 const alarmAudiosPath = "res/audio/alarm/";
@@ -297,6 +303,22 @@ previewBackBtn.addEventListener('mouseout', () => {
         audio.pause();
         audio.currentTime = 0;
     }
+});
+
+imageBackgroundLabel.addEventListener('click', () => {
+    // if (imageBackgroundRadio.checked) {
+        
+    // }
+    imageBackgroundDiv.classList.remove('hide');
+        videoBackgroundDiv.classList.add('hide');
+});
+
+videoBackgroundLabel.addEventListener('click', () => {
+    // if (videoBackgroundRadio.checked) {
+        
+    // }
+    imageBackgroundDiv.classList.add('hide');
+        videoBackgroundDiv.classList.remove('hide');
 });
 
 videoSelect.addEventListener('change', () => {

@@ -35,7 +35,7 @@
       <audio class="background-audio" crossorigin="anonymous" src=""></audio>
       <audio class="alarm-audio" crossorigin="anonymous" src=""></audio>
       <div class="main-container">
-        <img id="logo" src="res/img/Study Sonso!-1.png" alt="" />
+        <img id="logo" src="res/img/Study Sonso!-1.png" alt="website logo" />
 
         <!-- <h1 class="title">Pomodoro by Pablis</h1> -->
         <p id="timer">25:00</p>
@@ -360,11 +360,14 @@
                       type="radio"
                       class="btn-check"
                       name="background-options"
-                      id="video-background-option"
+                      id="video-background-radio"
                       autocomplete="off"
                       checked
                     />
-                    <label class="btn" for="video-background-option"
+                    <label
+                      id="video-background-label"
+                      class="btn"
+                      for="video-background-radio"
                       >Video</label
                     >
 
@@ -372,14 +375,17 @@
                       type="radio"
                       class="btn-check"
                       name="background-options"
-                      id="image-background-option"
+                      id="image-background-radio"
                       autocomplete="off"
                     />
-                    <label class="btn" for="image-background-option"
+                    <label
+                      id="image-background-label"
+                      class="btn"
+                      for="image-background-radio"
                       >Imagen</label
                     >
                   </div>
-                  <div class="video-background-alternative">
+                  <div class="video-background-div">
                     <select
                       id="video-select"
                       class="form-select mb-3"
@@ -407,7 +413,7 @@
                     </div>
                   </div>
 
-                  <div class="image-background-alternative hide">
+                  <div class="image-background-div hide">
                     <select
                       id="image-select"
                       class="form-select mb-3"
@@ -432,14 +438,12 @@
                       <option value="tokyo-sakura">Tokyo Sakura</option>
                     </select>
 
-                    <div class="video-preview mb-3">
-                      <video
-                        src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
-                        type="video/mp4"
-                        muted
-                        class="preview-vid"
-                        loop
-                      ></video>
+                    <div class="image-preview mb-3">
+                      <img
+                        src="res/img/tokyo-sakura.jpg"
+                        class="preview-img"
+                        alt="preview img"
+                      />
                     </div>
                   </div>
                 </div>

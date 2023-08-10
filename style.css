@@ -50,7 +50,8 @@ body {
     min-width: 144px;
 }
 
-.preview-vid {
+.preview-vid,
+.preview-img {
     border: 2px solid black;
     /* margin: 5px 20px; */
     width: 300px;
@@ -58,9 +59,14 @@ body {
     object-fit: cover;
 }
 
+.video-preview,
+.image-preview {
+    height: 210px;
+}
+
 .video-preview {
     cursor: pointer;
-    height: 210px;
+    /* height: 210px; */
 }
 
 .tabs {
