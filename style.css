@@ -53,14 +53,14 @@ body {
 .preview-vid {
     border: 2px solid black;
     /* margin: 5px 20px; */
-    width: 150px;
-    height: 100px;
+    width: 300px;
+    height: 200px;
     object-fit: cover;
 }
 
 .video-preview {
     cursor: pointer;
-    height: 110px;
+    height: 210px;
 }
 
 .tabs {
@@ -138,6 +138,10 @@ body {
     padding: 0.5rem 1rem;
     font-size: 2.5rem;
     background-color: transparent;
+}
+
+.hide {
+    display: none;
 }
 
 #logo {

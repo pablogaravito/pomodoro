@@ -238,7 +238,9 @@
                   aria-labelledby="v-pills-sound-tab"
                   tabindex="0"
                 >
-                  <p class="h6"><i class="fa-solid fa-music"></i> Sonidos</p>
+                  <p class="h6 mb-3">
+                    <i class="fa-solid fa-music"></i> Sonidos
+                  </p>
 
                   <div class="mb-3">
                     <label for="back-audio" class="form-label mb-1"
@@ -339,45 +341,98 @@
                   aria-labelledby="v-pills-background-tab"
                   tabindex="0"
                 >
-                  <div class="container-fluid">
-                    <div class="row">
-                      <p class="h6">
-                        <i class="fa-regular fa-image"></i> Video
-                      </p>
+                  <p class="h6 mb-3">
+                    <i class="fa-regular fa-image"></i> Fondo
+                  </p>
+                  <div class="toggle-option-background mb-3">
+                    <input
+                      type="radio"
+                      class="btn-check"
+                      name="background-options"
+                      id="video-background-option"
+                      autocomplete="off"
+                      checked
+                    />
+                    <label class="btn" for="video-background-option"
+                      >Video</label
+                    >
+
+                    <input
+                      type="radio"
+                      class="btn-check"
+                      name="background-options"
+                      id="image-background-option"
+                      autocomplete="off"
+                    />
+                    <label class="btn" for="image-background-option"
+                      >Imagen</label
+                    >
+                  </div>
+                  <div class="video-background-alternative">
+                    <select
+                      id="video-select"
+                      class="form-select mb-3"
+                      aria-label="video select"
+                    >
+                      <option value="" selected>Ninguno</option>
+                      <option value="student1">Estudio 1</option>
+                      <option value="student2">Estudio 2</option>
+                      <option value="student3">Estudio 3</option>
+                      <option value="student4">Estudio 4</option>
+                      <option value="student5">Estudio 5</option>
+                      <option value="dolphins">Delfines</option>
+                      <option value="stars">Estrellas</option>
+                      <option value="nature1">Naturaleza</option>
+                    </select>
+
+                    <div class="video-preview mb-3">
+                      <video
+                        src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+                        type="video/mp4"
+                        muted
+                        class="preview-vid"
+                        loop
+                      ></video>
                     </div>
-                    <div class="row">
-                      <div class="col-sm-12">
-                        <select
-                          id="video-select"
-                          class="form-select"
-                          name="video"
-                          aria-label="img or video select"
-                        >
-                          <option value="" selected>Ninguno</option>
-                          <option value="student1">Estudio 1</option>
-                          <option value="student2">Estudio 2</option>
-                          <option value="student3">Estudio 3</option>
-                          <option value="student4">Estudio 4</option>
-                          <option value="student5">Estudio 5</option>
-                          <option value="dolphins">Delfines</option>
-                          <option value="stars">Estrellas</option>
-                          <option value="nature1">Naturaleza</option>
-                        </select>
-                      </div>
-                      <div class="col-sm-12">
-                        <div class="video-preview">
-                          <video
-                            src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
-                            type="video/mp4"
-                            muted
-                            class="preview-vid"
-                            loop
-                          ></video>
-                        </div>
-                      </div>
+                  </div>
+
+                  <div class="image-background-alternative hide">
+                    <select
+                      id="image-select"
+                      class="form-select mb-3"
+                      aria-label="img select"
+                    >
+                      <option value="" selected>Ninguno</option>
+                      <option value="aesthetic-cafeteria">
+                        Aesthetic Cafeteria
+                      </option>
+                      <option value="aura">Aura</option>
+                      <option value="cozy-fireplace">Cozy Fireplace</option>
+                      <option value="dark-academia">Dark Academia</option>
+                      <option value="dreamy-clouds">Dreamy Clouds</option>
+                      <option value="fall-forest">Fall Forest</option>
+                      <option value="highway">Highway</option>
+                      <option value="nighttime-countryside">
+                        Nighttime Countryside
+                      </option>
+                      <option value="rainy-paris">Rainy Paris</option>
+                      <option value="seoul-sunrise">Seoul Sunrise</option>
+                      <option value="snowy-getaway">Snowy Getaway</option>
+                      <option value="tokyo-sakura">Tokyo Sakura</option>
+                    </select>
+
+                    <div class="video-preview mb-3">
+                      <video
+                        src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+                        type="video/mp4"
+                        muted
+                        class="preview-vid"
+                        loop
+                      ></video>
                     </div>
                   </div>
                 </div>
+
                 <div
                   class="tab-pane fade"
                   id="v-pills-notification"
@@ -386,7 +441,7 @@
                   tabindex="0"
                 >
                   <div>
-                    <p class="h6">
+                    <p class="h6 mb-3">
                       <i class="fa-regular fa-bell"></i> Notificaciones
                     </p>
                     <div class="form-check form-switch">
