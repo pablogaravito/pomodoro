@@ -140,101 +140,93 @@
                   aria-labelledby="v-pills-schedule-tab"
                   tabindex="0"
                 >
-                  <div>
-                    <div class="container-fluid">
-                      <div class="row">
-                        <p class="h6">
-                          <i class="fa-regular fa-clock"></i> Tiempo
-                        </p>
+                  <p class="h6 mb-3">
+                    <i class="fa-regular fa-clock"></i> Tiempo
+                  </p>
+                  <div class="container-fluid mb-3">
+                    <div class="row mb-2">
+                      <div class="col-6">
+                        <label
+                          class="timer-settings-label"
+                          for="pomodoro-setting"
+                          >Pomodoro</label
+                        >
                       </div>
-                      <div class="row">
-                        <div class="col-9">
-                          <label
-                            class="timer-settings-label"
-                            for="pomodoro-setting"
-                            >Pomodoro</label
-                          >
-                        </div>
-                        <div class="col-3">
-                          <input
-                            class="timer-settings-input"
-                            type="number"
-                            id="pomodoro-setting"
-                            name="pomodoro-setting"
-                            min="1"
-                            max="180"
-                          />
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-9">
-                          <label
-                            class="timer-settings-label"
-                            for="pomodoro-setting"
-                            >Descanso</label
-                          >
-                        </div>
-                        <div class="col-3">
-                          <input
-                            class="timer-settings-input"
-                            type="number"
-                            id="descanso-setting"
-                            name="descanso-setting"
-                            min="1"
-                            max="180"
-                          />
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-9">
-                          <label
-                            class="timer-settings-label"
-                            for="pomodoro-setting"
-                            >Descanso Largo</label
-                          >
-                        </div>
-                        <div class="col-3">
-                          <input
-                            class="timer-settings-input"
-                            type="number"
-                            id="descansolargo-setting"
-                            name="descansolargo-setting"
-                            min="1"
-                            max="180"
-                          />
-                        </div>
-                      </div>
-                      <div class="row form-check form-switch">
-                        <div class="col-12">
-                          <input
-                            class="form-check-input"
-                            type="checkbox"
-                            role="switch"
-                            id="pomodoros-autostart-checkbox"
-                          />
-                          <label
-                            class="form-check-label"
-                            for="pomodoros-autostart-checkbox"
-                            >Iniciar pomodoros automáticamente</label
-                          >
-                        </div>
-                      </div>
-                      <div class="row form-check form-switch">
-                        <div class="col-12">
-                          <input
-                            class="form-check-input"
-                            type="checkbox"
-                            role="switch"
-                            id="breaks-autostart-checkbox"
-                          />
-                          <label
-                            class="form-check-label"
-                            for="breaks-autostart-checkbox"
-                            >Iniciar descansos automáticamente</label
-                          >
-                        </div>
+                      <div class="col-6">
+                        <input
+                          class="timer-settings-input"
+                          type="number"
+                          id="pomodoro-setting"
+                          name="pomodoro-setting"
+                          min="1"
+                          max="180"
+                        />
                       </div>
                     </div>
+                    <div class="row mb-2">
+                      <div class="col-6">
+                        <label
+                          class="timer-settings-label"
+                          for="pomodoro-setting"
+                          >Descanso</label
+                        >
+                      </div>
+                      <div class="col-6">
+                        <input
+                          class="timer-settings-input"
+                          type="number"
+                          id="descanso-setting"
+                          name="descanso-setting"
+                          min="1"
+                          max="180"
+                        />
+                      </div>
+                    </div>
+                    <div class="row mb-2">
+                      <div class="col-6">
+                        <label
+                          class="timer-settings-label"
+                          for="pomodoro-setting"
+                          >Descanso Largo</label
+                        >
+                      </div>
+                      <div class="col-6">
+                        <input
+                          class="timer-settings-input"
+                          type="number"
+                          id="descansolargo-setting"
+                          name="descansolargo-setting"
+                          min="1"
+                          max="180"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-check form-switch mb-2">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      role="switch"
+                      id="pomodoros-autostart-checkbox"
+                    />
+                    <label
+                      class="form-check-label"
+                      for="pomodoros-autostart-checkbox"
+                      >Iniciar pomodoros automáticamente</label
+                    >
+                  </div>
+                  <div class="form-check form-switch mb-2">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      role="switch"
+                      id="breaks-autostart-checkbox"
+                    />
+                    <label
+                      class="form-check-label"
+                      for="breaks-autostart-checkbox"
+                      >Iniciar descansos automáticamente</label
+                    >
                   </div>
                 </div>
                 <!-- END Tiempos -->
@@ -246,61 +238,96 @@
                   aria-labelledby="v-pills-sound-tab"
                   tabindex="0"
                 >
-                  <div>
-                    <div class="container-fluid">
-                      <div class="row">
-                        <p class="h6">Sonidos</p>
-                      </div>
-                      <div class="row">
-                        <div class="col-12 d-flex p-2">
-                          <label for="back-audio" class="p-2">Fondo</label>
-                          <select
-                            class="form-select"
-                            id="audio-select"
-                            name="back-audio"
-                            aria-label="background audio select"
-                          >
-                            <option value="" selected>Ninguno</option>
-                            <option value="winner-rain">Lluvia y agua</option>
-                            <option value="light-rain">Lluvia ligera</option>
-                            <option value="rain-and-thunder">
-                              Lluvia y truenos
-                            </option>
-                            <option value="rain-with-birds">
-                              Lluvia y pájaros
-                            </option>
-                            <option value="soft-rain">Lluvia suave</option>
-                            <option value="alpha-waves">Alpha Waves</option>
-                          </select>
-                          <button class="preview-btn" id="preview-back-btn">
-                            <i class="fa-solid fa-circle-play"></i>
-                          </button>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-12 d-flex p-2">
-                          <label for="back-audio" class="p-2">Alarma</label>
-                          <select
-                            id="alarm-select"
-                            class="form-select"
-                            name="alarm-audio"
-                            aria-label="alarm audio select"
-                          >
-                            <option value="" selected>Ninguno</option>
-                            <option value="success-trumpets">Success</option>
-                            <option value="yay">Yay</option>
-                            <option value="call-to-attention">
-                              Call to attention
-                            </option>
-                            <option value="new-notification">
-                              Notification
-                            </option>
-                          </select>
-                          <button class="preview-btn" id="preview-alarm-btn">
-                            <i class="fa-solid fa-circle-play"></i>
-                          </button>
-                        </div>
-                      </div>
+                  <p class="h6"><i class="fa-solid fa-music"></i> Sonidos</p>
+
+                  <div class="mb-3">
+                    <label for="back-audio" class="form-label mb-1"
+                      >Fondo</label
+                    >
+                    <select
+                      class="form-select mb-1"
+                      id="audio-select"
+                      name="back-audio"
+                      aria-label="background audio select"
+                    >
+                      <option value="" selected>Ninguno</option>
+                      <option value="winner-rain">Lluvia y agua</option>
+                      <option value="light-rain">Lluvia ligera</option>
+                      <option value="rain-and-thunder">Lluvia y truenos</option>
+                      <option value="rain-with-birds">Lluvia y pájaros</option>
+                      <option value="soft-rain">Lluvia suave</option>
+                      <option value="alpha-waves">Alpha Waves</option>
+                    </select>
+                    <div class="range-and-button">
+                      <input
+                        type="range"
+                        class="form-range"
+                        id="range-background-sound"
+                      />
+                      <button class="preview-btn" id="preview-back-btn">
+                        <i class="fa-solid fa-circle-play"></i>
+                      </button>
+                    </div>
+                  </div>
+
+                  <div class="mb-3">
+                    <label for="alarm-audio" class="form-label mb-1"
+                      >Alarma</label
+                    >
+                    <select
+                      id="alarm-select"
+                      class="form-select mb-1"
+                      name="alarm-audio"
+                      aria-label="alarm audio select"
+                    >
+                      <option value="" selected>Ninguno</option>
+                      <option value="success-trumpets">Success</option>
+                      <option value="yay">Yay</option>
+                      <option value="call-to-attention">
+                        Call to attention
+                      </option>
+                      <option value="new-notification">Notification</option>
+                    </select>
+                    <div class="range-and-button">
+                      <input
+                        type="range"
+                        class="form-range"
+                        id="range-alarm-sound"
+                      />
+                      <button class="preview-btn" id="preview-alarm-btn">
+                        <i class="fa-solid fa-circle-play"></i>
+                      </button>
+                    </div>
+                  </div>
+
+                  <div class="mb-3">
+                    <label for="start-audio" class="form-label mb-1"
+                      >Inicio</label
+                    >
+                    <select
+                      id="start-select"
+                      class="form-select mb-1"
+                      name="start-audio"
+                      aria-label="alarm audio select"
+                    >
+                      <option value="" selected>Ninguno</option>
+                      <option value="go-go">Go Go!</option>
+                      <option value="hm-gou">Hmm... Go!</option>
+                      <option value="lets-go">Let's Go!</option>
+                      <option value="lets-go-strong">Let's Go!!!</option>
+                      <option value="robotic-countdown">
+                        Robotic Countdown
+                      </option>
+                    </select>
+                    <div class="range-and-button">
+                      <input
+                        type="range"
+                        class="form-range"
+                        id="range-start-sound"
+                      />
+                      <button class="preview-btn" id="preview-start-btn">
+                        <i class="fa-solid fa-circle-play"></i>
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -314,7 +341,9 @@
                 >
                   <div class="container-fluid">
                     <div class="row">
-                      <p class="h6">Video</p>
+                      <p class="h6">
+                        <i class="fa-regular fa-image"></i> Video
+                      </p>
                     </div>
                     <div class="row">
                       <div class="col-sm-12">
@@ -357,7 +386,9 @@
                   tabindex="0"
                 >
                   <div>
-                    <p class="h6">Notificaciones</p>
+                    <p class="h6">
+                      <i class="fa-regular fa-bell"></i> Notificaciones
+                    </p>
                     <div class="form-check form-switch">
                       <input
                         class="form-check-input"

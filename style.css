@@ -64,7 +64,7 @@ body {
 }
 
 .tabs {
-    height: 60vh;
+    height: 62vh;
     min-width: 575px;
     background-image: linear-gradient( 174.2deg,  rgba(255,244,228,1) 7.1%, rgba(240,246,238,1) 67.4% );
     box-shadow: 5px 5px 10px 5px #ccc;
@@ -72,17 +72,23 @@ body {
 }
 
 .tab-pane {
-    height: 45vh;
+    height: 53vh;
     min-width: 368px;
     padding: 0 20px;
 }
 
+.range-and-button {
+    display: flex;
+    justify-content: space-between;
+}
+
 .h6 {
-    font-size: 14px;
+    font-size: 17px;
     color: rgb(187, 187, 187);
     font-weight: bold;
     text-transform: uppercase;
     letter-spacing: 0.8px;
+    margin-top: 0;
     margin-bottom: 10px;
 }
 
