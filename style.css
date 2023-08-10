@@ -101,20 +101,6 @@ body {
     margin-right: 3px;
 }
 
-.timer-settings-container {
-    display: flex;
-    width: 350px;
-    justify-content: space-between;
-}
-
-.timer-settings {
-    display: flex;
-    min-width: 115px;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
 #timer {
     margin: 10px auto;
     font-size: 128px;

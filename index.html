@@ -143,18 +143,16 @@
                   <p class="h6 mb-3">
                     <i class="fa-regular fa-clock"></i> Tiempo
                   </p>
-                  <div class="container-fluid mb-3">
-                    <div class="row mb-2">
+                  <div class="container mb-3">
+                    <div class="row mb-3">
                       <div class="col-6">
-                        <label
-                          class="timer-settings-label"
-                          for="pomodoro-setting"
+                        <label class="form-label" for="pomodoro-setting"
                           >Pomodoro</label
                         >
                       </div>
-                      <div class="col-6">
+                      <div class="col-3">
                         <input
-                          class="timer-settings-input"
+                          class="form-control"
                           type="number"
                           id="pomodoro-setting"
                           name="pomodoro-setting"
@@ -163,17 +161,15 @@
                         />
                       </div>
                     </div>
-                    <div class="row mb-2">
+                    <div class="row mb-3">
                       <div class="col-6">
-                        <label
-                          class="timer-settings-label"
-                          for="pomodoro-setting"
+                        <label class="form-label" for="descanso-setting"
                           >Descanso</label
                         >
                       </div>
-                      <div class="col-6">
+                      <div class="col-3">
                         <input
-                          class="timer-settings-input"
+                          class="form-control"
                           type="number"
                           id="descanso-setting"
                           name="descanso-setting"
@@ -182,22 +178,37 @@
                         />
                       </div>
                     </div>
-                    <div class="row mb-2">
+                    <div class="row mb-3">
                       <div class="col-6">
-                        <label
-                          class="timer-settings-label"
-                          for="pomodoro-setting"
+                        <label class="form-label" for="descansolargo-setting"
                           >Descanso Largo</label
                         >
                       </div>
-                      <div class="col-6">
+                      <div class="col-3">
                         <input
-                          class="timer-settings-input"
+                          class="form-control"
                           type="number"
                           id="descansolargo-setting"
                           name="descansolargo-setting"
                           min="1"
                           max="180"
+                        />
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <div class="col-6">
+                        <label class="form-label" for="number-pomodoros-setting"
+                          ># Pomodoros para Descanso Largo</label
+                        >
+                      </div>
+                      <div class="col-3">
+                        <input
+                          class="form-control"
+                          type="number"
+                          id="number-pomodoros-setting"
+                          name="number-pomodoros-setting"
+                          min="1"
+                          max="10"
                         />
                       </div>
                     </div>
@@ -215,7 +226,7 @@
                       >Iniciar pomodoros automáticamente</label
                     >
                   </div>
-                  <div class="form-check form-switch mb-2">
+                  <div class="form-check form-switch mb-3">
                     <input
                       class="form-check-input"
                       type="checkbox"
