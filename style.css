@@ -61,8 +61,8 @@ body {
     min-width: 144px;
 }
 
-.preview-vid,
-.preview-img {
+#preview-vid,
+#preview-img {
     border: 2px solid black;
     /* margin: 5px 20px; */
     width: 300px;

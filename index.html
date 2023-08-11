@@ -276,6 +276,7 @@
                         type="range"
                         class="form-range"
                         id="range-background-sound"
+                        step="10"
                       />
                       <button class="preview-btn" id="preview-back-btn">
                         <i class="fa-solid fa-circle-play"></i>
@@ -306,6 +307,7 @@
                         type="range"
                         class="form-range"
                         id="range-alarm-sound"
+                        step="10"
                       />
                       <button class="preview-btn" id="preview-alarm-btn">
                         <i class="fa-solid fa-circle-play"></i>
@@ -346,6 +348,7 @@
                         type="range"
                         class="form-range"
                         id="range-start-sound"
+                        step="10"
                       />
                       <button class="preview-btn" id="preview-start-btn">
                         <i class="fa-solid fa-circle-play"></i>
@@ -413,10 +416,10 @@
 
                     <div class="video-preview mb-3">
                       <video
-                        src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+                        src=""
                         type="video/mp4"
                         muted
-                        class="preview-vid"
+                        id="preview-vid"
                         loop
                       ></video>
                     </div>
@@ -448,11 +451,7 @@
                     </select>
 
                     <div class="image-preview mb-3">
-                      <img
-                        src="res/img/tokyo-sakura.jpg"
-                        class="preview-img"
-                        alt="preview img"
-                      />
+                      <img src="" id="preview-img" alt="preview img" />
                     </div>
                   </div>
                 </div>
