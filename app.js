@@ -132,7 +132,7 @@ const saveSettings = () => {
 
 /* MULTIMEDIA */
 const multimediaStart = () => {
-    if (settings.video !== "") {
+    if (settings.video !== "" && settings.backgroundType === 1) {
         video.play();
     }
     if (settings.audio !== "") {
@@ -158,6 +158,10 @@ const multimediaReset = () => {
     } 
 }
 
+const convertVolume = (level) => {
+    return level/100;
+}
+
 const defineMultimedia = () => {
 
     setBackground();
@@ -165,29 +169,23 @@ const defineMultimedia = () => {
         audio.removeAttribute('src');
     } else {
         audio.src = `${backgroundAudiosPath}${settings.audio}.mp3`;
+        audio.volume = convertVolume(rangeBackgroundSound.value);
     }
 
     if (settings.alarm === "") {
         alarm.removeAttribute('src');
     } else {
         alarm.src = `${alarmAudiosPath}${settings.alarm}.mp3`;
+        alarm.volume = convertVolume(rangeAlarmSound.value);
     }
 
     if (settings.start === "") {
         start.removeAttribute('src');
     } else {
         start.src = `${startAudiosPath}${settings.start}.mp3`;
+        start.volume = convertVolume(rangeStartSound.value);
     }
 }
-    // if (settings.video === "") {
-    //     video.removeAttribute('src');
-    //     // video.style.display = 'none';
-        
-        
-    // } else {
-    //     video.style.display = 'block';
-    //     video.src = `${videosPath}${settings.video}.mp4`;
-    // }
 
 /* TIMER */
 const startTimer = () => {
@@ -361,7 +359,7 @@ previewStartBtn.addEventListener('mouseover', () => {
     }   
 });
 
-previewBackBtn.addEventListener('mouseout', () => {
+previewStartBtn.addEventListener('mouseout', () => {
     if (startSelect.value){
         start.pause();
         start.currentTime = 0;
@@ -531,13 +529,11 @@ const previewImgShow = () => {
 
 /* EXECUTION STARTS */
 
-
 readSettings();
 
 if (settings.notificationOn) {
     checkNotification();
 }
-
 
 window.addEventListener('load', () => {
     preloader.style.zIndex = -2;
