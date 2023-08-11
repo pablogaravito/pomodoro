@@ -3,11 +3,25 @@ const resetBtn = document.querySelector('#reset-btn');
 const timer = document.querySelector('#timer');
 const previewVid = document.querySelector('.preview-vid');
 const video = document.querySelector('.background-video');
+const image = document.querySelector('.background-image');
 const audio = document.querySelector('.background-audio');
 const alarm = document.querySelector('.alarm-audio');
+const start = document.querySelector('.start-audio');
 const audioSelect = document.querySelector('#audio-select');
 const videoSelect = document.querySelector('#video-select');
+const imageSelect = document.querySelector('#image-select');
 const alarmSelect = document.querySelector('#alarm-select');
+const startSelect = document.querySelector('#start-select');
+const pomodoroSetting = document.querySelector('#pomodoro-setting');
+const breakSetting = document.querySelector('#break-setting');
+const longBreakSetting = document.querySelector('#long-break-setting');
+const numPomodorosSetting = document.querySelector('#number-pomodoros-setting');
+const pomodoroAutoStartSwitch = document.querySelector('#pomodoro-autostart-switch');
+const breakAutoStartSwitch = document.querySelector('#break-autostart-switch');
+const notificationSwitch = document.querySelector('#notification-switch');
+const rangeBackgroundSound = document.querySelector('#range-background-sound');
+const rangeAlarmSound = document.querySelector('#range-alarm-sound');
+const rangeStartSound = document.querySelector('#range-start-sound');
 const preloader = document.querySelector('.preloader');
 const modal = document.querySelector('#settings-modal');
 // const modal = document.querySelector('.tabs');
@@ -16,6 +30,7 @@ const closeIcon = document.querySelector('.close-icon');
 const container = document.querySelector('.gral-container');
 const previewBackBtn = document.querySelector('#preview-back-btn');
 const previewAlarmBtn = document.querySelector('#preview-alarm-btn');
+const previewStartBtn = document.querySelector('#preview-start-btn');
 const videoBackgroundLabel = document.querySelector('#video-background-label');
 const videoBackgroundDiv = document.querySelector('.video-background-div');
 const videoBackgroundRadio = document.querySelector('#video-background-radio');
@@ -25,6 +40,7 @@ const imageBackgroundRadio = document.querySelector('#image-background-radio');
 const videosPath = "res/video/";
 const backgroundAudiosPath = "res/audio/background/";
 const alarmAudiosPath = "res/audio/alarm/";
+const startAudiosPath = "res/audio/start/";
 
 const headers = document.querySelector('.headers');
 const tabHeaders = document.querySelectorAll('.header');
@@ -34,24 +50,34 @@ const tabContent = document.querySelectorAll('.tab');
 
 const tabIndicator = document.querySelector('.tab-indicator');
 
-const defaultSettings = {
-    video: "nature1",
-    audio: "winner-rain",
-    alarm: "success-trumpets",
-    pomodoro: 25,
-    shortBreak: 3,
-    longBreak: 10
-};
+// const defaultSettings = {
+//     video: "nature1",
+//     audio: "winner-rain",
+//     alarm: "success-trumpets",
+//     pomodoro: 25,
+//     shortBreak: 3,
+//     longBreak: 10
+// };
 
 let isTimerActive = false;
 
 let settings = {
-    video: "", 
-    audio: "",
-    alarm: "",
-    pomodoro: 0,
-    shortBreak: 0,
-    longBreak: 0
+    video: "nature1", 
+    image: "tokyo-sakura",
+    audio: "winner-rain",
+    alarm: "success-trumpets",
+    start: "study-sonso",
+    pomodoro: 25,
+    shortBreak: 5,
+    longBreak: 15,
+    numPomodoros: 4,
+    pomodoroAutoStart: false,
+    breakAutoStart: true,
+    backgroundType: 0,
+    audioVolume: 50,
+    alarmVolume: 90,
+    startVolume: 80,
+    notificationOn: true
 };
 
 let interval;
@@ -83,13 +109,18 @@ const transformTime = () => {
 
 /* SETTINGS */
 const readSettings = () => {
-    if (localStorage.getItem('settings') === null) {
-        settings.video = defaultSettings.video;
-        settings.audio = defaultSettings.audio;
-        settings.alarm = defaultSettings.alarm;
-    } else {
+    // if (localStorage.getItem('settings') === null) {
+    //     settings.video = defaultSettings.video;
+    //     settings.audio = defaultSettings.audio;
+    //     settings.alarm = defaultSettings.alarm;
+    // } else {
+    //     settings = JSON.parse(localStorage.getItem('settings'));
+    // }
+
+    if (localStorage.getItem('settings') !== null) {
         settings = JSON.parse(localStorage.getItem('settings'));
     }
+
     defineMultimedia();
 }
 
@@ -126,15 +157,8 @@ const multimediaReset = () => {
 }
 
 const defineMultimedia = () => {
-    if (settings.video === "") {
-        video.removeAttribute('src');
-        video.style.display = 'none';
-        
-    } else {
-        video.style.display = 'block';
-        video.src = `${videosPath}${settings.video}.mp4`;
-    }
 
+    setBackground();
     if (settings.audio === "") {
         audio.removeAttribute('src');
     } else {
@@ -146,7 +170,22 @@ const defineMultimedia = () => {
     } else {
         alarm.src = `${alarmAudiosPath}${settings.alarm}.mp3`;
     }
+
+    if (settings.start === "") {
+        start.removeAttribute('src');
+    } else {
+        start.src = `${startAudiosPath}${settings.start}.mp3`;
+    }
 }
+    // if (settings.video === "") {
+    //     video.removeAttribute('src');
+    //     // video.style.display = 'none';
+        
+        
+    // } else {
+    //     video.style.display = 'block';
+    //     video.src = `${videosPath}${settings.video}.mp4`;
+    // }
 
 /* TIMER */
 const startTimer = () => {
@@ -277,9 +316,18 @@ audioSelect.addEventListener('change', () => {
     }
 });
 
+startSelect.addEventListener('change', () => {
+    //previewBackgroundAudio();
+    if (startSelect.value === '') {
+        previewStartBtn.disabled = true;
+    } else {
+        previewStartBtn.disabled = false;
+    }
+});
+
 previewAlarmBtn.addEventListener('mouseover', () => {
     if (alarmSelect.value){
-        previewAlarm();
+        previewAlarmAudio();
         alarm.play();       
     }   
 });
@@ -305,20 +353,29 @@ previewBackBtn.addEventListener('mouseout', () => {
     }
 });
 
+previewStartBtn.addEventListener('mouseover', () => {
+    if (startSelect.value){
+        previewStartAudio();
+        start.play();       
+    }   
+});
+
+previewBackBtn.addEventListener('mouseout', () => {
+    if (startSelect.value){
+        start.pause();
+        start.currentTime = 0;
+    }
+});
+
+
 imageBackgroundLabel.addEventListener('click', () => {
-    // if (imageBackgroundRadio.checked) {
-        
-    // }
     imageBackgroundDiv.classList.remove('hide');
-        videoBackgroundDiv.classList.add('hide');
+    videoBackgroundDiv.classList.add('hide');
 });
 
 videoBackgroundLabel.addEventListener('click', () => {
-    // if (videoBackgroundRadio.checked) {
-        
-    // }
     imageBackgroundDiv.classList.add('hide');
-        videoBackgroundDiv.classList.remove('hide');
+    videoBackgroundDiv.classList.remove('hide');
 });
 
 videoSelect.addEventListener('change', () => {
@@ -343,15 +400,49 @@ const playAlarm = () => {
     alarm.play();
 }
 
+const setBackground = () => {
+    if (settings.backgroundType === 0) {
+        image.classList.remove('hide');
+        video.classList.add('hide');
+    } else {
+        image.classList.add('hide');
+        video.classList.remove('hide');
+    }
+}
+
 const openSettings = () => {
+    console.log('triggered');
     if (isTimerActive) {
         multimediaStop();
         stopTimer();
     }
+    console.log(settings);
     videoSelect.value = settings.video;
     previewVidShow();
     audioSelect.value = settings.audio;
     alarmSelect.value = settings.alarm;
+    startSelect.value = settings.start;
+    imageSelect.value = settings.image;
+    pomodoroSetting.value = settings.pomodoro;
+    breakSetting.value = settings.shortBreak;
+    longBreakSetting.value = settings.longBreak;
+    numPomodorosSetting.value = settings.numPomodoros;
+    pomodoroAutoStartSwitch.checked = settings.pomodoroAutoStart;
+    breakAutoStartSwitch.checked = settings.breakAutoStart;
+    notificationSwitch.checked = settings.notificationOn;
+    rangeBackgroundSound.value = settings.alarmVolume;
+    rangeAlarmSound.value = settings.alarmVolume;
+    rangeStartSound.value = settings.startVolume;
+    if (settings.backgroundType === 0) {
+        imageBackgroundRadio.checked = true;
+        imageBackgroundDiv.classList.remove('hide');
+        videoBackgroundDiv.classList.add('hide');    
+    } else {
+        videoBackgroundRadio.checked = true;
+        imageBackgroundDiv.classList.add('hide');
+        videoBackgroundDiv.classList.remove('hide');
+    }
+   
 }
 
 const closeModalAndUpdate = () => {
@@ -362,7 +453,7 @@ const closeModalAndUpdate = () => {
     saveSettings();
  }
 
-const previewAlarm = () => {
+const previewAlarmAudio = () => {
     if (alarmSelect.value === "") {
         alarm.removeAttribute('src');     
     } else {
@@ -378,6 +469,15 @@ const previewBackgroundAudio = () => {
     }
 }
 
+const previewStartAudio = () => {
+    if (startSelect.value === "") {
+        start.removeAttribute('src');     
+    } else {
+        start.src = `${startAudiosPath}${startSelect.value}.mp3`;
+    }
+}
+
+
 const previewVidShow = () => {
     if (videoSelect.value === "") {
         previewVid.removeAttribute('src');
@@ -389,9 +489,14 @@ const previewVidShow = () => {
 }
 
 /* EXECUTION STARTS */
-checkNotification();
+
 
 readSettings();
+
+if (settings.notificationOn) {
+    checkNotification();
+}
+
 
 window.addEventListener('load', () => {
     preloader.style.zIndex = -2;
