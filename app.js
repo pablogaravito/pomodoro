@@ -5,9 +5,9 @@ const previewVid = document.querySelector('#preview-vid');
 const previewImg = document.querySelector('#preview-img');
 const video = document.querySelector('.background-video');
 const image = document.querySelector('.background-image');
-const audio = document.querySelector('.background-audio');
-const alarm = document.querySelector('.alarm-audio');
-const start = document.querySelector('.start-audio');
+const backAudio = document.querySelector('.background-audio');
+const alarmAudio = document.querySelector('.alarm-audio');
+const startAudio = document.querySelector('.start-audio');
 const audioSelect = document.querySelector('#audio-select');
 const videoSelect = document.querySelector('#video-select');
 const imageSelect = document.querySelector('#image-select');
@@ -25,7 +25,6 @@ const rangeAlarmSound = document.querySelector('#range-alarm-sound');
 const rangeStartSound = document.querySelector('#range-start-sound');
 const preloader = document.querySelector('.preloader');
 const modal = document.querySelector('#settings-modal');
-// const modal = document.querySelector('.tabs');
 const settingsBtn = document.querySelector('#settings-btn');
 const closeIcon = document.querySelector('.close-icon');
 const container = document.querySelector('.gral-container');
@@ -138,7 +137,7 @@ const multimediaStart = () => {
         video.play();
     }
     if (settings.audio !== "") {
-        audio.play();
+        backAudio.play();
     } 
 }
 
@@ -147,7 +146,7 @@ const multimediaStop = () => {
         video.pause();
     }
     if (settings.audio !== "") {
-        audio.pause();
+        backAudio.pause();
     } 
 }
 
@@ -156,7 +155,7 @@ const multimediaReset = () => {
         video.currentTime = 0;
     }
     if (settings.audio !== "") {
-        audio.currentTime = 0;
+        backAudio.currentTime = 0;
     } 
 }
 
@@ -168,37 +167,36 @@ const defineMultimedia = () => {
 
     setBackground();
     if (settings.audio === "") {
-        audio.removeAttribute('src');
+        backAudio.removeAttribute('src');
     } else {
-        audio.src = `${backgroundAudiosPath}${settings.audio}.mp3`;
-        audio.volume = convertVolume(rangeBackgroundSound.value);
+        backAudio.src = `${backgroundAudiosPath}${settings.audio}.mp3`;
+        backAudio.volume = convertVolume(rangeBackgroundSound.value);
     }
 
     if (settings.alarm === "") {
-        alarm.removeAttribute('src');
+        alarmAudio.removeAttribute('src');
     } else {
-        alarm.src = `${alarmAudiosPath}${settings.alarm}.mp3`;
-        alarm.volume = convertVolume(rangeAlarmSound.value);
+        alarmAudio.src = `${alarmAudiosPath}${settings.alarm}.mp3`;
+        alarmAudio.volume = convertVolume(rangeAlarmSound.value);
     }
 
     if (settings.start === "") {
-        start.removeAttribute('src');
+        startAudio.removeAttribute('src');
     } else {
-        start.src = `${startAudiosPath}${settings.start}.mp3`;
-        start.volume = convertVolume(rangeStartSound.value);
+        startAudio.src = `${startAudiosPath}${settings.start}.mp3`;
+        startAudio.volume = convertVolume(rangeStartSound.value);
     }
 }
 
 /* TIMER */
-const startTimer = () => {
+const startTimer = async () => {
     isTimerActive = true;
     startPauseBtn.innerText = 'Pause';
+
     if (settings.start !== "") {
-        playStart();
+        await playStartAudio();
     }
-    //startBtn.disabled = true;
-    //stopBtn.disabled = false;
-    //resetBtn.disabled = false;
+
     multimediaStart();
     
     interval = setInterval(() => {
@@ -213,7 +211,7 @@ const startTimer = () => {
                 alert("Time's up");
             }
             if (settings.alarm !== "") {
-                playAlarm();
+                alarmAudio.play();
             }
             //timeLeft = 1500;
         }
@@ -293,7 +291,6 @@ settingsBtn.addEventListener('click', () => {
 });
 
 alarmSelect.addEventListener('change', () => {
-    //previewAlarm();
     if (alarmSelect.value === '') {
         previewAlarmBtn.disabled = true;
     } else {
@@ -302,7 +299,6 @@ alarmSelect.addEventListener('change', () => {
 });
 
 audioSelect.addEventListener('change', () => {
-    //previewBackgroundAudio();
     if (audioSelect.value === '') {
         previewBackBtn.disabled = true;
     } else {
@@ -311,7 +307,6 @@ audioSelect.addEventListener('change', () => {
 });
 
 startSelect.addEventListener('change', () => {
-    //previewBackgroundAudio();
     if (startSelect.value === '') {
         previewStartBtn.disabled = true;
     } else {
@@ -319,47 +314,42 @@ startSelect.addEventListener('change', () => {
     }
 });
 
-previewAlarmBtn.addEventListener('mouseover', () => {
-    if (alarmSelect.value){
-        previewAlarmAudio();
-        alarm.play();       
-    }   
+previewStartBtn.addEventListener('click', () => {
+    const audio = new Audio(`${startAudiosPath}${startSelect.value}.mp3`);
+    audio.play();
+    setTimeout(() => {
+        if (!audio.paused || audio.currentTime) {
+            audio.pause();
+        }      
+      }, "5000");
 });
 
-previewAlarmBtn.addEventListener('mouseout', () => {
-    if (alarmSelect.value){
-        alarm.pause();
-        alarm.currentTime = 0;
-    }
+previewBackBtn.addEventListener('click', () => {
+    const audio = new Audio(`${backgroundAudiosPath}${audioSelect.value}.mp3`);
+    audio.play();
+    setTimeout(() => {
+        if (!audio.paused || audio.currentTime) {
+            audio.pause();
+        }      
+      }, "5000");
 });
 
-previewBackBtn.addEventListener('mouseover', () => {
-    if (audioSelect.value){
-        previewBackgroundAudio();
-        audio.play();       
-    }   
+previewAlarmBtn.addEventListener('click', () => {
+    const audio = new Audio(`${alarmAudiosPath}${alarmSelect.value}.mp3`);
+    audio.play();
+    setTimeout(() => {
+        if (!audio.paused || audio.currentTime) {
+            audio.pause();
+        }      
+      }, "5000");
 });
 
-previewBackBtn.addEventListener('mouseout', () => {
-    if (audioSelect.value){
-        audio.pause();
-        audio.currentTime = 0;
-    }
-});
-
-previewStartBtn.addEventListener('mouseover', () => {
-    if (startSelect.value){
-        previewStartAudio();
-        start.play();       
-    }   
-});
-
-previewStartBtn.addEventListener('mouseout', () => {
-    if (startSelect.value){
-        start.pause();
-        start.currentTime = 0;
-    }
-});
+const playStartAudio = () => {
+    return new Promise(res=>{
+        startAudio.play();
+        startAudio.onended = res;
+      });
+};
 
 imageBackgroundLabel.addEventListener('click', () => {
     imageBackgroundDiv.classList.remove('hide');
@@ -395,13 +385,6 @@ previewVid.addEventListener('mouseout', () => {
 });
 
 /* MISC */
-const playAlarm = () => {
-    alarm.play();
-}
-
-const playStart = () => {
-    start.play();
-}
 
 const setBackground = () => {
     if (settings.backgroundType === 0) {
@@ -416,7 +399,7 @@ const setBackground = () => {
 }
 
 const openSettings = () => {
-    console.log('triggered');
+    
     if (isTimerActive) {
         multimediaStop();
         stopTimer();
@@ -476,36 +459,11 @@ const closeModalAndUpdate = () => {
     saveSettings();
  }
 
-const previewAlarmAudio = () => {
-    if (alarmSelect.value === "") {
-        alarm.removeAttribute('src');     
-    } else {
-        alarm.src = `${alarmAudiosPath}${alarmSelect.value}.mp3`;
-    }
-}
-
-const previewBackgroundAudio = () => {
-    if (audioSelect.value === "") {
-        audio.removeAttribute('src');     
-    } else {
-        audio.src = `${backgroundAudiosPath}${audioSelect.value}.mp3`;
-    }
-}
-
-const previewStartAudio = () => {
-    if (startSelect.value === "") {
-        start.removeAttribute('src');     
-    } else {
-        start.src = `${startAudiosPath}${startSelect.value}.mp3`;
-    }
-}
-
 const previewVidShow = () => {
     if (videoSelect.value === "") {
         previewVid.removeAttribute('src');
         previewVid.classList.add('hide');
     } else {
-        //previewVid.style.display = 'block';
         previewVid.classList.remove('hide');
         previewVid.src = `${videosPath}min/${videoSelect.value}_min.mp4`;
     }
