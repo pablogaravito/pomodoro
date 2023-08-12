@@ -62,6 +62,8 @@ const tabIndicator = document.querySelector('.tab-indicator');
 // };
 
 let isTimerActive = false;
+let isStarted = false;
+
 
 let settings = {
     video: "nature1", 
@@ -221,9 +223,6 @@ const startTimer = () => {
 
 const stopTimer = () => {
     clearInterval(interval);
-    // startBtn.disabled = false;
-    // stopBtn.disabled = true;
-    // resetBtn.disabled = false;
     multimediaStop();
     isTimerActive = false;
     startPauseBtn.innerText = 'Start';
@@ -234,9 +233,6 @@ const resetTimer = () => {
     timeLeft = 5;
     transformTime();
     multimediaReset();
-    // startBtn.disabled = false;
-    // stopBtn.disabled = true;
-    // resetBtn.disabled = true;
     isTimerActive = false;
 }
 
@@ -263,7 +259,6 @@ const showNotification = () => {
 }
 
 const checkNotification = () => {
-    let notifyPermission;
     if (Notification.permission === "granted") {
         notificationsAllowed = true;
     } else if (Notification.permission !== "denied") {
@@ -365,7 +360,6 @@ previewStartBtn.addEventListener('mouseout', () => {
         start.currentTime = 0;
     }
 });
-
 
 imageBackgroundLabel.addEventListener('click', () => {
     imageBackgroundDiv.classList.remove('hide');
