@@ -43,26 +43,7 @@ const backgroundAudiosPath = "res/audio/background/";
 const alarmAudiosPath = "res/audio/alarm/";
 const startAudiosPath = "res/audio/start/";
 
-const headers = document.querySelector('.headers');
-const tabHeaders = document.querySelectorAll('.header');
-
-const contentContainer = document.querySelector('.tab-content-container') ;
-const tabContent = document.querySelectorAll('.tab');
-
-const tabIndicator = document.querySelector('.tab-indicator');
-
-// const defaultSettings = {
-//     video: "nature1",
-//     audio: "winner-rain",
-//     alarm: "success-trumpets",
-//     pomodoro: 25,
-//     shortBreak: 3,
-//     longBreak: 10
-// };
-
 let isTimerActive = false;
-let isStarted = false;
-
 
 let settings = {
     video: "nature1", 
@@ -87,18 +68,6 @@ let interval;
 let notificationsAllowed = false;
 //let timeLeft = 1500;
 let timeLeft = 5;
-
-for (let i=0; i < tabHeaders.length; i++) {
-    tabHeaders[i].addEventListener('click', function () {
-        headers.getElementsByClassName('active')[0].classList.remove('active');
-        tabHeaders[i].classList.add('active');
-
-        tabIndicator.style.top = `calc(80px + ${i*50}px)`;
-
-        contentContainer.getElementsByClassName('active')[0].classList.remove('active');
-        tabContent[i].classList.add('active');
-     });
-}
 
 /* FORMAT TIME */
 const padTime = (time) => {
@@ -316,6 +285,7 @@ startSelect.addEventListener('change', () => {
 
 previewStartBtn.addEventListener('click', () => {
     const audio = new Audio(`${startAudiosPath}${startSelect.value}.mp3`);
+    audio.volume = convertVolume(rangeStartSound.value);
     audio.play();
     setTimeout(() => {
         if (!audio.paused || audio.currentTime) {
@@ -326,6 +296,7 @@ previewStartBtn.addEventListener('click', () => {
 
 previewBackBtn.addEventListener('click', () => {
     const audio = new Audio(`${backgroundAudiosPath}${audioSelect.value}.mp3`);
+    audio.volume = convertVolume(rangeBackgroundSound.value);
     audio.play();
     setTimeout(() => {
         if (!audio.paused || audio.currentTime) {
@@ -336,12 +307,17 @@ previewBackBtn.addEventListener('click', () => {
 
 previewAlarmBtn.addEventListener('click', () => {
     const audio = new Audio(`${alarmAudiosPath}${alarmSelect.value}.mp3`);
+    audio.volume = convertVolume(rangeAlarmSound.value);
     audio.play();
     setTimeout(() => {
         if (!audio.paused || audio.currentTime) {
             audio.pause();
         }      
       }, "5000");
+});
+
+rangeBackgroundSound.addEventListener('change', () => {
+    backAudio.volume = convertVolume(rangeBackgroundSound.value);
 });
 
 const playStartAudio = () => {
@@ -382,6 +358,9 @@ previewVid.addEventListener('mouseout', () => {
     if (previewVid.src){
         previewVid.pause();
     }
+    // if (!audio.paused || audio.currentTime) {
+    //     audio.pause();
+    // }     
 });
 
 /* MISC */
@@ -419,7 +398,7 @@ const openSettings = () => {
     pomodoroAutoStartSwitch.checked = settings.pomodoroAutoStart;
     breakAutoStartSwitch.checked = settings.breakAutoStart;
     notificationSwitch.checked = settings.notificationOn;
-    rangeBackgroundSound.value = settings.alarmVolume;
+    rangeBackgroundSound.value = settings.audioVolume;
     rangeAlarmSound.value = settings.alarmVolume;
     rangeStartSound.value = settings.startVolume;
     if (settings.backgroundType === 0) {
