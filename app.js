@@ -104,8 +104,7 @@ let settings = {
 
 let interval;
 let notificationsAllowed = false;
-//let timeLeft = 1500;
-let timeLeft = 15;
+let timeLeft = 0;
 
 /* FORMAT TIME */
 const padTime = (time) => {
@@ -122,6 +121,7 @@ const readSettings = () => {
     if (localStorage.getItem('settings') !== null) {
         settings = JSON.parse(localStorage.getItem('settings'));
     }
+    timeLeft = settings.pomodoro * 60;
 
     updateMultimedia();
 }
@@ -243,11 +243,36 @@ const stopTimer = () => {
 
 const resetTimer = () => {
     stopTimer();
-    timeLeft = 5;
+    switch (currentMode) {
+        case 1:
+            time
+    }
     transformTime();
     multimediaReset();
     currentStatus = 0;
 }
+
+const setTimer = () => {
+    if (currentStatus === 1) {
+        stopTimer();
+    }
+    switch (currentMode) {
+        case 1:
+            timeLeft = settings.pomodoro * 60;
+            break;
+        
+        case 2:
+            timeLeft = settings.shortBreak * 60;
+            break;
+        
+        case 3:
+            timeLeft = settings.longBreak * 60;
+    }
+
+    transformTime();
+}
+
+
 
 const startOrPause = async () => {
     switch (currentStatus) {
@@ -430,6 +455,7 @@ pomodoroBtn.addEventListener('click', () => {
     pomodoroBtn.classList.add('active-mode');
     breakBtn.classList.remove('active-mode');
     longBreakBtn.classList.remove('active-mode');
+    setTimer();
 });
 
 breakBtn.addEventListener('click', () => {
@@ -437,6 +463,7 @@ breakBtn.addEventListener('click', () => {
     breakBtn.classList.add('active-mode');
     pomodoroBtn.classList.remove('active-mode');
     longBreakBtn.classList.remove('active-mode');
+    setTimer();
 });
 
 longBreakBtn.addEventListener('click', () => {
@@ -444,6 +471,7 @@ longBreakBtn.addEventListener('click', () => {
     longBreakBtn.classList.add('active-mode');
     breakBtn.classList.remove('active-mode');
     pomodoroBtn.classList.remove('active-mode');
+    setTimer();
 });
 
 /* MISC */
