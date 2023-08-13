@@ -1,7 +1,8 @@
 body {
     margin: 0;
     padding: 0;
-    font-family: "Space Grotesk",sans-serif;
+    /* font-family: "Space Grotesk",sans-serif; */
+    font-family: 'Poppins', sans-serif;
     height: 100vh;
 }
 
@@ -83,7 +84,7 @@ body {
 
 .tabs {
     height: 62vh;
-    min-width: 575px;
+    min-width: 577px;
     background-image: linear-gradient( 174.2deg,  rgba(255,244,228,1) 7.1%, rgba(240,246,238,1) 67.4% );
     box-shadow: 5px 5px 10px 5px #ccc;
     overflow: hidden;
@@ -91,7 +92,7 @@ body {
 
 .tab-pane {
     height: 53vh;
-    min-width: 368px;
+    min-width: 380px;
     padding: 0 20px;
 }
 
@@ -117,15 +118,19 @@ body {
 .pill-buttons-column {
     border-right: 1px solid rgb(187, 187, 187);
     margin-right: 3px;
+    min-width: 170px;
 }
 
 #timer {
     margin: 25px auto;
-    font-size: 128px;
+    /* font-size: 128px; */
     color: white;    
     letter-spacing: -0.25rem;
-    line-height: 1;;
+    line-height: 1.15;
     font-variant-numeric: tabular-nums;
+    font-family: 'Poppins', sans-serif;
+    font-size: 8rem;
+
 }
 
 .main-button {
@@ -165,16 +170,19 @@ body {
     border-radius: 500px;
     min-width: 128px;
     text-transform: lowercase;
-    padding: 0;
+    /* padding: 1rem; */
     font-size: 1.5rem;
     
     transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
     text-align: center;
     vertical-align: middle;
     user-select: none;
-    font-weight: 500;
+    font-weight: 400;
     line-height: 1.25;
-    height: 60px;
+    height: 44px;
+
+    /* padding: 0.5rem 1rem; */
+    
 }
 
 .mode-button {
@@ -184,16 +192,17 @@ body {
     border-radius: 500px;
     min-width: 125px;
     text-transform: lowercase;
-    padding: 5px 15px;
+    /* padding: 0.5rem 1rem; */
     margin: 0 5px;
-    font-size: 1.5rem;
+    font-size: 1.125rem;
+    line-height: 1.5rem;
     
     transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
     text-align: center;
     vertical-align: middle;
     user-select: none;
     font-weight: 400;
-    line-height: 1.15;
+    
     height: 44px;
 }
 
@@ -204,11 +213,11 @@ body {
     /* background-color: rgba(0,0,0,0); */
     /* border-color: #fff; */
 }
-#start-pause-btn:focus,
+/* #start-pause-btn:focus,
 .mode-button:focus {
     outline: 0;
     box-shadow: 0 0 0 0.2rem rgba(7,78,120,.25);
-}
+} */
 
 .active-mode {
     color: #000;

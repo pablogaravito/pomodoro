@@ -1,49 +1,83 @@
+//BUTTONS
+
+//Main-Buttons
 const startPauseBtn = document.querySelector('#start-pause-btn');
 const resetBtn = document.querySelector('#reset-btn');
-const timer = document.querySelector('#timer');
+const settingsBtn = document.querySelector('#settings-btn');
+
+//Mode-Buttons
+const pomodoroBtn = document.querySelector('#pomodoro-mode');
+const breakBtn = document.querySelector('#break-mode');
+const longBreakBtn = document.querySelector('#long-break-mode');
+
+//Preview Buttons
+const previewBackBtn = document.querySelector('#preview-back-btn');
+const previewAlarmBtn = document.querySelector('#preview-alarm-btn');
+const previewStartBtn = document.querySelector('#preview-start-btn');
+
+const closeIcon = document.querySelector('.close-icon');
+
+//MULTIMEDIA
+
+//Img and Videos
 const previewVid = document.querySelector('#preview-vid');
 const previewImg = document.querySelector('#preview-img');
 const video = document.querySelector('.background-video');
 const image = document.querySelector('.background-image');
+
+//Audios
 const backAudio = document.querySelector('#background-audio');
 const alarmAudio = document.querySelector('#alarm-audio');
 const startAudio = document.querySelector('#start-audio');
+
+const timer = document.querySelector('#timer');
+
+//CONTROLS
+
+//Selects
 const audioSelect = document.querySelector('#audio-select');
 const videoSelect = document.querySelector('#video-select');
 const imageSelect = document.querySelector('#image-select');
 const alarmSelect = document.querySelector('#alarm-select');
 const startSelect = document.querySelector('#start-select');
+
+//Inputs
 const pomodoroSetting = document.querySelector('#pomodoro-setting');
 const breakSetting = document.querySelector('#break-setting');
 const longBreakSetting = document.querySelector('#long-break-setting');
 const numPomodorosSetting = document.querySelector('#number-pomodoros-setting');
+
+//Switchs
 const pomodoroAutoStartSwitch = document.querySelector('#pomodoro-autostart-switch');
 const breakAutoStartSwitch = document.querySelector('#break-autostart-switch');
 const notificationSwitch = document.querySelector('#notification-switch');
+
+//Ranges
 const rangeBackgroundSound = document.querySelector('#range-background-sound');
 const rangeAlarmSound = document.querySelector('#range-alarm-sound');
 const rangeStartSound = document.querySelector('#range-start-sound');
+
+//COMPONENTS
 const preloader = document.querySelector('.preloader');
 const modal = document.querySelector('#settings-modal');
-const settingsBtn = document.querySelector('#settings-btn');
-const closeIcon = document.querySelector('.close-icon');
+
+
 const container = document.querySelector('.gral-container');
-const previewBackBtn = document.querySelector('#preview-back-btn');
-const previewAlarmBtn = document.querySelector('#preview-alarm-btn');
-const previewStartBtn = document.querySelector('#preview-start-btn');
+
 const videoBackgroundLabel = document.querySelector('#video-background-label');
 const videoBackgroundDiv = document.querySelector('.video-background-div');
 const videoBackgroundRadio = document.querySelector('#video-background-radio');
 const imageBackgroundLabel = document.querySelector('#image-background-label');
 const imageBackgroundDiv = document.querySelector('.image-background-div');
 const imageBackgroundRadio = document.querySelector('#image-background-radio');
+
+//PATHS
 const videosPath = "res/video/";
 const imagesPath = "res/img/"
 const backgroundAudiosPath = "res/audio/background/";
 const alarmAudiosPath = "res/audio/alarm/";
 const startAudiosPath = "res/audio/start/";
 
-let isTimerActive = false;
 
 // let currentStatus = 0; //0: idle; 1: pomodoro; 2: break; 3: long-break
 let currentStatus = 0; //0: idle; 1: active; 2: paused;
@@ -128,9 +162,7 @@ const convertVolume = (level) => {
     return level/100;
 }
 
-const defineMultimedia = () => {
-
-    setBackground();
+const updateAudio = () => {
     if (settings.audio === "") {
         backAudio.removeAttribute('src');
     } else {
@@ -151,6 +183,12 @@ const defineMultimedia = () => {
         startAudio.src = `${startAudiosPath}${settings.start}.mp3`;
         startAudio.volume = convertVolume(rangeStartSound.value);
     }
+}
+
+const defineMultimedia = () => {
+    setBackground();
+
+    updateAudio();    
 }
 
 /* TIMER */
@@ -174,6 +212,7 @@ const startTimer = () => {
                 alarmAudio.play();
             }
             //timeLeft = 1500;
+            currentStatus = 0;
         }
         transformTime();
     }, 1000);
@@ -191,16 +230,10 @@ const resetTimer = () => {
     timeLeft = 5;
     transformTime();
     multimediaReset();
-    // isTimerActive = false;
     currentStatus = 0;
 }
 
 const startOrPause = async () => {
-    // if (isTimerActive) {
-    //     stopTimer();
-    // } else {
-    //     startTimer();
-    // }
     switch (currentStatus) {
         case 0: 
             if (settings.start !== "") {
@@ -216,19 +249,6 @@ const startOrPause = async () => {
         case 2:
             startTimer();     
     }
-
-    // if (currentStatus === 0) {
-    //     if (settings.start !== "") {
-    //         await playStartAudio();
-    //     }
-    //     startPauseBtn.innerText = 'Pause';
-    //     startTimer();
-    // } else if (currentStatus === 2) {
-    //     startTimer();
-    // } else if  {
-    //     stopTimer();
-    // }
-
 }
 
 /* NOTIFICATION */
@@ -262,11 +282,9 @@ const checkNotification = () => {
 
 /* EVENT LISTENERS */
 window.addEventListener('focus', () => {
-    if (!isTimerActive) {
-        multimediaStop();
-        defineMultimedia();
-        multimediaReset();
-    }
+    if (currentStatus === 0) {
+        setBackground();
+    }   
 });
 
 modal.addEventListener('hidden.bs.modal', () => {
@@ -340,6 +358,14 @@ rangeBackgroundSound.addEventListener('change', () => {
     backAudio.volume = convertVolume(rangeBackgroundSound.value);
 });
 
+rangeAlarmSound.addEventListener('change', () => {
+    alarmAudio.volume = convertVolume(rangeAlarmSound.value);
+});
+
+rangeStartSound.addEventListener('change', () => {
+    startAudio.volume = convertVolume(rangeStartSound.value);
+})
+
 const playStartAudio = () => {
     return new Promise(res=>{
         startAudio.play();
@@ -383,27 +409,58 @@ previewVid.addEventListener('mouseout', () => {
     // }     
 });
 
+pomodoroBtn.addEventListener('click', () => {
+    currentMode = 1;
+    pomodoroBtn.classList.add('active-mode');
+    breakBtn.classList.remove('active-mode');
+    longBreakBtn.classList.remove('active-mode');
+});
+
+breakBtn.addEventListener('click', () => {
+    currentMode = 2;
+    breakBtn.classList.add('active-mode');
+    pomodoroBtn.classList.remove('active-mode');
+    longBreakBtn.classList.remove('active-mode');
+});
+
+longBreakBtn.addEventListener('click', () => {
+    currentMode = 3;
+    longBreakBtn.classList.add('active-mode');
+    breakBtn.classList.remove('active-mode');
+    pomodoroBtn.classList.remove('active-mode');
+});
+
 /* MISC */
+
+const setBasicBackground = () => {
+    document.body.style.backgroundColor = 'black';
+    image.classList.add('hide');
+    video.classList.add('hide');
+}
 
 const setBackground = () => {
     if (settings.backgroundType === 0) {
         image.classList.remove('hide');
         video.classList.add('hide');
-        image.src = `${imagesPath}${settings.image}.jpg`;
+        if (settings.image) {
+            image.src = `${imagesPath}${settings.image}.jpg`;          
+        } else {
+            setBasicBackground();
+        }
+        
     } else {
         image.classList.add('hide');
         video.classList.remove('hide');
-        video.src = `${videosPath}${settings.video}.mp4`;
+        if (settings.video) {
+            video.src = `${videosPath}${settings.video}.mp4`;
+        } else {
+            setBasicBackground();
+        }
     }
+        
 }
 
 const openSettings = () => {
-    
-    // if (isTimerActive) {
-    //     multimediaStop();
-    //     stopTimer();
-    // }
-
     videoSelect.value = settings.video;
     previewVidShow();
     imageSelect.value = settings.image;
@@ -433,9 +490,9 @@ const openSettings = () => {
 }
 
 const closeModalAndUpdate = () => {
-    settings.video = videoSelect.value;
+    
     settings.image = imageSelect.value;
-    settings.audio = audioSelect.value;
+    
     settings.alarm = alarmSelect.value;
     settings.start = startSelect.value;
     settings.pomodoro = pomodoroSetting.value;
@@ -453,8 +510,50 @@ const closeModalAndUpdate = () => {
     settings.alarmVolume = rangeAlarmSound.value;
     settings.startVolume = rangeStartSound.value;
     settings.notificationOn = notificationSwitch.checked;
+    // setBackground();
 
-    defineMultimedia();
+    if (settings.video !== audioSelect.video) {
+        if (currentStatus === 1) {
+            multimediaStop();
+            settings.video = videoSelect.value;
+            setBackground();
+            multimediaStart();
+        } else {
+
+        }
+    } else {
+        //same as b4, 
+        
+    }
+    
+
+    if (settings.audio !== audioSelect.value) {
+        console.log('different');
+        console.log(settings.audio);
+        console.log(audioSelect.value);
+        if (currentStatus === 1) {
+            console.log('different and active!!');
+            multimediaStop();
+            settings.audio = audioSelect.value;
+            settings.video = videoSelect.value;
+            defineMultimedia();
+            multimediaStart();
+        } else {
+            console.log('different but not active!');
+            settings.audio = audioSelect.value;
+            settings.video = videoSelect.value;
+            defineMultimedia();
+        }
+    } else {
+        console.log('same as b4');
+        console.log(settings.audio);
+        console.log(audioSelect.value);
+        console.log(settings.audio !== audioSelect.value);
+        settings.audio = audioSelect.value;
+        settings.video = videoSelect.value;
+        setBackground();
+    }
+    
     saveSettings();
  }
 
