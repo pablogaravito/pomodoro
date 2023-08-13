@@ -243,18 +243,17 @@ const stopTimer = () => {
 
 const resetTimer = () => {
     stopTimer();
-    switch (currentMode) {
-        case 1:
-            time
-    }
+    setTimer();
     transformTime();
     multimediaReset();
     currentStatus = 0;
 }
 
 const setTimer = () => {
+    console.log('status', currentStatus);
+    console.log('mode', currentMode);
     if (currentStatus === 1) {
-        stopTimer();
+        resetTimer();
     }
     switch (currentMode) {
         case 1:
@@ -451,27 +450,33 @@ previewVid.addEventListener('mouseout', () => {
 });
 
 pomodoroBtn.addEventListener('click', () => {
-    currentMode = 1;
-    pomodoroBtn.classList.add('active-mode');
-    breakBtn.classList.remove('active-mode');
-    longBreakBtn.classList.remove('active-mode');
-    setTimer();
+    if (currentMode !== 1) {
+        currentMode = 1;
+        pomodoroBtn.classList.add('active-mode');
+        breakBtn.classList.remove('active-mode');
+        longBreakBtn.classList.remove('active-mode');
+        setTimer();
+    }   
 });
 
 breakBtn.addEventListener('click', () => {
-    currentMode = 2;
-    breakBtn.classList.add('active-mode');
-    pomodoroBtn.classList.remove('active-mode');
-    longBreakBtn.classList.remove('active-mode');
-    setTimer();
+    if (currentMode !== 2) {
+        currentMode = 2;
+        breakBtn.classList.add('active-mode');
+        pomodoroBtn.classList.remove('active-mode');
+        longBreakBtn.classList.remove('active-mode');
+        setTimer();
+    }
 });
 
 longBreakBtn.addEventListener('click', () => {
-    currentMode = 3;
-    longBreakBtn.classList.add('active-mode');
-    breakBtn.classList.remove('active-mode');
-    pomodoroBtn.classList.remove('active-mode');
-    setTimer();
+    if (currentMode !== 3) {
+        currentMode = 3;
+        longBreakBtn.classList.add('active-mode');
+        breakBtn.classList.remove('active-mode');
+        pomodoroBtn.classList.remove('active-mode');
+        setTimer();
+    }
 });
 
 /* MISC */
