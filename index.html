@@ -33,18 +33,23 @@
         src=""
       ></video>
       <img class="background-image hide" src="" alt="background image" />
-      <audio class="background-audio" crossorigin="anonymous" src=""></audio>
-      <audio class="alarm-audio" crossorigin="anonymous" src=""></audio>
-      <audio class="start-audio" crossorigin="anonymous" src=""></audio>
+      <audio id="background-audio" crossorigin="anonymous" src=""></audio>
+      <audio id="alarm-audio" crossorigin="anonymous" src=""></audio>
+      <audio id="start-audio" crossorigin="anonymous" src=""></audio>
       <div class="main-container">
         <img id="logo" src="res/img/Study Sonso!-1.png" alt="website logo" />
 
         <!-- <h1 class="title">Pomodoro by Pablis</h1> -->
+        <div class="button-container">
+          <button class="mode-button active-mode" id="pomodoro-mode">
+            Pomodoro
+          </button>
+          <button class="mode-button" id="break-mode">Descanso</button>
+          <button class="mode-button" id="long-break-mode">Des. Largo</button>
+        </div>
         <p id="timer">25:00</p>
         <div class="button-container">
           <button class="main-button" id="start-pause-btn">Start</button>
-          <!-- <button class="main-button" id="stop-btn">Stop</button> -->
-          <!-- <button class="main-button" id="reset-btn">Reset</button> -->
           <button class="main-button icon-button" id="reset-btn">
             <i class="fa-solid fa-rotate-right"></i>
           </button>

@@ -5,9 +5,9 @@ const previewVid = document.querySelector('#preview-vid');
 const previewImg = document.querySelector('#preview-img');
 const video = document.querySelector('.background-video');
 const image = document.querySelector('.background-image');
-const backAudio = document.querySelector('.background-audio');
-const alarmAudio = document.querySelector('.alarm-audio');
-const startAudio = document.querySelector('.start-audio');
+const backAudio = document.querySelector('#background-audio');
+const alarmAudio = document.querySelector('#alarm-audio');
+const startAudio = document.querySelector('#start-audio');
 const audioSelect = document.querySelector('#audio-select');
 const videoSelect = document.querySelector('#video-select');
 const imageSelect = document.querySelector('#image-select');
@@ -45,6 +45,10 @@ const startAudiosPath = "res/audio/start/";
 
 let isTimerActive = false;
 
+// let currentStatus = 0; //0: idle; 1: pomodoro; 2: break; 3: long-break
+let currentStatus = 0; //0: idle; 1: active; 2: paused;
+let currentMode = 1; //1: pomodoro; 2: break; 3: long-break
+
 let settings = {
     video: "nature1", 
     image: "tokyo-sakura",
@@ -81,14 +85,6 @@ const transformTime = () => {
 
 /* SETTINGS */
 const readSettings = () => {
-    // if (localStorage.getItem('settings') === null) {
-    //     settings.video = defaultSettings.video;
-    //     settings.audio = defaultSettings.audio;
-    //     settings.alarm = defaultSettings.alarm;
-    // } else {
-    //     settings = JSON.parse(localStorage.getItem('settings'));
-    // }
-
     if (localStorage.getItem('settings') !== null) {
         settings = JSON.parse(localStorage.getItem('settings'));
     }
@@ -158,15 +154,10 @@ const defineMultimedia = () => {
 }
 
 /* TIMER */
-const startTimer = async () => {
-    isTimerActive = true;
-    startPauseBtn.innerText = 'Pause';
-
-    if (settings.start !== "") {
-        await playStartAudio();
-    }
-
+const startTimer = () => {
+    currentStatus = 1;
     multimediaStart();
+    startPauseBtn.innerText = 'Pause';
     
     interval = setInterval(() => {
         timeLeft--;
@@ -191,7 +182,7 @@ const startTimer = async () => {
 const stopTimer = () => {
     clearInterval(interval);
     multimediaStop();
-    isTimerActive = false;
+    currentStatus = 2;
     startPauseBtn.innerText = 'Start';
 }
 
@@ -200,15 +191,44 @@ const resetTimer = () => {
     timeLeft = 5;
     transformTime();
     multimediaReset();
-    isTimerActive = false;
+    // isTimerActive = false;
+    currentStatus = 0;
 }
 
-const startOrPause = () => {
-    if (isTimerActive) {
-        stopTimer();
-    } else {
-        startTimer();
+const startOrPause = async () => {
+    // if (isTimerActive) {
+    //     stopTimer();
+    // } else {
+    //     startTimer();
+    // }
+    switch (currentStatus) {
+        case 0: 
+            if (settings.start !== "") {
+                await playStartAudio();
+            }
+            startTimer();
+            break;
+
+        case 1:
+            stopTimer();
+            break;
+        
+        case 2:
+            startTimer();     
     }
+
+    // if (currentStatus === 0) {
+    //     if (settings.start !== "") {
+    //         await playStartAudio();
+    //     }
+    //     startPauseBtn.innerText = 'Pause';
+    //     startTimer();
+    // } else if (currentStatus === 2) {
+    //     startTimer();
+    // } else if  {
+    //     stopTimer();
+    // }
+
 }
 
 /* NOTIFICATION */
@@ -379,11 +399,11 @@ const setBackground = () => {
 
 const openSettings = () => {
     
-    if (isTimerActive) {
-        multimediaStop();
-        stopTimer();
-    }
-    console.log(settings);
+    // if (isTimerActive) {
+    //     multimediaStop();
+    //     stopTimer();
+    // }
+
     videoSelect.value = settings.video;
     previewVidShow();
     imageSelect.value = settings.image;

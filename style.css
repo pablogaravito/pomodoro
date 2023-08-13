@@ -1,7 +1,7 @@
 body {
     margin: 0;
     padding: 0;
-    font-family: "Roboto", sans-serif;
+    font-family: "Space Grotesk",sans-serif;
     height: 100vh;
 }
 
@@ -51,6 +51,7 @@ body {
 }
 
 .button-container {
+    margin: 0;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -119,11 +120,11 @@ body {
 }
 
 #timer {
-    margin: 10px auto;
+    margin: 25px auto;
     font-size: 128px;
-    color: white; 
-    font-family: "Space Grotesk",sans-serif;
+    color: white;    
     letter-spacing: -0.25rem;
+    line-height: 1;;
     font-variant-numeric: tabular-nums;
 }
 
@@ -150,25 +151,23 @@ body {
 #logo {
     position: absolute;
     margin: 0 auto;
-    top: 8%;
+    top: 3%;
     overflow: hidden;
     height: 140px;
-  width: 380px;
-  object-fit: cover;
+    width: 380px;
+    object-fit: cover;
 }
 
 #start-pause-btn {
     color: #000;
-    background-color: #fff;
-    
+    background-color: #fff;   
     border: 1px solid #fff;
     border-radius: 500px;
     min-width: 128px;
     text-transform: lowercase;
-    /* padding: 0.2rem 1rem; */
     padding: 0;
     font-size: 1.5rem;
-    font-family: "Space Grotesk",sans-serif;
+    
     transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
     text-align: center;
     vertical-align: middle;
@@ -178,14 +177,41 @@ body {
     height: 60px;
 }
 
-#start-pause-btn:hover {
+.mode-button {
     color: #fff;
     background-color: transparent;
+    border: 1px solid #fff;
+    border-radius: 500px;
+    min-width: 125px;
+    text-transform: lowercase;
+    padding: 5px 15px;
+    margin: 0 5px;
+    font-size: 1.5rem;
+    
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    text-align: center;
+    vertical-align: middle;
+    user-select: none;
+    font-weight: 400;
+    line-height: 1.15;
+    height: 44px;
+}
+
+#start-pause-btn:hover,
+.mode-button:hover {
+    color: #000;
+    background-color: #fff;
     /* background-color: rgba(0,0,0,0); */
     /* border-color: #fff; */
 }
-#start-pause-btn:focus {
+#start-pause-btn:focus,
+.mode-button:focus {
     outline: 0;
     box-shadow: 0 0 0 0.2rem rgba(7,78,120,.25);
+}
+
+.active-mode {
+    color: #000;
+    background-color: #fff; 
 }
 
