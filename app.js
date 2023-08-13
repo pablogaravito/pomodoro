@@ -105,7 +105,7 @@ let settings = {
 let interval;
 let notificationsAllowed = false;
 //let timeLeft = 1500;
-let timeLeft = 5;
+let timeLeft = 15;
 
 /* FORMAT TIME */
 const padTime = (time) => {
@@ -392,13 +392,13 @@ const playStartAudio = () => {
 imageBackgroundLabel.addEventListener('click', () => {
     imageBackgroundDiv.classList.remove('hide');
     videoBackgroundDiv.classList.add('hide');
-    settings.backgroundType = 0;
+    //settings.backgroundType = 0;
 });
 
 videoBackgroundLabel.addEventListener('click', () => {
     imageBackgroundDiv.classList.add('hide');
     videoBackgroundDiv.classList.remove('hide');
-    settings.backgroundType = 1;
+    //settings.backgroundType = 1;
 });
 
 videoSelect.addEventListener('change', () => {
@@ -523,20 +523,28 @@ const closeModalAndUpdate = () => {
     settings.startVolume = rangeStartSound.value;
     settings.notificationOn = notificationSwitch.checked;
     // setBackground();
+
+    console.log('videobackground', videoBackgroundRadio.checked);
+    console.log('imagebackground', imageBackgroundRadio.checked);
+    console.log(settings.backgroundType, '0 means image was selected before', '1 means video was selected b4');
     
-    if ((videoBackgroundRadio.checked && settings.backgroundType !== 1) || 
-    (imageBackgroundRadio.checked && settings.backgroundType !== 0))  {
+    if ((videoBackgroundRadio.checked && settings.backgroundType === 0) || 
+    (imageBackgroundRadio.checked && settings.backgroundType === 1))  {
+        
         //background type changed
+        console.log('background type changed');
         if (videoBackgroundRadio.checked) {
             //changing from img to video
             settings.backgroundType = 1;
             if (currentStatus === 1) {
                 //changing from img to video and timer is active
+                console.log('changing from img to video and timer is active');
                 settings.video = videoSelect.value;
                 setBackground();
                 videoStart();                 
             } else {
                 //changing from img to video and timer is not active
+                console.log('changing from img to video and timer is not active');
                 settings.video = videoSelect.value;
                 setBackground();
             }
@@ -556,6 +564,7 @@ const closeModalAndUpdate = () => {
         } 
     } else {
         //background type not changed
+        console.log('background type not changed');
         if (videoBackgroundRadio.checked) {
             //video background
             if (settings.video !== videoSelect.value) {
