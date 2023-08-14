@@ -80,7 +80,7 @@ const startAudiosPath = "res/audio/start/";
 
 
 // let currentStatus = 0; //0: idle; 1: pomodoro; 2: break; 3: long-break
-let currentStatus = 0; //0: idle; 1: active; 2: paused;
+let currentStatus = 0; //-1: starting; 0: idle; 1: active; 2: paused;
 let currentMode = 1; //1: pomodoro; 2: break; 3: long-break
 
 let settings = {
@@ -203,7 +203,6 @@ const updateAudio = () => {
 
 const updateMultimedia = () => {
     setBackground();
-
     updateAudio();    
 }
 
@@ -274,9 +273,23 @@ const setTimer = () => {
 
 
 const startOrPause = async () => {
+    settingsBtn.classList.add('disabled');
     switch (currentStatus) {
+        case -1:
+            if (!startAudio.paused || startAudio.currentTime) {
+                startAudio.pause();
+                startAudio.currentTime = 0;
+                currentStatus = 0;
+                setTimer();
+                startPauseBtn.innerText = 'Start';
+            }
+            break;
         case 0: 
-            if (settings.start !== "") {
+            if (settings.start !== "" && currentMode === 1) {
+                currentStatus = -1;
+                startPauseBtn.innerText = 'cancel';
+                timer.textContent = 'starting...';
+                
                 await playStartAudio();
             }
             startTimer();
@@ -289,6 +302,7 @@ const startOrPause = async () => {
         case 2:
             startTimer();     
     }
+    settingsBtn.classList.remove('disabled');
 }
 
 /* NOTIFICATION */
