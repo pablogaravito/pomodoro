@@ -155,7 +155,7 @@ const videoStop = () => {
 }
 
 const audioStop = () => {
-    if (settings.audio !== "") {
+    if (settings.audio !== "" && (!backAudio.paused || backAudio.currentTime)) {
         backAudio.pause();
     } 
 }
@@ -165,13 +165,21 @@ const multimediaStop = () => {
     audioStop();
 }
 
-const multimediaReset = () => {
-    if (settings.video !== "") {
-        video.currentTime = 0;
-    }
+const audioReset = () => {
     if (settings.audio !== "") {
         backAudio.currentTime = 0;
     } 
+}
+
+const videoReset = () => {
+    if (settings.video !== "") {
+        video.currentTime = 0;
+    }
+}
+
+const multimediaReset = () => {
+    videoReset();
+    audioReset();
 }
 
 const convertVolume = (level) => {
@@ -183,21 +191,21 @@ const updateAudio = () => {
         backAudio.removeAttribute('src');
     } else {
         backAudio.src = `${backgroundAudiosPath}${settings.audio}.mp3`;
-        backAudio.volume = convertVolume(rangeBackgroundSound.value);
+        backAudio.volume = convertVolume(settings.audioVolume);
     }
 
     if (settings.alarm === "") {
         alarmAudio.removeAttribute('src');
     } else {
         alarmAudio.src = `${alarmAudiosPath}${settings.alarm}.mp3`;
-        alarmAudio.volume = convertVolume(rangeAlarmSound.value);
+        alarmAudio.volume = convertVolume(settings.alarmVolume);
     }
 
     if (settings.start === "") {
         startAudio.removeAttribute('src');
     } else {
         startAudio.src = `${startAudiosPath}${settings.start}.mp3`;
-        startAudio.volume = convertVolume(rangeStartSound.value);
+        startAudio.volume = convertVolume(settings.startVolume);
     }
 }
 
@@ -226,7 +234,6 @@ const startTimer = () => {
             if (settings.alarm !== "") {
                 alarmAudio.play();
             }
-            //timeLeft = 1500;
             currentStatus = 0;
         }
         transformTime();
@@ -273,6 +280,7 @@ const setTimer = () => {
 
 
 const startOrPause = async () => {
+    resetBtn.classList.add('disabled');
     settingsBtn.classList.add('disabled');
     switch (currentStatus) {
         case -1:
@@ -303,6 +311,7 @@ const startOrPause = async () => {
             startTimer();     
     }
     settingsBtn.classList.remove('disabled');
+    resetBtn.classList.remove('disabled');
 }
 
 /* NOTIFICATION */
@@ -457,10 +466,7 @@ previewVid.addEventListener('mouseover', () => {
 previewVid.addEventListener('mouseout', () => {
     if (previewVid.src){
         previewVid.pause();
-    }
-    // if (!audio.paused || audio.currentTime) {
-    //     audio.pause();
-    // }     
+    }  
 });
 
 pomodoroBtn.addEventListener('click', () => {
@@ -555,7 +561,7 @@ const openSettings = () => {
 const closeModalAndUpdate = () => {
     
     settings.image = imageSelect.value;
-    
+
     settings.alarm = alarmSelect.value;
     settings.start = startSelect.value;
     settings.pomodoro = pomodoroSetting.value;
@@ -569,87 +575,143 @@ const closeModalAndUpdate = () => {
     settings.alarmVolume = rangeAlarmSound.value;
     settings.startVolume = rangeStartSound.value;
     settings.notificationOn = notificationSwitch.checked;
-    // setBackground();
-
-    console.log('videobackground', videoBackgroundRadio.checked);
-    console.log('imagebackground', imageBackgroundRadio.checked);
-    console.log(settings.backgroundType, '0 means image was selected before', '1 means video was selected b4');
     
-    if ((videoBackgroundRadio.checked && settings.backgroundType === 0) || 
-    (imageBackgroundRadio.checked && settings.backgroundType === 1))  {
-        
-        //background type changed
-        console.log('background type changed');
+    if (currentStatus !== 1) {
+        //TIMER IS ACTIVE WHEN CLOSING MODAL
         if (videoBackgroundRadio.checked) {
-            //changing from img to video
             settings.backgroundType = 1;
-            if (currentStatus === 1) {
-                //changing from img to video and timer is active
-                console.log('changing from img to video and timer is active');
-                settings.video = videoSelect.value;
-                setBackground();
-                videoStart();                 
-            } else {
-                //changing from img to video and timer is not active
-                console.log('changing from img to video and timer is not active');
-                settings.video = videoSelect.value;
-                setBackground();
-            }
         } else {
-            //changing from video to img
             settings.backgroundType = 0;
-            if (currentStatus === 1) {
-                //changing from video to img and timer is active
+        }
+        settings.video = videoSelect.value;
+        settings.audio = audioSelect.value;
+        setBackground();
+        updateAudio();
+    } else {
+        //TIMER IS -NOT- ACTIVE WHEN CLOSING MODAL
+        if ((videoBackgroundRadio.checked && settings.backgroundType === 0) || 
+        (imageBackgroundRadio.checked && settings.backgroundType === 1))  {
+            //background type changed
+            console.log('background type changed');
+            if (videoBackgroundRadio.checked) {
+                //changing from img to video
+                console.log('changing from img to video');
+                settings.backgroundType = 1;
+                
+                settings.video = videoSelect.value;
+                setBackground();
+                videoStart();  
+            } else {
+                //changing from video to img
+                console.log('changing from video to img');
+                settings.backgroundType = 0;
                 videoStop();
                 settings.video = videoSelect.value;
                 setBackground();
-            } else {
-                //changing from video to img and timer is not active
+            }
+        } else {
+            //background type not changed
+            console.log('background type not changed');
+            if (videoBackgroundRadio.checked && settings.video !== videoSelect.value) {
+                //video background and video changed
+                console.log('video background and video changed');
+                videoStop();
                 settings.video = videoSelect.value;
                 setBackground();
+                videoStart();
+            } else {
+                settings.video = videoSelect.value;
+                //setBackground();
             }
-        } 
-    } else {
-        //background type not changed
-        console.log('background type not changed');
-        if (videoBackgroundRadio.checked) {
-            //video background
-            if (settings.video !== videoSelect.value) {
-                //video changed
-                if (currentStatus === 1) {
-                    //video changed and timer is active
-                    videoStop();
-                    settings.video = videoSelect.value;
-                    setBackground();
-                    videoStart();
-                } else {
-                    //video changed and timer is not active
-                    settings.video = videoSelect.value;
-                    setBackground();
-                }
-            } 
-        } else{
-            //img background
-            settings.video = videoSelect.value;
-            setBackground();
+        }
+
+        if (settings.audio !== audioSelect.value) {
+            audioStop();
+            settings.audio = audioSelect.value;
+            updateAudio();
+            audioStart();
+        } else {
+            settings.audio = audioSelect.value;
+            //updateAudio();
         }
     }
+
+
+    // if ((videoBackgroundRadio.checked && settings.backgroundType === 0) || 
+    // (imageBackgroundRadio.checked && settings.backgroundType === 1))  {
+        
+    //     //background type changed
+    //     console.log('background type changed');
+    //     if (videoBackgroundRadio.checked) {
+    //         //changing from img to video
+    //         settings.backgroundType = 1;
+    //         if (currentStatus === 1) {
+    //             //changing from img to video and timer is active
+    //             console.log('changing from img to video and timer is active');
+    //             settings.video = videoSelect.value;
+    //             setBackground();
+    //             videoStart();                 
+    //         } else {
+    //             //changing from img to video and timer is not active
+    //             console.log('changing from img to video and timer is not active');
+    //             settings.video = videoSelect.value;
+    //             setBackground();
+    //         }
+    //     } else {
+    //         //changing from video to img
+    //         settings.backgroundType = 0;
+    //         if (currentStatus === 1) {
+    //             //changing from video to img and timer is active
+    //             videoStop();
+    //             settings.video = videoSelect.value;
+    //             setBackground();
+    //         } else {
+    //             //changing from video to img and timer is not active
+    //             settings.video = videoSelect.value;
+    //             setBackground();
+    //         }
+    //     } 
+    // } else {
+    //     //background type not changed
+    //     console.log('background type not changed');
+    //     if (videoBackgroundRadio.checked) {
+    //         //video background
+    //         if (settings.video !== videoSelect.value) {
+    //             //video changed
+    //             if (currentStatus === 1) {
+    //                 //video changed and timer is active
+    //                 videoStop();
+    //                 settings.video = videoSelect.value;
+    //                 setBackground();
+    //                 videoStart();
+    //             } else {
+    //                 //video changed and timer is not active
+    //                 settings.video = videoSelect.value;
+    //                 setBackground();
+    //             }
+    //         } 
+    //     } else{
+    //         //img background
+    //         settings.video = videoSelect.value;
+    //         setBackground();
+    //     }
+    // }
   
 
-    if (settings.audio !== audioSelect.value) {
-        //audio picked changed
-        if (currentStatus === 1) {
-            //different and active
-            multimediaStop();
-            settings.audio = audioSelect.value;
-            updateAudio();
-            multimediaStart();
-        } else {
-            //different but not active
-            settings.audio = audioSelect.value;
-            updateAudio();
-        }
-    } 
+    // if (settings.audio !== audioSelect.value) {
+    //     //audio picked changed
+    //     if (currentStatus === 1) {
+    //         //different and active
+    //         multimediaStop();
+    //         settings.audio = audioSelect.value;
+    //         updateAudio();
+    //         multimediaStart();
+    //     } else {
+    //         //different but not active
+    //         settings.audio = audioSelect.value;
+    //         updateAudio();
+    //     }
+    // } 
     
     saveSettings();
  }
