@@ -275,6 +275,7 @@ const timeIsUp = async () => {
     
     if (currentMode === 1) {
         pomodorosCompleted++;
+        pomodoroBtn.textContent = `pomodoro (${pomodorosCompleted})`;
 
         if (settings.notificationsOn) {
             showNotification(currentMode);
@@ -292,14 +293,31 @@ const timeIsUp = async () => {
     goNext();
 }
 
+const performStart = async () => {
+    if (settings.start !== "" && currentMode === 1) {
+        currentStatus = -1;
+        startPauseBtn.innerText = 'cancel';
+        timer.textContent = 'starting...';
+        
+        resetBtn.classList.add('disabled');
+        settingsBtn.classList.add('disabled');
+        await playStartAudio();
+        settingsBtn.classList.remove('disabled');
+        resetBtn.classList.remove('disabled');       
+    }
+}
+
 /* TIMER */
-const startTimer = () => {
+const startTimer = async () => {
     currentStatus = 1;
+    await performStart();
+    startPauseBtn.innerText = 'Pause';
     if (currentMode === 1) {
+        
         multimediaStart();
     }
     
-    startPauseBtn.innerText = 'Pause';
+    
     
     interval = setInterval(() => {
         timeLeft--;
@@ -358,33 +376,22 @@ const cancelStart = () => {
     }
 }
 
-const startOrPause = async () => {
-    resetBtn.classList.add('disabled');
-    settingsBtn.classList.add('disabled');
+const startOrPause = () => {
+ 
     switch (currentStatus) {
         case -1:
             cancelStart();
             break;
-        case 0: 
-            if (settings.start !== "" && currentMode === 1) {
-                currentStatus = -1;
-                startPauseBtn.innerText = 'cancel';
-                timer.textContent = 'starting...';
-                
-                await playStartAudio();
-            }
+
+        case 0:
+        case 2: 
             startTimer();
             break;
 
         case 1:
             stopTimer();
-            break;
-        
-        case 2:
-            startTimer();     
+            break;    
     }
-    settingsBtn.classList.remove('disabled');
-    resetBtn.classList.remove('disabled');
 }
 
 /* NOTIFICATION */
