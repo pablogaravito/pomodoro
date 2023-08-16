@@ -607,14 +607,14 @@ breakBtn.addEventListener('click', () => {
         cancelStart();
         return;
     }
-    if (currentMode !== 2) {
-        currentMode = 2;
+    if (currentMode !== 2) {  
         adjustModeBtnsStyle(2);
         if (currentStatus === 1) {
             resetTimer();
         } else {
             setTimer();
         }
+        currentMode = 2;
     } 
 });
 
@@ -624,13 +624,13 @@ longBreakBtn.addEventListener('click', () => {
         return;
     }
     if (currentMode !== 3) {
-        currentMode = 3;
         adjustModeBtnsStyle(3);
         if (currentStatus === 1) {
             resetTimer();
         } else {
             setTimer();
         }
+        currentMode = 3;
     } 
 });
 
@@ -711,7 +711,7 @@ const closeModalAndUpdate = () => {
     settings.notificationsOn = notificationSwitch.checked;
     
     if (currentStatus !== 1) {
-        //TIMER IS ACTIVE WHEN CLOSING MODAL
+        //TIMER IS -NOT ACTIVE- WHEN CLOSING MODAL
         if (videoBackgroundRadio.checked) {
             settings.backgroundType = 1;
         } else {
@@ -722,7 +722,7 @@ const closeModalAndUpdate = () => {
         setBackground();
         updateAudio();
     } else {
-        //TIMER IS -NOT- ACTIVE WHEN CLOSING MODAL
+        //TIMER IS -ACTIVE- WHEN CLOSING MODAL
         if ((videoBackgroundRadio.checked && settings.backgroundType === 0) || 
         (imageBackgroundRadio.checked && settings.backgroundType === 1))  {
             //background type changed
@@ -731,11 +731,16 @@ const closeModalAndUpdate = () => {
                 settings.backgroundType = 1;               
                 settings.video = videoSelect.value;
                 setBackground();
-                videoStart();  
+                if (currentMode === 1) {
+                    videoStart(); 
+                }
+                 
             } else {
                 //changing from video to img
                 settings.backgroundType = 0;
-                videoStop();
+                if (currentMode === 1) {
+                    videoStop(); 
+                }
                 settings.video = videoSelect.value;
                 setBackground();
             }
@@ -744,13 +749,17 @@ const closeModalAndUpdate = () => {
             if (videoBackgroundRadio.checked && settings.video !== videoSelect.value) {
                 //video background and video changed
                 console.log('video background and video changed');
-                videoStop();
-                settings.video = videoSelect.value;
-                setBackground();
-                videoStart();
-            } else {
-                settings.video = videoSelect.value;
-            }
+                if (currentMode === 1) {
+                    videoStop();
+                    settings.video = videoSelect.value;
+                    setBackground();
+                    videoStart();
+                } else {
+                    settings.video = videoSelect.value;
+                    setBackground();
+                }
+                
+            } 
         }
 
         if (settings.audio !== audioSelect.value) {
@@ -759,13 +768,10 @@ const closeModalAndUpdate = () => {
             settings.audio = audioSelect.value;
             updateAudio();
             audioStart();
-        } else {
-            //audio remains the same
-            settings.audio = audioSelect.value;
-        }
+        } 
     }
 
-    setTimer();
+    //setTimer();
     
     if (settings.notificationsOn && !notificationsAllowed) {
         checkNotification();
