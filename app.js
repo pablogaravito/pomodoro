@@ -251,27 +251,28 @@ const goNext = () => {
             console.log('b');
             currentMode = 3;
             adjustModeBtnsStyle(3);
-            setTimer();
+            //setTimer();
             startTimer();
             pomodorosCompleted = 0;
          } else {
             console.log('c');
             currentMode = 2;
             adjustModeBtnsStyle(2);
-            setTimer();
+            //setTimer();
             startTimer();
          }     
     } else if (isBreakFinished && settings.autoStartPomodoros) {
         console.log('d');
         currentMode = 1;
         adjustModeBtnsStyle(1);
-        setTimer();
+        //setTimer();
         startTimer();           
    }
 }
 
 const timeIsUp = async () => {
-    resetTimer();
+    //resetTimer();
+    stopTimer();
     
     if (currentMode === 1) {
         pomodorosCompleted++;
@@ -295,12 +296,14 @@ const timeIsUp = async () => {
 
 const performStart = async () => {
     if (settings.start !== "" && currentMode === 1) {
+
         currentStatus = -1;
         startPauseBtn.innerText = 'cancel';
-        timer.textContent = 'starting...';
         
         resetBtn.classList.add('disabled');
         settingsBtn.classList.add('disabled');
+        timer.textContent = 'starting...';
+        
         await playStartAudio();
         settingsBtn.classList.remove('disabled');
         resetBtn.classList.remove('disabled');       
@@ -310,7 +313,10 @@ const performStart = async () => {
 /* TIMER */
 const startTimer = async () => {
     currentStatus = 1;
+    console.log('before start perform');
     await performStart();
+    console.log('after start perform');
+    setTimer();
     startPauseBtn.innerText = 'Pause';
     if (currentMode === 1) {
         
@@ -323,8 +329,10 @@ const startTimer = async () => {
         timeLeft--;
         if (timeLeft === -1) {
             timeIsUp();
+        } else {
+            transformTime();
         }
-        transformTime();
+        
     }, 1000);
 }
 
@@ -348,19 +356,19 @@ const setTimer = () => {
         case 1:
             timeLeft = settings.pomodoro * 60;
             //DELETE NEXT LINE
-            timeLeft = 8;
+            timeLeft = 5;
             break;
         
         case 2:
             timeLeft = settings.shortBreak * 60;
             //DELETE NEXT LINE
-            timeLeft = 8;
+            timeLeft = 5;
             break;
         
         case 3:
             timeLeft = settings.longBreak * 60;
             //DELETE NEXT LINE
-            timeLeft = 8;
+            timeLeft = 5;
     }
 
     transformTime();
@@ -373,6 +381,8 @@ const cancelStart = () => {
         currentStatus = 0;
         resetTimer();
         startPauseBtn.innerText = 'Start';
+        settingsBtn.classList.remove('disabled');
+        resetBtn.classList.remove('disabled'); 
     }
 }
 
