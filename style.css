@@ -160,10 +160,10 @@ body {
 #logo {
     position: absolute;
     margin: 0 auto;
-    top: 3%;
+    top: 2%;
     overflow: hidden;
-    height: 140px;
-    width: 380px;
+    height: 150px;
+    width: 400px;
     object-fit: cover;
 }
 
