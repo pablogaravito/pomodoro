@@ -456,27 +456,15 @@ settingsBtn.addEventListener('click', () => {
 });
 
 alarmSelect.addEventListener('change', () => {
-    if (alarmSelect.value === '') {
-        previewAlarmBtn.disabled = true;
-    } else {
-        previewAlarmBtn.disabled = false;
-    }
+    previewAlarmBtn.disabled = (alarmSelect.value === '');
 });
 
 audioSelect.addEventListener('change', () => {
-    if (audioSelect.value === '') {
-        previewBackBtn.disabled = true;
-    } else {
-        previewBackBtn.disabled = false;
-    }
+    previewBackBtn.disabled = (audioSelect.value === '');
 });
 
 startSelect.addEventListener('change', () => {
-    if (startSelect.value === '') {
-        previewStartBtn.disabled = true;
-    } else {
-        previewStartBtn.disabled = false;
-    }
+    previewStartBtn.disabled = (startSelect.value === '');
 });
 
 previewStartBtn.addEventListener('click', () => {
@@ -668,9 +656,14 @@ const openSettings = () => {
     previewVidShow();
     imageSelect.value = settings.image;
     previewImgShow();
+
     audioSelect.value = settings.audio;
+    previewBackBtn.disabled = (audioSelect.value === '');
     alarmSelect.value = settings.alarm;
-    startSelect.value = settings.start;  
+    previewAlarmBtn.disabled = (alarmSelect.value === '');
+    startSelect.value = settings.start; 
+    previewStartBtn.disabled = (startSelect.value === '');
+
     pomodoroSetting.value = settings.pomodoro;
     breakSetting.value = settings.shortBreak;
     longBreakSetting.value = settings.longBreak;
