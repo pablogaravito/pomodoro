@@ -236,8 +236,11 @@ const goNext = () => {
     if ((isBreakFinished && !settings.autoStartPomodoros) || 
     (isPomodoroFinished && !settings.autoStartBreaks)) {
         console.log('hm');
-        multimediaStop();
-        multimediaReset();
+        if (currentMode === 1) {
+            multimediaReset();
+        }
+        //multimediaStop();
+        
         currentStatus = 0;
         return;
     }
@@ -265,13 +268,6 @@ const goNext = () => {
         setTimer();
         startTimer();           
    }
-
-    // if ((currentMode === 2 || currentMode === 3) && settings.autoStartPomodoros) {
-    //     currentMode = 1;
-    //     adjustModeBtnsStyle(1);
-    //     setTimer();
-    //     startTimer();
-    // }
 }
 
 const timeIsUp = async () => {
@@ -279,10 +275,19 @@ const timeIsUp = async () => {
     
     if (currentMode === 1) {
         pomodorosCompleted++;
+
+        if (settings.notificationsOn) {
+            showNotification(currentMode);
+        }
+        
         if (settings.alarm !== "") {
             await playAlarmAudio();    
         }
-    }  
+    }  else {
+        if (settings.notificationsOn) {
+            showNotification(currentMode);
+        }
+    }
    
     goNext();
 }
@@ -290,15 +295,16 @@ const timeIsUp = async () => {
 /* TIMER */
 const startTimer = () => {
     currentStatus = 1;
-    multimediaStart();
+    if (currentMode === 1) {
+        multimediaStart();
+    }
+    
     startPauseBtn.innerText = 'Pause';
     
     interval = setInterval(() => {
         timeLeft--;
-        //transformTime();
         if (timeLeft === -1) {
             timeIsUp();
-            //currentStatus = 0;
         }
         transformTime();
     }, 1000);
@@ -306,7 +312,9 @@ const startTimer = () => {
 
 const stopTimer = () => {
     clearInterval(interval);
-    multimediaStop();
+    if (currentMode === 1) {
+        multimediaStop();
+    }
     currentStatus = 2;
     startPauseBtn.innerText = 'Start';
 }
@@ -314,8 +322,7 @@ const stopTimer = () => {
 const resetTimer = () => {
     stopTimer();
     setTimer();
-    multimediaReset();
-    //currentStatus = 0;
+    //multimediaReset();
 }
 
 const setTimer = () => {
@@ -382,7 +389,7 @@ const startOrPause = async () => {
 
 /* NOTIFICATION */
 const showNotification = (mode) => {
-    // create a new notification
+    
     let notificationMsg;
     switch (mode) {
         case 1:
@@ -401,22 +408,19 @@ const showNotification = (mode) => {
             
     }
 
-
     if (notificationsAllowed) {
         const notification = new Notification('Pomodoro by Pablis', {
             body: `${notificationMsg}`,
             icon: 'res/icon/pomodoro2.png'
         });
     
-        // close the notification after 10 seconds
+        // close the notification after 8 seconds
         setTimeout(() => {
             notification.close();
-        }, 5 * 1000);
+        }, 8 * 1000);
     } else {
         alert(notificationMsg);
-    }
-
-    
+    }    
 }
 
 const checkNotification = () => {
@@ -424,7 +428,7 @@ const checkNotification = () => {
         notificationsAllowed = true;
     } else if (Notification.permission !== "denied") {
         Notification.requestPermission().then((permission) => {
-            // If the user accepts, let's create a notification
+            
             if (permission === "granted") {
                 notificationsAllowed = true;
             }
