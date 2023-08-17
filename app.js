@@ -318,12 +318,9 @@ const startTimer = async () => {
     console.log('after start perform');
     setTimer();
     startPauseBtn.innerText = 'Pause';
-    if (currentMode === 1) {
-        
+    if (currentMode === 1) {    
         multimediaStart();
-    }
-    
-    
+    } 
     
     interval = setInterval(() => {
         timeLeft--;
@@ -355,20 +352,20 @@ const setTimer = () => {
     switch (currentMode) {
         case 1:
             timeLeft = settings.pomodoro * 60;
-            //DELETE NEXT LINE
-            timeLeft = 5;
+            // //DELETE NEXT LINE
+            // timeLeft = 5;
             break;
         
         case 2:
             timeLeft = settings.shortBreak * 60;
-            //DELETE NEXT LINE
-            timeLeft = 5;
+            // //DELETE NEXT LINE
+            // timeLeft = 5;
             break;
         
         case 3:
             timeLeft = settings.longBreak * 60;
-            //DELETE NEXT LINE
-            timeLeft = 5;
+            // //DELETE NEXT LINE
+            // timeLeft = 5;
     }
 
     transformTime();

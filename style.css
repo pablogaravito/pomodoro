@@ -102,8 +102,8 @@ body {
 }
 
 .h6 {
-    font-size: 17px;
-    color: rgb(187, 187, 187);
+    font-size: 22px;
+    color: hsl(261.87deg 80.71% 33%);
     font-weight: bold;
     text-transform: uppercase;
     letter-spacing: 0.8px;
@@ -119,6 +119,71 @@ body {
     border-right: 1px solid rgb(187, 187, 187);
     margin-right: 3px;
     min-width: 170px;
+}
+
+.form-control:focus,
+.form-select:focus {
+    box-shadow: 0 0 0 1px hsl(261.87deg 40.71% 80%), 0 0 0 0.25rem hsl(261.87deg 40.71% 80%);
+}
+
+.form-range::-webkit-slider-thumb {
+    background: hsl(261.87deg 40.71% 43.54%);
+  }
+  
+  .form-range::-moz-range-thumb {
+    background: hsl(261.87deg 40.71% 43.54%);
+  }
+  
+  .form-range::-ms-thumb {
+    background: hsl(261.87deg 40.71% 43.54%);
+  }
+  .form-range::-webkit-slider-thumb:active {
+    background: hsl(261.87deg 40.71% 43.54%);
+    box-shadow: 0 0 8px black;
+  }
+  
+  .form-range::-moz-range-thumb:active {
+    background: hsl(261.87deg 40.71% 80%);
+    box-shadow: 0 0 0 1px #fff, 0 0 0 0.25rem hsl(261.87deg 40.71% 80%);
+  }
+  
+  .form-range::-ms-thumb:active {
+    background: hsl(261.87deg 40.71% 80%);
+    box-shadow: 0 0 0 1px #fff, 0 0 0 0.25rem hsl(261.87deg 40.71% 80%);
+  }
+
+  .form-range:focus::-webkit-slider-thumb {
+    box-shadow: 0 0 0 1px #fff, 0 0 0 0.25rem hsl(261.87deg 40.71% 80%);
+  }
+
+  .form-range:focus::-moz-range-thumb {
+    box-shadow: 0 0 0 1px #fff, 0 0 0 0.25rem hsl(261.87deg 40.71% 80%);
+  }
+
+  .form-range:focus::-ms-thumb {
+    box-shadow: 0 0 0 1px #fff, 0 0 0 0.25rem hsl(261.87deg 40.71% 80%);
+  }
+
+ .form-switch .form-check-input:focus {
+    border-color: #D7B1D7;
+    outline: 0;
+    box-shadow: 0 0 0 1px hsl(261.87deg 40.71% 80%), 0 0 0 0.25rem hsl(261.87deg 40.71% 80%);
+    background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='rgba(0,0,0,0.25)'/></svg>");
+}
+.form-switch .form-check-input:checked {
+    background-color: hsl(261.87deg 40.71% 43.54%);
+    border-color: hsl(261.87deg 40.71% 43.54%);
+    border: none;
+    background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='rgba(255,255,255,1.0)'/></svg>");
+}
+
+.nav-pills .nav-link {
+    color: hsl(261.87deg 40.71% 43.54%);
+}
+
+
+.nav-pills .nav-link.active {
+    background-color: hsl(261.87deg 40.71% 43.54%);
 }
 
 #timer {
@@ -215,11 +280,6 @@ body {
     /* background-color: rgba(0,0,0,0); */
     /* border-color: #fff; */
 }
-/* #start-pause-btn:focus,
-.mode-button:focus {
-    outline: 0;
-    box-shadow: 0 0 0 0.2rem rgba(7,78,120,.25);
-} */
 
 .active-mode {
     color: #000;
