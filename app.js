@@ -235,6 +235,7 @@ const goNext = () => {
     
     if ((isBreakFinished && !settings.autoStartPomodoros) || 
     (isPomodoroFinished && !settings.autoStartBreaks)) {
+
         console.log('hm');
         if (currentMode === 1) {
             multimediaReset();
@@ -251,21 +252,21 @@ const goNext = () => {
             console.log('b');
             currentMode = 3;
             adjustModeBtnsStyle(3);
-            //setTimer();
+            setTimer();
             startTimer();
             pomodorosCompleted = 0;
          } else {
             console.log('c');
             currentMode = 2;
             adjustModeBtnsStyle(2);
-            //setTimer();
+            setTimer();
             startTimer();
          }     
     } else if (isBreakFinished && settings.autoStartPomodoros) {
         console.log('d');
         currentMode = 1;
         adjustModeBtnsStyle(1);
-        //setTimer();
+        setTimer();
         startTimer();           
    }
 }
@@ -282,8 +283,10 @@ const timeIsUp = async () => {
             showNotification(currentMode);
         }
         
-        if (settings.alarm !== "") {
-            await playAlarmAudio();    
+        if (settings.alarm !== "") {        
+            startPauseBtn.classList.add('disabled');
+            await playAlarmAudio();  
+            startPauseBtn.classList.remove('disabled');  
         }
     }  else {
         if (settings.notificationsOn) {
@@ -295,7 +298,7 @@ const timeIsUp = async () => {
 }
 
 const performStart = async () => {
-    if (settings.start !== "" && currentMode === 1) {
+    if (settings.start !== "" && currentStatus === 0 && currentMode === 1) {
 
         currentStatus = -1;
         startPauseBtn.innerText = 'cancel';
@@ -305,6 +308,8 @@ const performStart = async () => {
         timer.textContent = 'starting...';
         
         await playStartAudio();
+        currentStatus = 1;
+        setTimer();
         settingsBtn.classList.remove('disabled');
         resetBtn.classList.remove('disabled');       
     }
@@ -312,11 +317,13 @@ const performStart = async () => {
 
 /* TIMER */
 const startTimer = async () => {
-    currentStatus = 1;
     console.log('before start perform');
     await performStart();
+    
+    currentStatus = 1;   
+    
     console.log('after start perform');
-    setTimer();
+    
     startPauseBtn.innerText = 'Pause';
     if (currentMode === 1) {    
         multimediaStart();
@@ -345,6 +352,7 @@ const stopTimer = () => {
 const resetTimer = () => {
     stopTimer();
     setTimer();
+    currentStatus = 0;
     //multimediaReset();
 }
 
@@ -352,20 +360,20 @@ const setTimer = () => {
     switch (currentMode) {
         case 1:
             timeLeft = settings.pomodoro * 60;
-            // //DELETE NEXT LINE
-            // timeLeft = 5;
+             //DELETE NEXT LINE
+             timeLeft = 5;
             break;
         
         case 2:
             timeLeft = settings.shortBreak * 60;
-            // //DELETE NEXT LINE
-            // timeLeft = 5;
+             //DELETE NEXT LINE
+             timeLeft = 5;
             break;
         
         case 3:
             timeLeft = settings.longBreak * 60;
-            // //DELETE NEXT LINE
-            // timeLeft = 5;
+             //DELETE NEXT LINE
+             timeLeft = 5;
     }
 
     transformTime();
@@ -701,8 +709,6 @@ const openSettings = () => {
 
 const closeModalAndUpdate = () => {
     
-    settings.image = imageSelect.value;
-
     settings.alarm = alarmSelect.value;
     settings.start = startSelect.value;
     settings.pomodoro = pomodoroSetting.value;
@@ -726,6 +732,7 @@ const closeModalAndUpdate = () => {
         }
         settings.video = videoSelect.value;
         settings.audio = audioSelect.value;
+        settings.image = imageSelect.value;
         setBackground();
         updateAudio();
     } else {
@@ -735,7 +742,8 @@ const closeModalAndUpdate = () => {
             //background type changed
             if (videoBackgroundRadio.checked) {
                 //changing from img to video
-                settings.backgroundType = 1;               
+                settings.backgroundType = 1;         
+                settings.image = imageSelect.value;      
                 settings.video = videoSelect.value;
                 setBackground();
                 if (currentMode === 1) {
@@ -748,6 +756,7 @@ const closeModalAndUpdate = () => {
                 if (currentMode === 1) {
                     videoStop(); 
                 }
+                settings.image = imageSelect.value;
                 settings.video = videoSelect.value;
                 setBackground();
             }
@@ -758,15 +767,21 @@ const closeModalAndUpdate = () => {
                 console.log('video background and video changed');
                 if (currentMode === 1) {
                     videoStop();
+                    settings.image = imageSelect.value;
                     settings.video = videoSelect.value;
                     setBackground();
                     videoStart();
                 } else {
+                    settings.image = imageSelect.value;
                     settings.video = videoSelect.value;
                     setBackground();
                 }
                 
-            } 
+            } else if (imageBackgroundRadio.checked && settings.image !== imageSelect.value) {
+                console.log('image background and image changed');
+                settings.image = imageSelect.value;
+                setBackground();
+            }
         }
 
         if (settings.audio !== audioSelect.value) {
@@ -774,8 +789,26 @@ const closeModalAndUpdate = () => {
             audioStop();
             settings.audio = audioSelect.value;
             updateAudio();
-            audioStart();
-        } 
+            if (settings.audio) {
+                audioStart();
+            }
+            
+        } else {
+            settings.audio = audioSelect.value;
+            if (settings.alarm === "") {
+                alarmAudio.removeAttribute('src');
+            } else {
+                alarmAudio.src = `${alarmAudiosPath}${settings.alarm}.mp3`;
+                alarmAudio.volume = convertVolume(settings.alarmVolume);
+            }
+        
+            if (settings.start === "") {
+                startAudio.removeAttribute('src');
+            } else {
+                startAudio.src = `${startAudiosPath}${settings.start}.mp3`;
+                startAudio.volume = convertVolume(settings.startVolume);
+            }
+        }
     }
 
     //setTimer();
