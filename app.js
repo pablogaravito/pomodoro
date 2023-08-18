@@ -361,19 +361,19 @@ const setTimer = () => {
         case 1:
             timeLeft = settings.pomodoro * 60;
              //DELETE NEXT LINE
-             timeLeft = 5;
+            //  timeLeft = 5;
             break;
         
         case 2:
             timeLeft = settings.shortBreak * 60;
              //DELETE NEXT LINE
-             timeLeft = 5;
+            //  timeLeft = 5;
             break;
         
         case 3:
             timeLeft = settings.longBreak * 60;
              //DELETE NEXT LINE
-             timeLeft = 5;
+            //  timeLeft = 5;
     }
 
     transformTime();
@@ -618,13 +618,14 @@ breakBtn.addEventListener('click', () => {
         return;
     }
     if (currentMode !== 2) {  
+        currentMode = 2;
         adjustModeBtnsStyle(2);
         if (currentStatus === 1) {
             resetTimer();
         } else {
             setTimer();
         }
-        currentMode = 2;
+        
     } 
 });
 
@@ -634,13 +635,14 @@ longBreakBtn.addEventListener('click', () => {
         return;
     }
     if (currentMode !== 3) {
+        currentMode = 3;
         adjustModeBtnsStyle(3);
         if (currentStatus === 1) {
             resetTimer();
         } else {
             setTimer();
         }
-        currentMode = 3;
+        
     } 
 });
 
