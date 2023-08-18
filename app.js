@@ -298,7 +298,7 @@ const timeIsUp = async () => {
 }
 
 const performStart = async () => {
-    if (settings.start !== "" && currentStatus === 0 && currentMode === 1) {
+    if (settings.start !== "" && currentMode === 1) {
 
         currentStatus = -1;
         startPauseBtn.innerText = 'cancel';
@@ -361,19 +361,19 @@ const setTimer = () => {
         case 1:
             timeLeft = settings.pomodoro * 60;
              //DELETE NEXT LINE
-            //  timeLeft = 5;
+              timeLeft = 5;
             break;
         
         case 2:
             timeLeft = settings.shortBreak * 60;
              //DELETE NEXT LINE
-            //  timeLeft = 5;
+              timeLeft = 5;
             break;
         
         case 3:
             timeLeft = settings.longBreak * 60;
              //DELETE NEXT LINE
-            //  timeLeft = 5;
+              timeLeft = 5;
     }
 
     transformTime();
