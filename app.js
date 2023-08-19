@@ -79,7 +79,7 @@ const alarmAudiosPath = "res/audio/alarm/";
 const startAudiosPath = "res/audio/start/";
 
 let currentStatus = 0; //-1: starting; 0: idle; 1: active; 2: paused;
-let currentMode = 1; //1: pomodoro; 2: break; 3: long-break
+let mode = 1; //1: pomodoro; 2: break; 3: long-break
 
 let settings = {
     video: "nature1", 
@@ -154,6 +154,7 @@ const multimediaStart = () => {
 
 const videoStop = () => {
     if (settings.video !== "") {
+        console.log(settings.video);
         video.pause();
     }
 }
@@ -219,25 +220,25 @@ const updateMultimedia = () => {
 }
 
 const goNext = () => {
-    const isPomodoroFinished = (currentMode === 1);
-    const isBreakFinished = (currentMode === 2 || currentMode === 3);
-    console.log('isPomodoroFinished', isPomodoroFinished);
-    console.log('isBreakFinished', isBreakFinished);
+    const isPomodoroFinished = (mode === 1);
+    const isBreakFinished = (mode === 2 || mode === 3);
+    // console.log('isPomodoroFinished', isPomodoroFinished);
+    // console.log('isBreakFinished', isBreakFinished);
     
 
-    console.log(settings.autoStartPomodoros);
-    console.log(settings.autoStartBreaks);
-    console.log(settings.pomodorosToLongBreak);
-    console.log('pomodorosCompleted', pomodorosCompleted);
-    console.log(pomodorosCompleted === settings.pomodorosToLongBreak);
-    console.log(parseInt(pomodorosCompleted) === parseInt(settings.pomodorosToLongBreak));
+    // console.log(settings.autoStartPomodoros);
+    // console.log(settings.autoStartBreaks);
+    // console.log(settings.pomodorosToLongBreak);
+    // console.log('pomodorosCompleted', pomodorosCompleted);
+    // console.log(pomodorosCompleted === settings.pomodorosToLongBreak);
+    // console.log(parseInt(pomodorosCompleted) === parseInt(settings.pomodorosToLongBreak));
 
     
     if ((isBreakFinished && !settings.autoStartPomodoros) || 
     (isPomodoroFinished && !settings.autoStartBreaks)) {
 
-        console.log('hm');
-        if (currentMode === 1) {
+        // console.log('hm');
+        if (mode === 1) {
             multimediaReset();
         }
         //multimediaStop();
@@ -247,26 +248,18 @@ const goNext = () => {
     }
 
     if (isPomodoroFinished && settings.autoStartBreaks) {
-        console.log('a');
          if (parseInt(pomodorosCompleted) === parseInt(settings.pomodorosToLongBreak)) {
-            console.log('b');
-            currentMode = 3;
-            adjustModeBtnsStyle(3);
-            setTimer();
+            switchMode(3);
+            resetTimer();
             startTimer();
             pomodorosCompleted = 0;
          } else {
-            console.log('c');
-            currentMode = 2;
-            adjustModeBtnsStyle(2);
-            setTimer();
+            switchMode(2);
+            resetTimer();
             startTimer();
          }     
     } else if (isBreakFinished && settings.autoStartPomodoros) {
-        console.log('d');
-        currentMode = 1;
-        adjustModeBtnsStyle(1);
-        setTimer();
+        switchMode(1);
         startTimer();           
    }
 }
@@ -274,31 +267,26 @@ const goNext = () => {
 const timeIsUp = async () => {
     //resetTimer();
     stopTimer();
-    
-    if (currentMode === 1) {
+    if (mode === 1) {
         pomodorosCompleted++;
-        pomodoroBtn.textContent = `pomodoro (${pomodorosCompleted})`;
-
-        if (settings.notificationsOn) {
-            showNotification(currentMode);
-        }
-        
-        if (settings.alarm !== "") {        
-            startPauseBtn.classList.add('disabled');
-            await playAlarmAudio();  
-            startPauseBtn.classList.remove('disabled');  
-        }
-    }  else {
-        if (settings.notificationsOn) {
-            showNotification(currentMode);
-        }
+        pomodoroBtn.textContent = `pomodoro (${pomodorosCompleted})`;   
+    }
+    if (settings.notificationsOn) {
+        console.log('shownotification');
+        console.log(mode);
+        showNotification(mode);
+    }
+    if (settings.alarm !== "" && mode === 1) {        
+        startPauseBtn.classList.add('disabled');
+        await playAlarmAudio();  
+        startPauseBtn.classList.remove('disabled');  
     }
    
     goNext();
 }
 
 const performStart = async () => {
-    if (settings.start !== "" && currentMode === 1) {
+    if (settings.start !== "" && mode === 1 && currentStatus !== 2) {
 
         currentStatus = -1;
         startPauseBtn.innerText = 'cancel';
@@ -308,7 +296,7 @@ const performStart = async () => {
         timer.textContent = 'starting...';
         
         await playStartAudio();
-        currentStatus = 1;
+        currentStatus = 0;
         setTimer();
         settingsBtn.classList.remove('disabled');
         resetBtn.classList.remove('disabled');       
@@ -317,63 +305,84 @@ const performStart = async () => {
 
 /* TIMER */
 const startTimer = async () => {
-    console.log('before start perform');
+    //console.log('before start perform');
     await performStart();
     
-    currentStatus = 1;   
+    //currentStatus = 1;   
     
-    console.log('after start perform');
+    //console.log('after start perform');
     
-    startPauseBtn.innerText = 'Pause';
-    if (currentMode === 1) {    
-        multimediaStart();
-    } 
     
-    interval = setInterval(() => {
-        timeLeft--;
-        if (timeLeft === -1) {
-            timeIsUp();
-        } else {
-            transformTime();
+    // if (mode === 1) {    
+        
+    // } 
+    console.log(currentStatus);
+    console.log(mode);
+
+    if (currentStatus === 1) {
+        stopTimer();
+    } else if (currentStatus === 0 || currentStatus === 2) {
+        currentStatus = 1;
+        interval = setInterval(() => {
+            timeLeft--;
+            if (timeLeft === -1) {
+                timeIsUp();
+            } else {
+                transformTime();
+            }
+            
+        }, 1000);
+        if (mode === 1) {
+            multimediaStart();
         }
         
-    }, 1000);
+        startPauseBtn.innerText = 'Pause';
+    }
+    
+    
 }
 
 const stopTimer = () => {
     clearInterval(interval);
-    if (currentMode === 1) {
-        multimediaStop();
-    }
+    if (mode === 1) {
+         multimediaStop();
+     }
     currentStatus = 2;
     startPauseBtn.innerText = 'Start';
 }
 
 const resetTimer = () => {
+    console.log('mode', mode);
     stopTimer();
     setTimer();
+    if (mode === 1 && currentStatus === 1) {
+        console.log('mode 1 confirmed, should stop and reset multi');
+        multimediaStop();
+        multimediaReset();
+    }
     currentStatus = 0;
+ 
     //multimediaReset();
 }
 
 const setTimer = () => {
-    switch (currentMode) {
+    switch (mode) {
         case 1:
             timeLeft = settings.pomodoro * 60;
              //DELETE NEXT LINE
-              timeLeft = 5;
+              //timeLeft = 5;
             break;
         
         case 2:
             timeLeft = settings.shortBreak * 60;
              //DELETE NEXT LINE
-              timeLeft = 5;
+              //timeLeft = 5;
             break;
         
         case 3:
             timeLeft = settings.longBreak * 60;
              //DELETE NEXT LINE
-              timeLeft = 5;
+              //timeLeft = 5;
     }
 
     transformTime();
@@ -392,7 +401,7 @@ const cancelStart = () => {
 }
 
 const startOrPause = () => {
- 
+    
     switch (currentStatus) {
         case -1:
             cancelStart();
@@ -415,7 +424,9 @@ const showNotification = (mode) => {
     let notificationMsg;
     switch (mode) {
         case 1:
+            console.log('case 1');
             if (parseInt(settings.pomodorosToLongBreak) === parseInt(pomodorosCompleted)) {
+                console.log(parseInt(settings.pomodorosToLongBreak) === parseInt(pomodorosCompleted));
                 notificationMsg = 'Hora del descanso largo, te lo has ganado!!!';
             } else {
                 notificationMsg = 'Pomodoro terminado! Tómate un descanso!'; 
@@ -423,13 +434,15 @@ const showNotification = (mode) => {
                      
             break;
         case 2:
+            console.log('case2');
             notificationMsg = 'Hora de concentrarse!'; 
             break;
         case 3: 
             notificationMsg = 'Hora de concentrarse!'; 
             
     }
-
+    console.log(notificationMsg);
+    console.log('notisAllowed', notificationsAllowed);
     if (notificationsAllowed) {
         const notification = new Notification('Pomodoro by Pablis', {
             body: `${notificationMsg}`,
@@ -462,7 +475,7 @@ const checkNotification = () => {
 
 /* EVENT LISTENERS */
 window.addEventListener('focus', () => {
-    if (currentStatus === 0) {
+    if (currentStatus === 0 || mode !== 1) {
         setBackground();
     }   
 });
@@ -600,50 +613,82 @@ const adjustModeBtnsStyle = (mode) => {
     }
 }
 
+const switchMode = (modeParam) => {
+    if (mode === modeParam) {
+        return;
+    }
+    if (currentStatus === -1) {
+        cancelStart();
+    }
+    adjustModeBtnsStyle(modeParam);
+    
+    console.log('currentstatus inside switch mode', currentStatus);
+    resetTimer();
+    mode = modeParam;
+    setTimer();
+    
+    
+    /* if (currentStatus === 1) {
+        resetTimer();
+        console.log('reseted papu');
+        mode = modeParam;
+        
+    } else {
+        mode = modeParam; 
+        currentStatus = 0;
+        setTimer();
+    } */
+}
+
 pomodoroBtn.addEventListener('click', () => {
-    if (currentMode !== 1) {
-        currentMode = 1;
+    switchMode(1);
+/*     if (mode !== 1) {
+        mode = 1;
         adjustModeBtnsStyle(1);
         if (currentStatus === 1) {
             resetTimer();
         } else {
             setTimer();
         }
-    }   
+    }    */
 });
 
 breakBtn.addEventListener('click', () => {
-    if (currentStatus === -1) {
+    switchMode(2);
+/*     if (currentStatus === -1) {
         cancelStart();
-        return;
     }
-    if (currentMode !== 2) {  
-        currentMode = 2;
+    if (mode !== 2) {  
+        
         adjustModeBtnsStyle(2);
         if (currentStatus === 1) {
+            console.log('reset');
             resetTimer();
         } else {
+            console.log('just set');
             setTimer();
         }
+        mode = 2;
         
-    } 
+    }  */
 });
 
 longBreakBtn.addEventListener('click', () => {
-    if (currentStatus === -1) {
+    switchMode(3);
+/*     if (currentStatus === -1) {
         cancelStart();
-        return;
     }
-    if (currentMode !== 3) {
-        currentMode = 3;
+    if (mode !== 3) {
+        
         adjustModeBtnsStyle(3);
         if (currentStatus === 1) {
             resetTimer();
         } else {
             setTimer();
         }
+        mode = 3;
         
-    } 
+    }  */
 });
 
 /* MISC */
@@ -676,6 +721,7 @@ const setBackground = () => {
 }
 
 const openSettings = () => {
+    
     videoSelect.value = settings.video;
     previewVidShow();
     imageSelect.value = settings.image;
@@ -748,14 +794,14 @@ const closeModalAndUpdate = () => {
                 settings.image = imageSelect.value;      
                 settings.video = videoSelect.value;
                 setBackground();
-                if (currentMode === 1) {
+                if (mode === 1) {
                     videoStart(); 
                 }
                  
             } else {
                 //changing from video to img
                 settings.backgroundType = 0;
-                if (currentMode === 1) {
+                if (mode === 1) {
                     videoStop(); 
                 }
                 settings.image = imageSelect.value;
@@ -767,7 +813,7 @@ const closeModalAndUpdate = () => {
             if (videoBackgroundRadio.checked && settings.video !== videoSelect.value) {
                 //video background and video changed
                 console.log('video background and video changed');
-                if (currentMode === 1) {
+                if (mode === 1) {
                     videoStop();
                     settings.image = imageSelect.value;
                     settings.video = videoSelect.value;
