@@ -222,26 +222,13 @@ const updateMultimedia = () => {
 const goNext = () => {
     const isPomodoroFinished = (mode === 1);
     const isBreakFinished = (mode === 2 || mode === 3);
-    // console.log('isPomodoroFinished', isPomodoroFinished);
-    // console.log('isBreakFinished', isBreakFinished);
-    
-
-    // console.log(settings.autoStartPomodoros);
-    // console.log(settings.autoStartBreaks);
-    // console.log(settings.pomodorosToLongBreak);
-    // console.log('pomodorosCompleted', pomodorosCompleted);
-    // console.log(pomodorosCompleted === settings.pomodorosToLongBreak);
-    // console.log(parseInt(pomodorosCompleted) === parseInt(settings.pomodorosToLongBreak));
-
     
     if ((isBreakFinished && !settings.autoStartPomodoros) || 
     (isPomodoroFinished && !settings.autoStartBreaks)) {
 
-        // console.log('hm');
         if (mode === 1) {
             multimediaReset();
         }
-        //multimediaStop();
         
         currentStatus = 0;
         return;
@@ -265,7 +252,6 @@ const goNext = () => {
 }
 
 const timeIsUp = async () => {
-    //resetTimer();
     stopTimer();
     if (mode === 1) {
         pomodorosCompleted++;
@@ -305,17 +291,8 @@ const performStart = async () => {
 
 /* TIMER */
 const startTimer = async () => {
-    //console.log('before start perform');
     await performStart();
-    
-    //currentStatus = 1;   
-    
-    //console.log('after start perform');
-    
-    
-    // if (mode === 1) {    
-        
-    // } 
+
     console.log(currentStatus);
     console.log(mode);
 
@@ -337,9 +314,7 @@ const startTimer = async () => {
         }
         
         startPauseBtn.innerText = 'Pause';
-    }
-    
-    
+    }    
 }
 
 const stopTimer = () => {
@@ -361,8 +336,6 @@ const resetTimer = () => {
         multimediaReset();
     }
     currentStatus = 0;
- 
-    //multimediaReset();
 }
 
 const setTimer = () => {
@@ -384,7 +357,6 @@ const setTimer = () => {
              //DELETE NEXT LINE
               //timeLeft = 5;
     }
-
     transformTime();
 }
 
@@ -430,8 +402,7 @@ const showNotification = (mode) => {
                 notificationMsg = 'Hora del descanso largo, te lo has ganado!!!';
             } else {
                 notificationMsg = 'Pomodoro terminado! Tómate un descanso!'; 
-            }
-                     
+            }      
             break;
         case 2:
             console.log('case2');
@@ -441,8 +412,7 @@ const showNotification = (mode) => {
             notificationMsg = 'Hora de concentrarse!'; 
             
     }
-    console.log(notificationMsg);
-    console.log('notisAllowed', notificationsAllowed);
+
     if (notificationsAllowed) {
         const notification = new Notification('Pomodoro by Pablis', {
             body: `${notificationMsg}`,
@@ -626,69 +596,18 @@ const switchMode = (modeParam) => {
     resetTimer();
     mode = modeParam;
     setTimer();
-    
-    
-    /* if (currentStatus === 1) {
-        resetTimer();
-        console.log('reseted papu');
-        mode = modeParam;
-        
-    } else {
-        mode = modeParam; 
-        currentStatus = 0;
-        setTimer();
-    } */
 }
 
 pomodoroBtn.addEventListener('click', () => {
     switchMode(1);
-/*     if (mode !== 1) {
-        mode = 1;
-        adjustModeBtnsStyle(1);
-        if (currentStatus === 1) {
-            resetTimer();
-        } else {
-            setTimer();
-        }
-    }    */
 });
 
 breakBtn.addEventListener('click', () => {
     switchMode(2);
-/*     if (currentStatus === -1) {
-        cancelStart();
-    }
-    if (mode !== 2) {  
-        
-        adjustModeBtnsStyle(2);
-        if (currentStatus === 1) {
-            console.log('reset');
-            resetTimer();
-        } else {
-            console.log('just set');
-            setTimer();
-        }
-        mode = 2;
-        
-    }  */
 });
 
 longBreakBtn.addEventListener('click', () => {
     switchMode(3);
-/*     if (currentStatus === -1) {
-        cancelStart();
-    }
-    if (mode !== 3) {
-        
-        adjustModeBtnsStyle(3);
-        if (currentStatus === 1) {
-            resetTimer();
-        } else {
-            setTimer();
-        }
-        mode = 3;
-        
-    }  */
 });
 
 /* MISC */
@@ -858,8 +777,6 @@ const closeModalAndUpdate = () => {
             }
         }
     }
-
-    //setTimer();
     
     if (settings.notificationsOn && !notificationsAllowed) {
         checkNotification();
