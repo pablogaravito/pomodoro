@@ -81,7 +81,7 @@ const startAudiosPath = "res/audio/start/";
 let currentStatus = 0; //-1: starting; 0: idle; 1: active; 2: paused;
 let mode = 1; //1: pomodoro; 2: break; 3: long-break
 
-let settings = {
+const defaultSettings = {
     video: "nature1", 
     image: "tokyo-sakura",
     audio: "winner-rain",
@@ -100,11 +100,12 @@ let settings = {
     notificationsOn: true
 };
 
+let settings;
+
 let interval;
 let notificationsAllowed = false;
 let timeLeft = 0;
 let pomodorosCompleted = 0;
-
 
 /* FORMAT TIME */
 const padTime = (time) => {
@@ -118,11 +119,10 @@ const transformTime = () => {
 
 /* SETTINGS */
 const readSettings = () => {
-    if (localStorage.getItem('settings') !== null) {
-        settings = JSON.parse(localStorage.getItem('settings'));
-    }
-
-    
+    // if (localStorage.getItem('settings') !== null) {
+    //     settings = JSON.parse(localStorage.getItem('settings'));
+    // }  
+    settings = JSON.parse(localStorage.getItem('settings')) || defaultSettings;
 
     timeLeft = settings.pomodoro * 60;
     setTimer();
@@ -266,8 +266,7 @@ const timeIsUp = async () => {
         startPauseBtn.classList.add('disabled');
         await playAlarmAudio();  
         startPauseBtn.classList.remove('disabled');  
-    }
-   
+    }  
     goNext();
 }
 
@@ -306,8 +305,7 @@ const startTimer = async () => {
                 timeIsUp();
             } else {
                 transformTime();
-            }
-            
+            }         
         }, 1000);
         if (mode === 1) {
             multimediaStart();
@@ -806,7 +804,6 @@ const previewImgShow = () => {
 }
 
 /* EXECUTION STARTS */
-
 readSettings();
 
 if (settings.notificationsOn) {
