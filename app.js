@@ -154,7 +154,6 @@ const multimediaStart = () => {
 
 const videoStop = () => {
     if (settings.video !== "") {
-        console.log(settings.video);
         video.pause();
     }
 }
@@ -258,8 +257,6 @@ const timeIsUp = async () => {
         pomodoroBtn.textContent = `pomodoro (${pomodorosCompleted})`;   
     }
     if (settings.notificationsOn) {
-        console.log('shownotification');
-        console.log(mode);
         showNotification(mode);
     }
     if (settings.alarm !== "" && mode === 1) {        
@@ -292,9 +289,6 @@ const performStart = async () => {
 const startTimer = async () => {
     await performStart();
 
-    console.log(currentStatus);
-    console.log(mode);
-
     if (currentStatus === 1) {
         stopTimer();
     } else if (currentStatus === 0 || currentStatus === 2) {
@@ -325,11 +319,9 @@ const stopTimer = () => {
 }
 
 const resetTimer = () => {
-    console.log('mode', mode);
     stopTimer();
     setTimer();
     if (mode === 1 && currentStatus === 1) {
-        console.log('mode 1 confirmed, should stop and reset multi');
         multimediaStop();
         multimediaReset();
     }
@@ -394,16 +386,13 @@ const showNotification = (mode) => {
     let notificationMsg;
     switch (mode) {
         case 1:
-            console.log('case 1');
             if (parseInt(settings.pomodorosToLongBreak) === parseInt(pomodorosCompleted)) {
-                console.log(parseInt(settings.pomodorosToLongBreak) === parseInt(pomodorosCompleted));
                 notificationMsg = 'Hora del descanso largo, te lo has ganado!!!';
             } else {
                 notificationMsg = 'Pomodoro terminado! Tómate un descanso!'; 
             }      
             break;
         case 2:
-            console.log('case2');
             notificationMsg = 'Hora de concentrarse!'; 
             break;
         case 3: 
@@ -590,7 +579,6 @@ const switchMode = (modeParam) => {
     }
     adjustModeBtnsStyle(modeParam);
     
-    console.log('currentstatus inside switch mode', currentStatus);
     resetTimer();
     mode = modeParam;
     setTimer();
@@ -729,7 +717,6 @@ const closeModalAndUpdate = () => {
             //background type not changed
             if (videoBackgroundRadio.checked && settings.video !== videoSelect.value) {
                 //video background and video changed
-                console.log('video background and video changed');
                 if (mode === 1) {
                     videoStop();
                     settings.image = imageSelect.value;
@@ -743,7 +730,6 @@ const closeModalAndUpdate = () => {
                 }
                 
             } else if (imageBackgroundRadio.checked && settings.image !== imageSelect.value) {
-                console.log('image background and image changed');
                 settings.image = imageSelect.value;
                 setBackground();
             }

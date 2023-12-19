@@ -115,6 +115,10 @@ body {
     border: none;
 }
 
+.btn-check:checked+.btn {
+    border-color: hsl(261.87deg 80.71% 33%);;
+}
+
 .pill-buttons-column {
     border-right: 1px solid rgb(187, 187, 187);
     margin-right: 3px;
