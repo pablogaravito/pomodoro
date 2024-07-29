@@ -1,0 +1,1 @@
+- cuando se pone preview de un audio, después de haber cambiado en el select, reproduce el anterior

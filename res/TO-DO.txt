@@ -1,0 +1,15 @@
+- count pomodoros: div with points
+- add brightness to settings, range in modal (with event listener)
+- personal Mantra feature
+
+
+bugs:
+
+
+- changed start audio while on break, did not affect the audio...
+
+solved:
+- (feat) count pomodoros: (#) first
+- (bug) start audio plays only first pomodoro, not every one
+- (bug) starting text only shows once
+- (feat) change styles, modal

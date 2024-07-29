@@ -94,6 +94,8 @@ body {
     height: 53vh;
     min-width: 380px;
     padding: 0 20px;
+    position: relative;
+    top: -44px;
 }
 
 .range-and-button {
@@ -102,21 +104,28 @@ body {
 }
 
 .h6 {
-    font-size: 22px;
+    /* position: relative; */
+    top: -50px;
+    font-size: 26px;
     color: hsl(261.87deg 80.71% 33%);
     font-weight: bold;
     text-transform: uppercase;
     letter-spacing: 0.8px;
     margin-top: 0;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
 }
 
 .modal-header {
     border: none;
 }
 
+.btn-close {
+    z-index: 100;
+}
+
 .btn-check:checked+.btn {
-    border-color: hsl(261.87deg 80.71% 33%);;
+    border-color: hsl(261.87deg 80.71% 33%);
+    border-width: 2px;
 }
 
 .pill-buttons-column {
